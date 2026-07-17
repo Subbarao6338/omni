@@ -1,0 +1,165 @@
+File: C:\Users\2631239\Downloads\New folder\github.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\github.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\github1.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\github1.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\gt2.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\gt2.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\listdicts_logs.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\listdicts_logs.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\otp_new.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\otp_new.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\P1_keywords.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\P1_keywords.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\P2_otp_pwd.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\P2_otp_pwd.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\P3_multiple.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\P3_multiple.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\P3_single.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\P3_single.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\p4_scd2.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\p4_scd2.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\review.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\review.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\review1.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\review1.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\ruff.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\ruff.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\Strong_otp.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\Strong_otp.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================
+File: C:\Users\2631239\Downloads\New folder\weather.py
+Type: Python
+Output:
+No issues found.
+Errors:
+error: unrecognized subcommand 'C:\Users\2631239\Downloads\New folder\weather.py'
+
+Usage: ruff [OPTIONS] <COMMAND>
+
+For more information, try '--help'.
+========================================

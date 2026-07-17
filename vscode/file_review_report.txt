@@ -1,0 +1,358 @@
+File: C:\Users\2631239\Downloads\New folder\file_review_report.txt
+Type: Text
+Output:
+Text file - no analysis performed.Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\github.py
+Type: Python
+Output:
+************* Module github
+github.py:13:0: C0301: Line too long (104/100) (line-too-long)
+github.py:29:0: C0301: Line too long (111/100) (line-too-long)
+github.py:113:0: C0301: Line too long (111/100) (line-too-long)
+github.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+github.py:28:0: C0116: Missing function or method docstring (missing-function-docstring)
+github.py:29:15: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github.py:38:0: C0116: Missing function or method docstring (missing-function-docstring)
+github.py:46:19: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github.py:54:0: C0116: Missing function or method docstring (missing-function-docstring)
+github.py:68:24: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github.py:78:0: C0116: Missing function or method docstring (missing-function-docstring)
+github.py:81:22: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github.py:97:0: C0116: Missing function or method docstring (missing-function-docstring)
+github.py:106:0: C0116: Missing function or method docstring (missing-function-docstring)
+github.py:155:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+github.py:3:0: C0411: standard import "csv" should be placed before third party import "requests" (wrong-import-order)
+github.py:4:0: C0411: standard import "time" should be placed before third party import "requests" (wrong-import-order)
+github.py:6:0: C0411: standard import "threading" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+github.py:7:0: C0411: standard import "sys" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+
+------------------------------------------------------------------
+Your code has been rated at 8.33/10 (previous run: 8.33/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\github1.py
+Type: Python
+Output:
+************* Module github1
+github1.py:13:0: C0301: Line too long (104/100) (line-too-long)
+github1.py:29:0: C0301: Line too long (111/100) (line-too-long)
+github1.py:161:0: C0305: Trailing newlines (trailing-newlines)
+github1.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+github1.py:28:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:29:15: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github1.py:38:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:46:19: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github1.py:54:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:68:24: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github1.py:78:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:81:22: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+github1.py:97:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:107:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:130:0: C0116: Missing function or method docstring (missing-function-docstring)
+github1.py:147:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+github1.py:3:0: C0411: standard import "csv" should be placed before third party import "requests" (wrong-import-order)
+github1.py:4:0: C0411: standard import "time" should be placed before third party import "requests" (wrong-import-order)
+github1.py:6:0: C0411: standard import "threading" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+github1.py:7:0: C0411: standard import "sys" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+
+------------------------------------------------------------------
+Your code has been rated at 8.20/10 (previous run: 8.20/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\gt2.py
+Type: Python
+Output:
+************* Module gt2
+gt2.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+gt2.py:29:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:31:15: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+gt2.py:40:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:51:15: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+gt2.py:52:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+gt2.py:59:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:70:20: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+gt2.py:71:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+gt2.py:80:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:84:22: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+gt2.py:98:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:125:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:134:0: C0116: Missing function or method docstring (missing-function-docstring)
+gt2.py:135:4: W0601: Global variable 'processing_done' undefined at the module level (global-variable-undefined)
+gt2.py:159:11: W0718: Catching too general exception Exception (broad-exception-caught)
+gt2.py:150:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+gt2.py:3:0: C0411: standard import "csv" should be placed before third party import "requests" (wrong-import-order)
+gt2.py:4:0: C0411: standard import "time" should be placed before third party import "requests" (wrong-import-order)
+gt2.py:6:0: C0411: standard import "threading" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+gt2.py:7:0: C0411: standard import "sys" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+
+------------------------------------------------------------------
+Your code has been rated at 8.11/10 (previous run: 8.11/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\listdicts_logs.py
+Type: Python
+Output:
+************* Module listdicts_logs
+listdicts_logs.py:63:0: C0301: Line too long (103/100) (line-too-long)
+listdicts_logs.py:79:0: C0301: Line too long (101/100) (line-too-long)
+listdicts_logs.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+listdicts_logs.py:4:0: C0115: Missing class docstring (missing-class-docstring)
+listdicts_logs.py:4:0: R0902: Too many instance attributes (9/7) (too-many-instance-attributes)
+listdicts_logs.py:16:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+listdicts_logs.py:19:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:21:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+listdicts_logs.py:24:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:27:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:30:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:33:16: W0612: Unused variable 'i' (unused-variable)
+listdicts_logs.py:42:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:45:16: W0612: Unused variable 'i' (unused-variable)
+listdicts_logs.py:55:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:71:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:87:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:102:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:114:4: C0116: Missing function or method docstring (missing-function-docstring)
+listdicts_logs.py:116:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+listdicts_logs.py:170:7: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 8.63/10 (previous run: 8.63/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\operations_log.txt
+Type: Text
+Output:
+Text file - no analysis performed.Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\otp_new.py
+Type: Python
+Output:
+************* Module otp_new
+otp_new.py:74:0: C0301: Line too long (106/100) (line-too-long)
+otp_new.py:75:0: C0325: Unnecessary parens after 'not' keyword (superfluous-parens)
+otp_new.py:79:0: C0301: Line too long (126/100) (line-too-long)
+otp_new.py:82:0: C0301: Line too long (148/100) (line-too-long)
+otp_new.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+otp_new.py:11:12: W0621: Redefining name 'otp' from outer scope (line 128) (redefined-outer-name)
+otp_new.py:36:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+otp_new.py:45:4: W0621: Redefining name 'blacklist' from outer scope (line 110) (redefined-outer-name)
+otp_new.py:73:27: W0621: Redefining name 'whitelist' from outer scope (line 110) (redefined-outer-name)
+otp_new.py:73:43: W0621: Redefining name 'blacklist' from outer scope (line 110) (redefined-outer-name)
+otp_new.py:84:4: W0621: Redefining name 'otp' from outer scope (line 128) (redefined-outer-name)
+otp_new.py:131:11: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 8.40/10 (previous run: 8.40/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\P1_keywords.py
+Type: Python
+Output:
+************* Module P1_keywords
+P1_keywords.py:30:0: C0301: Line too long (106/100) (line-too-long)
+P1_keywords.py:41:0: C0301: Line too long (107/100) (line-too-long)
+P1_keywords.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+P1_keywords.py:1:0: C0103: Module name "P1_keywords" doesn't conform to snake_case naming style (invalid-name)
+P1_keywords.py:17:11: W0718: Catching too general exception Exception (broad-exception-caught)
+P1_keywords.py:11:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+P1_keywords.py:23:0: C0116: Missing function or method docstring (missing-function-docstring)
+P1_keywords.py:44:21: W0621: Redefining name 'keyword_score' from outer scope (line 23) (redefined-outer-name)
+
+------------------------------------------------------------------
+Your code has been rated at 7.58/10 (previous run: 7.58/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\P2_otp_pwd.py
+Type: Python
+Output:
+************* Module P2_otp_pwd
+P2_otp_pwd.py:15:0: C0301: Line too long (103/100) (line-too-long)
+P2_otp_pwd.py:115:0: C0301: Line too long (106/100) (line-too-long)
+P2_otp_pwd.py:116:0: C0325: Unnecessary parens after 'not' keyword (superfluous-parens)
+P2_otp_pwd.py:120:0: C0301: Line too long (126/100) (line-too-long)
+P2_otp_pwd.py:123:0: C0301: Line too long (148/100) (line-too-long)
+P2_otp_pwd.py:200:0: C0301: Line too long (104/100) (line-too-long)
+P2_otp_pwd.py:201:0: C0301: Line too long (104/100) (line-too-long)
+P2_otp_pwd.py:203:0: C0301: Line too long (108/100) (line-too-long)
+P2_otp_pwd.py:206:0: C0301: Line too long (120/100) (line-too-long)
+P2_otp_pwd.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+P2_otp_pwd.py:1:0: C0103: Module name "P2_otp_pwd" doesn't conform to snake_case naming style (invalid-name)
+P2_otp_pwd.py:79:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+P2_otp_pwd.py:158:0: C0116: Missing function or method docstring (missing-function-docstring)
+P2_otp_pwd.py:187:19: W0718: Catching too general exception Exception (broad-exception-caught)
+P2_otp_pwd.py:209:19: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 8.91/10 (previous run: 8.91/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\P3_multiple.py
+Type: Python
+Output:
+************* Module P3_multiple
+P3_multiple.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+P3_multiple.py:1:0: C0103: Module name "P3_multiple" doesn't conform to snake_case naming style (invalid-name)
+P3_multiple.py:1:0: C0115: Missing class docstring (missing-class-docstring)
+P3_multiple.py:6:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:11:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:16:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:24:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:32:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:38:20: W0612: Unused variable 'i' (unused-variable)
+P3_multiple.py:47:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:53:20: W0612: Unused variable 'i' (unused-variable)
+P3_multiple.py:63:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:80:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:97:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:113:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:129:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:138:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_multiple.py:194:7: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 8.92/10 (previous run: 8.92/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\P3_single.py
+Type: Python
+Output:
+************* Module P3_single
+P3_single.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+P3_single.py:1:0: C0103: Module name "P3_single" doesn't conform to snake_case naming style (invalid-name)
+P3_single.py:1:0: C0115: Missing class docstring (missing-class-docstring)
+P3_single.py:6:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:9:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:12:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:15:16: W0612: Unused variable 'i' (unused-variable)
+P3_single.py:22:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:25:16: W0612: Unused variable 'i' (unused-variable)
+P3_single.py:33:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:46:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:59:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:68:4: C0116: Missing function or method docstring (missing-function-docstring)
+P3_single.py:112:7: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 8.57/10 (previous run: 8.57/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\p4_scd2.py
+Type: Python
+Output:
+************* Module p4_scd2
+p4_scd2.py:74:0: C0301: Line too long (103/100) (line-too-long)
+p4_scd2.py:98:0: C0301: Line too long (106/100) (line-too-long)
+p4_scd2.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+p4_scd2.py:9:0: C0103: Constant name "sql_create" doesn't conform to UPPER_CASE naming style (invalid-name)
+p4_scd2.py:21:0: C0103: Constant name "sql_history" doesn't conform to UPPER_CASE naming style (invalid-name)
+p4_scd2.py:38:0: C0116: Missing function or method docstring (missing-function-docstring)
+p4_scd2.py:57:0: C0116: Missing function or method docstring (missing-function-docstring)
+p4_scd2.py:117:7: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 8.18/10 (previous run: 8.18/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\review.py
+Type: Python
+Output:
+************* Module review
+review.py:9:0: C0301: Line too long (107/100) (line-too-long)
+review.py:11:0: C0301: Line too long (120/100) (line-too-long)
+review.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+review.py:17:0: C0116: Missing function or method docstring (missing-function-docstring)
+review.py:17:17: W0621: Redefining name 'folder' from outer scope (line 53) (redefined-outer-name)
+review.py:28:25: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+review.py:37:0: C0116: Missing function or method docstring (missing-function-docstring)
+review.py:38:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+
+------------------------------------------------------------------
+Your code has been rated at 8.22/10 (previous run: 8.22/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\review1.py
+Type: Python
+Output:
+************* Module review1
+review1.py:12:0: C0301: Line too long (107/100) (line-too-long)
+review1.py:14:0: C0301: Line too long (120/100) (line-too-long)
+review1.py:76:0: C0301: Line too long (101/100) (line-too-long)
+review1.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+review1.py:21:0: C0116: Missing function or method docstring (missing-function-docstring)
+review1.py:21:25: W0621: Redefining name 'loading_event' from outer scope (line 79) (redefined-outer-name)
+review1.py:32:25: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+review1.py:51:0: C0116: Missing function or method docstring (missing-function-docstring)
+review1.py:52:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+review1.py:63:19: W0621: Redefining name 'loading_event' from outer scope (line 79) (redefined-outer-name)
+
+------------------------------------------------------------------
+Your code has been rated at 8.39/10 (previous run: 8.39/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\Strong_otp.py
+Type: Python
+Output:
+************* Module Strong_otp
+Strong_otp.py:36:0: C0301: Line too long (102/100) (line-too-long)
+Strong_otp.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Strong_otp.py:1:0: C0103: Module name "Strong_otp" doesn't conform to snake_case naming style (invalid-name)
+Strong_otp.py:10:12: W0621: Redefining name 'otp' from outer scope (line 72) (redefined-outer-name)
+Strong_otp.py:19:27: W0621: Redefining name 'whitelist' from outer scope (line 68) (redefined-outer-name)
+Strong_otp.py:19:43: W0621: Redefining name 'blacklist' from outer scope (line 69) (redefined-outer-name)
+Strong_otp.py:38:4: W0621: Redefining name 'otp' from outer scope (line 72) (redefined-outer-name)
+Strong_otp.py:23:4: R1720: Unnecessary "elif" after "raise", remove the leading "el" from "elif" (no-else-raise)
+Strong_otp.py:79:7: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 7.95/10 (previous run: 7.95/10, +0.00)
+
+Errors:
+
+========================================
+File: C:\Users\2631239\Downloads\New folder\weather.py
+Type: Python
+Output:
+************* Module weather
+weather.py:11:0: C0301: Line too long (109/100) (line-too-long)
+weather.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+weather.py:17:0: C0116: Missing function or method docstring (missing-function-docstring)
+weather.py:17:16: W0621: Redefining name 'location' from outer scope (line 56) (redefined-outer-name)
+weather.py:25:19: W3101: Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely (missing-timeout)
+weather.py:41:0: C0116: Missing function or method docstring (missing-function-docstring)
+weather.py:2:0: C0411: standard import "json" should be placed before third party import "requests" (wrong-import-order)
+weather.py:3:0: C0411: standard import "logging" should be placed before third party import "requests" (wrong-import-order)
+weather.py:5:0: C0411: standard import "os" should be placed before third party imports "requests", "dotenv" (wrong-import-order)
+
+------------------------------------------------------------------
+Your code has been rated at 6.79/10 (previous run: 6.79/10, +0.00)
+
+Errors:
+
+========================================

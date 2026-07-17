@@ -1,0 +1,5 @@
+Log file created.
+2025-01-21 11:09:01, Create List, l1, Count: N/A
+2025-01-21 11:09:05, Create Dictionary, d1, Count: N/A
+2025-01-21 11:09:17, Add to List, l1, Count: 5
+2025-01-21 11:09:50, Add to Dictionary, d1, Count: 3

@@ -1,0 +1,106 @@
+[MASTER]
+# Documentation (https://pylint.pycqa.org/en/latest/user_guide/configuration/all-options.html,
+# https://pylint.pycqa.org/en/latest/user_guide/checkers/features.html,
+# https://pylint.pycqa.org/en/latest/user_guide/checkers/extensions.html)
+# Specify a configuration file
+rcfile=pylintrc
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length=100
+
+# Maximum number of characters in a docstring
+#max-doc-length=72
+
+# Naming conventions for classes
+class-rgx=[A-Z_][a-zA-Z0-9_]{0,30}$  # UpperCamelCase, max length 30
+
+# Naming conventions for functions
+function-rgx=[a-z_][a-z0-9_]{0,30}$  # Lowercase with underscores, max length 30
+
+# Require a space after a comma
+#space-after-comma=yes
+
+# Require a space before and after operators
+#space-before-operator=yes
+#space-after-operator=yes
+
+# Require a space after a colon
+#space-after-colon=yes
+
+[MESSAGES CONTROL]
+# Disable specific messages
+disable=C0111, C0301, E1101, C0302  # Missing docstring, Line too long, Instance of 'X' has no 'Y' member, Print statement
+
+[DESIGN]
+# Maximum number of arguments for a function/method
+max-args=5
+
+# Maximum number of return statements in a function/method
+max-returns=3
+
+# Maximum number of branches in a function/method
+max-branches=12
+
+# Maximum number of nested blocks
+max-nested-blocks=3
+
+# Maximum number of public methods in a class
+max-public-methods=10
+
+[VARIABLES]
+# Naming conventions for variables
+variable-rgx=[a-z_][a-z0-9_]{0,30}$  # Lowercase with underscores, max length 30
+
+# Custom regex for ID validation (7 digits)
+#id-rgx=^\d{7}$  # IDs must be exactly 7 digits
+
+# Naming conventions for constants
+const-rgx=^[A-Z_][A-Z0-9_]{0,30}$  # Uppercase with underscores, max length 30
+
+good-names=i,j,k
+bad-names=foo,bar
+#invalid-name-rgx=^[a-z_][a-z0-9_]*$
+
+[TYPECHECK]
+# Enable type checking
+enable=all
+
+[IMPORTS]
+# Limit the number of imports per module
+#max-imports=10
+
+# Allow wildcard imports
+#allow-wildcard-imports=no
+allow-wildcard-with-all = false
+
+[EXCEPTIONS]
+# Disable specific exception types
+# Note: E1101 is already included in the MESSAGES CONTROL section
+
+[CLASSES]
+# Require at least one public method in a class
+min-public-methods=1
+
+# Require a docstring for all classes
+docstring-min-length=10
+
+[DOCSTRING]
+# Require a docstring for all public methods
+#method-docstring-min-length=10
+
+# Require a docstring for all public functions
+#function-docstring-min-length=10
+
+[LOGGING]
+# Require logging instead of print statements
+# Note: print-statement is already included in the MESSAGES CONTROL section
+
+[REPORTS]
+# Modify the weights for the issues
+evaluation=10.0 - ((float(((3 * error) + (2 * warning) + (1 * refactor) + (1 * convention))) / statement) * 10)
+#evaluation=max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)) # Default
+#min-score=0.0
+#max-score=10.0
+
+#include-ids-in-messages=yes

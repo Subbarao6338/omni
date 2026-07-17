@@ -1,0 +1,170 @@
+File: Python\class.py
+Type: Python
+Output:
+************* Module class
+Python\class.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\class.py:2:0: C0115: Missing class docstring (missing-class-docstring)
+Python\class.py:2:0: C0103: Class name "employee" doesn't conform to PascalCase naming style (invalid-name)
+Python\class.py:8:4: C0116: Missing function or method docstring (missing-function-docstring)
+Python\class.py:8:4: C0103: Method name "displayCount" doesn't conform to snake_case naming style (invalid-name)
+Python\class.py:10:4: C0116: Missing function or method docstring (missing-function-docstring)
+Python\class.py:10:4: C0103: Method name "displayEmployee" doesn't conform to snake_case naming style (invalid-name)
+Python\class.py:21:0: C0115: Missing class docstring (missing-class-docstring)
+Python\class.py:21:0: C0103: Class name "vector" doesn't conform to PascalCase naming style (invalid-name)
+Python\class.py:25:4: E0307: __str__ does not return str (invalid-str-returned)
+
+-----------------------------------
+Your code has been rated at 4.81/10
+
+Errors:
+
+========================================
+File: Python\files.py
+Type: Python
+Output:
+************* Module files
+Python\files.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\files.py:21:0: C0103: Constant name "s" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\files.py:27:0: C0413: Import "import calendar" should be placed at the top of the module (wrong-import-position)
+Python\files.py:2:0: W0611: Unused import sys (unused-import)
+
+-----------------------------------
+Your code has been rated at 8.00/10
+
+Errors:
+
+========================================
+File: Python\functions.py
+Type: Python
+Output:
+************* Module functions
+Python\functions.py:18:0: C0304: Final newline missing (missing-final-newline)
+Python\functions.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\functions.py:2:0: C0116: Missing function or method docstring (missing-function-docstring)
+Python\functions.py:13:0: C0116: Missing function or method docstring (missing-function-docstring)
+Python\functions.py:13:0: C0103: Function name "KtoF" doesn't conform to snake_case naming style (invalid-name)
+Python\functions.py:13:9: C0103: Argument name "T" doesn't conform to snake_case naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 5.71/10
+
+Errors:
+
+========================================
+File: Python\lists.py
+Type: Python
+Output:
+************* Module lists
+Python\lists.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\lists.py:10:0: W0105: String statement has no effect (pointless-string-statement)
+
+-----------------------------------
+Your code has been rated at 7.50/10
+
+Errors:
+
+========================================
+File: Python\main.py
+Type: Python
+Output:
+************* Module main
+Python\main.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\main.py:7:0: C0116: Missing function or method docstring (missing-function-docstring)
+
+-----------------------------------
+Your code has been rated at 5.00/10
+
+Errors:
+
+========================================
+File: Python\patterns.py
+Type: Python
+Output:
+************* Module patterns
+Python\patterns.py:190:0: C0325: Unnecessary parens after 'if' keyword (superfluous-parens)
+Python\patterns.py:207:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
+Python\patterns.py:210:0: W0311: Bad indentation. Found 2 spaces, expected 8 (bad-indentation)
+Python\patterns.py:212:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
+Python\patterns.py:215:0: W0311: Bad indentation. Found 2 spaces, expected 8 (bad-indentation)
+Python\patterns.py:218:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
+Python\patterns.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\patterns.py:154:0: C0103: Constant name "c" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\patterns.py:182:0: C0103: Constant name "x" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\patterns.py:189:0: C0103: Constant name "r" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\patterns.py:190:0: R1730: Consider using 'k = min(k, n - k)' instead of unnecessary if block (consider-using-min-builtin)
+Python\patterns.py:202:0: C0413: Import "from math import factorial" should be placed at the top of the module (wrong-import-position)
+Python\patterns.py:205:0: C0103: Constant name "n" doesn't conform to UPPER_CASE naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 9.29/10
+
+Errors:
+
+========================================
+File: Python\progrms.py
+Type: Python
+Output:
+************* Module progrms
+Python\progrms.py:60:0: C0304: Final newline missing (missing-final-newline)
+Python\progrms.py:55:0: C0103: Constant name "b" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\progrms.py:58:4: C0103: Constant name "b" doesn't conform to UPPER_CASE naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 6.25/10
+
+Errors:
+
+========================================
+File: Python\re.py
+Type: Python
+Output:
+************* Module re
+Python\re.py:10:0: C0305: Trailing newlines (trailing-newlines)
+Python\re.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\re.py:1:0: W0406: Module import itself (import-self)
+Python\re.py:2:0: C0103: Constant name "line" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\re.py:3:9: E1101: Module 're' has no 'match' member (no-member)
+
+-----------------------------------
+Your code has been rated at 0.00/10
+
+Errors:
+
+========================================
+File: Python\series.py
+Type: Python
+Output:
+************* Module series
+Python\series.py:42:0: C0305: Trailing newlines (trailing-newlines)
+Python\series.py:28:4: C0103: Constant name "s" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\series.py:29:4: C0103: Constant name "c" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\series.py:32:8: C0103: Constant name "c" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\series.py:34:4: C0103: Constant name "s" doesn't conform to UPPER_CASE naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 7.06/10
+
+Errors:
+
+========================================
+File: Python\strings.py
+Type: Python
+Output:
+************* Module strings
+Python\strings.py:18:0: C0325: Unnecessary parens after 'if' keyword (superfluous-parens)
+Python\strings.py:33:0: C0325: Unnecessary parens after 'if' keyword (superfluous-parens)
+Python\strings.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Python\strings.py:2:0: C0103: Constant name "s1" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\strings.py:15:0: C0103: Constant name "s3" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\strings.py:16:0: C0103: Constant name "co" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\strings.py:30:0: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+Python\strings.py:31:4: C0103: Constant name "c1" doesn't conform to UPPER_CASE naming style (invalid-name)
+Python\strings.py:32:4: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+Python\strings.py:36:0: W0105: String statement has no effect (pointless-string-statement)
+
+-----------------------------------
+Your code has been rated at 6.67/10
+
+Errors:
+
+========================================

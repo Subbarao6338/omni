@@ -1,0 +1,12 @@
+file_location,creation_date,size,commit_message
+README.md,2020-12-25T06:52:51Z,28,Initial commit
+p1/class.py,2020-12-25T10:48:55Z,752,first commit
+p1/files.py,2020-12-25T10:48:55Z,408,first commit
+p1/functions.py,2020-12-25T10:11:34Z,324,first commit
+p1/lists.py,2021-01-23T08:46:12Z,1142,patterns
+p1/main.py,2020-12-25T10:11:34Z,528,first commit
+p1/patterns.py,2021-01-23T08:46:12Z,3903,patterns
+p1/progrms.py,2021-01-23T08:46:12Z,1078,patterns
+p1/re.py,2020-12-25T10:11:34Z,224,first commit
+p1/series.py,2020-12-25T10:11:34Z,739,first commit
+p1/strings.py,2021-01-23T08:46:12Z,1281,patterns
