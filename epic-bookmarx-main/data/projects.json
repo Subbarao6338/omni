@@ -1,0 +1,26 @@
+[
+  {
+    "id": "p-bookmarx",
+    "title": "Epic Bookmarx",
+    "description": "A high-performance bookmark management system with advanced organization and search capabilities.",
+    "url": "https://github.com/Subbarao6338/epic-bookmarx",
+    "category": "React / Workspace",
+    "icon": "bookmarks"
+  },
+  {
+    "id": "p-omni-toolbox",
+    "title": "Omni Toolbox",
+    "description": "A comprehensive collection of developer and productivity utilities integrated into a single hub.",
+    "url": "https://github.com/Subbarao6338/omni-toolbox",
+    "category": "Tools / JS",
+    "icon": "construction"
+  },
+  {
+    "id": "p-omni-web",
+    "title": "Omni Web",
+    "description": "Advanced web utilities and scraping engine for data extraction and processing.",
+    "url": "https://github.com/Subbarao6338/Omni-Web",
+    "category": "Web / Scraping",
+    "icon": "public"
+  }
+]
