@@ -1,0 +1,191 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+def getAppVersionName() {
+    def stdout = new ByteArrayOutputStream()
+    try {
+        exec {
+            commandLine 'git', 'describe', '--tags', '--always'
+            standardOutput = stdout
+        }
+        return System.getenv("APP_VERSION_NAME") ?: stdout.toString().trim()
+    } catch (Exception ignored) {
+        return System.getenv("APP_VERSION_NAME") ?: rootProject.ext.appVersionName
+    }
+}
+
+def getAppVersionCode() {
+    def code = System.getenv("APP_VERSION_CODE")
+    if (code != null && code.isInteger()) {
+        return code.toInteger()
+    }
+    def stdout = new ByteArrayOutputStream()
+    try {
+        exec {
+            commandLine 'git', 'rev-list', '--count', 'HEAD'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim().toInteger()
+    } catch (Exception ignored) {
+        return rootProject.ext.appVersionCode
+    }
+}
+
+android {
+    namespace = "com.omniweb.app"
+    compileSdk rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.omniweb.app"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode getAppVersionCode()
+        versionName getAppVersionName()
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+        resConfigs "en"
+    }
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        release {
+            storeFile file("signing.bks")
+            storePassword "android"
+            keyAlias "signing_key"
+            keyPassword "android"
+            storeType "BKS"
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: 'AQ.Ab8RN6JsjObt21OBSd0R5og9EwhdOOJwWWJqWynGMBs-WR78uw'}\""
+        }
+        release {
+            buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: ''}\""
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'arm64-v8a'
+                debugSymbolLevel = 'none'
+            }
+        }
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion rootProject.ext.composeCompilerVersion
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:$androidxCoreVersion"
+    implementation "androidx.activity:activity-compose:$androidxActivityVersion"
+    implementation platform("androidx.compose:compose-bom:$composeBomVersion")
+    implementation "androidx.compose.ui:ui"
+    implementation "androidx.compose.ui:ui-graphics"
+    implementation "androidx.compose.ui:ui-tooling-preview"
+    implementation "androidx.compose.material3:material3"
+    implementation "androidx.compose.material:material-icons-extended"
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.webkit:webkit:$androidxWebkitVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation "androidx.documentfile:documentfile:1.0.1"
+    implementation 'io.github.junkfood02.youtubedl-android:library:0.18.1'
+    implementation 'com.google.zxing:core:3.5.3'
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:$navVersion"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion"
+
+    // Gemini
+    implementation "com.google.ai.client.generativeai:generativeai:$geminiVersion"
+
+    // CameraX
+    implementation "androidx.camera:camera-camera2:$cameraxVersion"
+    implementation "androidx.camera:camera-lifecycle:$cameraxVersion"
+    implementation "androidx.camera:camera-view:$cameraxVersion"
+
+    // Jsoup
+    implementation "org.jsoup:jsoup:$jsoupVersion"
+
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+
+    // RSS Parser
+    implementation 'com.prof18.rssparser:rssparser:6.0.6'
+
+    // Biometric
+    implementation "androidx.biometric:biometric:1.2.0-alpha05"
+
+    testImplementation "junit:junit:$junitVersion"
+
+    // Omni Toolbox Added Dependencies
+    implementation 'androidx.glance:glance-appwidget:1.1.0'
+    implementation 'androidx.glance:glance-material3:1.1.0'
+    implementation 'io.coil-kt:coil-compose:2.6.0'
+    implementation 'net.objecthunter:exp4j:0.4.8'
+    implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
+    implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.1'
+    implementation 'com.google.android.gms:play-services-mlkit-face-detection:17.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0'
+    implementation 'androidx.work:work-runtime-ktx:2.9.0'
+    implementation('com.hierynomus:smbj:0.11.5') {
+        exclude group: 'org.bouncycastle'
+    }
+    implementation('com.hierynomus:sshj:0.40.0') {
+        exclude group: 'org.bouncycastle'
+    }
+    implementation 'commons-net:commons-net:3.10.0'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
+    implementation 'org.apache.commons:commons-compress:1.26.1'
+    implementation 'androidx.media3:media3-exoplayer:1.2.1'
+    implementation 'androidx.media3:media3-ui:1.2.1'
+    implementation 'androidx.media3:media3-session:1.2.1'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.bouncycastle:bcprov-jdk18on:1.77'
+        dependencySubstitution {
+            substitute module('org.bouncycastle:bcprov-jdk15to18') using module('org.bouncycastle:bcprov-jdk18on:1.77')
+        }
+    }
+}
