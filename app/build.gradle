@@ -46,6 +46,7 @@ android {
             abiFilters 'arm64-v8a'
         }
         resConfigs "en"
+        buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: ''}\""
     }
     signingConfigs {
         debug {
