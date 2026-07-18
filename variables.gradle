@@ -1,7 +1,7 @@
 ext {
     appVersionCode = 3
     appVersionName = '1.0.2'
-    minSdkVersion = 24
+    minSdkVersion = 26
     compileSdkVersion = 35
     targetSdkVersion = 35
     androidxActivityVersion = '1.10.1'

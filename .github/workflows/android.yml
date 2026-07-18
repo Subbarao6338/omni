@@ -49,7 +49,7 @@ jobs:
 
           TAG_NAME="v${VERSION_NAME}"
 
-          BUILD_TYPE="stable"
+          BUILD_TYPE="debug"
 
           APK_PATH="app/build/outputs/apk/${BUILD_TYPE}/app-${BUILD_TYPE}.apk"
           APK_NAME="OmniBrowser-${TAG_NAME}.apk"
