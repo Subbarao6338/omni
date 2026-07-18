@@ -219,7 +219,7 @@ object PdfUtils {
                 val graphicsState = PDExtendedGraphicsState()
                 graphicsState.nonStrokingAlphaConstant = 0.3f
                 contentStream.setGraphicsStateParameters(graphicsState)
-                contentStream.setNonStrokingColor(200, 200, 200)
+                contentStream.setNonStrokingColor(200f / 255f, 200f / 255f, 200f / 255f)
                 contentStream.beginText()
                 contentStream.setFont(font, fontSize)
 

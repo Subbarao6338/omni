@@ -3,6 +3,8 @@ package omni.toolbox.ui.screens.environment
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -32,7 +34,7 @@ fun WeatherForecastScreen(navController: NavHostController) {
                 title = { Text("Weather Forecast") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -49,7 +51,7 @@ fun WeatherForecastScreen(navController: NavHostController) {
                     WeatherCondition.Cloudy -> Icons.Default.WbCloudy
                     WeatherCondition.Precipitation -> Icons.Default.BeachAccess
                     WeatherCondition.Storm -> Icons.Default.Thunderstorm
-                    else -> Icons.Default.Help
+                    else -> Icons.AutoMirrored.Filled.Help
                 },
                 contentDescription = null,
                 modifier = Modifier.size(100.dp),

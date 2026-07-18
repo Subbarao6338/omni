@@ -449,6 +449,7 @@ fun WebToolScreen(
                                 settings.apply {
                                     @Suppress("SetJavaScriptEnabled")
                                     javaScriptEnabled = true
+                                    @Suppress("DEPRECATION")
                                     databaseEnabled = true
                                     domStorageEnabled = true
                                     useWideViewPort = true

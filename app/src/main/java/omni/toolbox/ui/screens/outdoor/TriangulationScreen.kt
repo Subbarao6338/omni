@@ -39,7 +39,7 @@ fun TriangulationScreen(navController: NavHostController) {
             }
             OutlinedTextField(value = bearing1, onValueChange = { bearing1 = it }, label = { Text("Bearing to Target (°)") }, modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
 
-            Divider()
+            HorizontalDivider()
 
             Text("Point 2 (Reference)", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

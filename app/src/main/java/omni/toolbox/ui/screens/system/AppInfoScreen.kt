@@ -50,6 +50,7 @@ fun AppInfoScreen(navController: NavHostController, title: String) {
                 InfoRow("User", System.getProperty("user.name") ?: "N/A")
             } else if (title == "Hardware ID" || title == "Device ID") {
                 InfoRow("Android ID", "Unavailable (API Level Restriction)")
+                @Suppress("DEPRECATION")
                 InfoRow("Serial", Build.SERIAL)
             }
         }

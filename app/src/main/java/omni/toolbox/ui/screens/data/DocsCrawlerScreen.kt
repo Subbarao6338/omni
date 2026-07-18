@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.CallSplit
+import androidx.compose.material.icons.automirrored.filled.MergeType
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -236,13 +238,13 @@ fun PDFDocToolsTab(@Suppress("UNUSED_PARAMETER") viewModel: OmniViewModel) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Card(modifier = Modifier.weight(1f)) {
                 Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.CallSplit, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Filled.CallSplit, contentDescription = null)
                     Text("Split PDF", fontSize = 12.sp)
                 }
             }
             Card(modifier = Modifier.weight(1f)) {
                 Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.MergeType, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Filled.MergeType, contentDescription = null)
                     Text("Merge PDF", fontSize = 12.sp)
                 }
             }

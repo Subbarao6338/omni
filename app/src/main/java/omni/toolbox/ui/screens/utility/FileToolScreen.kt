@@ -274,10 +274,10 @@ fun FileToolScreen(navController: NavHostController, title: String) {
                                     showRenameDialog = item.file
                                     newFileName = item.name
                                 }, onDelete = {
-                                    item.file?.delete()
+                                    item.file.delete()
                                     refreshFiles()
                                 }, onClick = {
-                                    if (item.isDirectory && item.file != null) {
+                                    if (item.isDirectory) {
                                         currentDir = item.file
                                     }
                                 })

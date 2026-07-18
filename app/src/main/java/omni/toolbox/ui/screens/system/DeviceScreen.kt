@@ -22,7 +22,7 @@ fun DeviceScreen(navController: NavHostController) {
     val displayMetrics = context.resources.displayMetrics
     val windowManager = context.getSystemService(android.content.Context.WINDOW_SERVICE) as android.view.WindowManager
     val refreshRate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        context.display?.refreshRate ?: 0f
+        context.display.refreshRate
     } else {
         @Suppress("DEPRECATION")
         windowManager.defaultDisplay.refreshRate
