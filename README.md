@@ -23,7 +23,7 @@ A powerful, feature-rich web browser for Android built using Kotlin, Jetpack Com
 
 ### Prerequisites
 - Android Studio Ladybug | 2024.2.1 or newer
-- JDK 17
+- JDK 21
 - Android SDK 35 (API 35)
 
 ### Installation
