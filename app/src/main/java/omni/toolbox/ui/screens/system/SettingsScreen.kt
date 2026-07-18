@@ -260,7 +260,6 @@ fun SettingsScreen(
                 Button(
                     onClick = {
                         scope.launch {
-                            val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
                             val data = JSONObject()
                             prefs.all.forEach { (key, value) ->
                                 data.put(key, value)

@@ -446,12 +446,12 @@ fun LifestyleVisualIllustration(selectedMainTab: Int, title: String) {
                     5 -> { // Indian
                         val path = Path().apply {
                             moveTo(centerX - 50f, centerY - 30f)
-                            quadraticBezierTo(centerX - 20f, centerY + 40f, centerX + 50f, centerY + 20f)
+                            quadraticTo(centerX - 20f, centerY + 40f, centerX + 50f, centerY + 20f)
                         }
                         drawPath(path, color = Color(0xFF9C27B0), style = Stroke(width = 4f))
                         val path2 = Path().apply {
                             moveTo(centerX - 40f, centerY - 40f)
-                            quadraticBezierTo(centerX - 10f, centerY + 30f, centerX + 60f, centerY + 10f)
+                            quadraticTo(centerX - 10f, centerY + 30f, centerX + 60f, centerY + 10f)
                         }
                         drawPath(path2, color = Color(0xFFE91E63), style = Stroke(width = 2f))
                     }

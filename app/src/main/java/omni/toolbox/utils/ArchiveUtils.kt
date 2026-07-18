@@ -84,7 +84,7 @@ object ArchiveUtils {
 
     fun extract7z(archive: File, destination: File) {
         if (!destination.exists()) destination.mkdirs()
-        SevenZFile(archive).use { sevenZFile ->
+        SevenZFile.builder().setFile(archive).get().use { sevenZFile ->
             var entry = sevenZFile.nextEntry
             while (entry != null) {
                 val curFile = File(destination, entry.name)

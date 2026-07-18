@@ -17,7 +17,7 @@ object ImageProcessor {
         brightness: Float = 0f,
         contrast: Float = 1f,
         saturation: Float = 1f,
-        hue: Float = 0f,
+        @Suppress("UNUSED_PARAMETER") hue: Float = 0f,
         sepia: Boolean = false,
         invert: Boolean = false,
         grayscale: Boolean = false

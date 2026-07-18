@@ -11,13 +11,13 @@ interface ImageTransformation {
 }
 
 class ColorMatrixTransformation(private val matrix: ColorMatrix) : ImageTransformation {
-    override fun transform(bitmap: Bitmap): Bitmap {
-        val result = Bitmap.createBitmap(bitmap.width, bitmap.height, bitmap.config ?: Bitmap.Config.ARGB_8888)
+    override fun transform(input: Bitmap): Bitmap {
+        val result = Bitmap.createBitmap(input.width, input.height, input.config ?: Bitmap.Config.ARGB_8888)
         val canvas = Canvas(result)
         val paint = Paint().apply {
             colorFilter = ColorMatrixColorFilter(matrix)
         }
-        canvas.drawBitmap(bitmap, 0f, 0f, paint)
+        canvas.drawBitmap(input, 0f, 0f, paint)
         return result
     }
 }

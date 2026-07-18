@@ -275,7 +275,7 @@ fun DailyQuotesScreen(navController: NavHostController) {
                                     isFavorite = isFav,
                                     onFavoriteToggle = { toggleFavorite(quote) },
                                     onShare = { shareQuote(quote) },
-                                    modifier = Modifier.animateItemPlacement()
+                                    modifier = Modifier.animateItem()
                                 )
                             }
                         }

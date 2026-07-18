@@ -16,7 +16,7 @@ import java.util.EnumSet
 
 object NASManager {
     suspend fun connectSMB(
-        context: Context,
+        @Suppress("UNUSED_PARAMETER") context: Context,
         server: String,
         shareName: String,
         user: String,
