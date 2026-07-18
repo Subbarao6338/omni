@@ -9,7 +9,7 @@ import androidx.glance.action.clickable
 import androidx.glance.appwidget.*
 import androidx.glance.layout.*
 import androidx.glance.text.*
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 
 class StopwatchWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

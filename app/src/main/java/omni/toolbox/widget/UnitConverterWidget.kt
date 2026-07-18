@@ -18,7 +18,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.color.ColorProvider
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 import android.content.ComponentName
 
 class UnitConverterWidget : GlanceAppWidget() {

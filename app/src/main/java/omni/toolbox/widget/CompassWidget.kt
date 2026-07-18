@@ -11,7 +11,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import android.content.ComponentName
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 
 class CompassWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

@@ -18,7 +18,7 @@ import androidx.glance.appwidget.cornerRadius
 import androidx.glance.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 
 class TaskWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

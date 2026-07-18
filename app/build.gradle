@@ -33,10 +33,10 @@ def getAppVersionCode() {
 }
 
 android {
-    namespace = "com.omniweb.app"
+    namespace = "omni.browser"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.omniweb.app"
+        applicationId "omni.browser"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode getAppVersionCode()
@@ -67,7 +67,7 @@ android {
             signingConfig signingConfigs.debug
             buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: 'AQ.Ab8RN6JsjObt21OBSd0R5og9EwhdOOJwWWJqWynGMBs-WR78uw'}\""
         }
-        release {
+        stable {
             buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: ''}\""
             signingConfig signingConfigs.release
             minifyEnabled true

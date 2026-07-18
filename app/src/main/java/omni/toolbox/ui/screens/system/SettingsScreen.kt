@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.omniweb.app.BuildConfig
+import omni.browser.BuildConfig
 import omni.toolbox.model.ToolProvider
 import omni.toolbox.ui.components.ToolScreen
 import omni.toolbox.ui.theme.AccentColors
