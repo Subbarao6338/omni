@@ -11,7 +11,7 @@ import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.*
 import androidx.glance.appwidget.AndroidRemoteViews
 import android.widget.RemoteViews
-import com.omniweb.app.R
+import omni.browser.R
 
 class DigitalClockWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

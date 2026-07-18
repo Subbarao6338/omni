@@ -18,8 +18,8 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import androidx.glance.GlanceTheme
-import com.omniweb.app.MainActivity
-import com.omniweb.app.R
+import omni.browser.MainActivity
+import omni.browser.R
 
 class CurrencyConverterWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

@@ -13,7 +13,7 @@ import android.os.Build
 import android.app.ActivityManager
 import android.content.Context
 import androidx.compose.ui.platform.LocalContext
-import com.omniweb.app.BuildConfig
+import omni.browser.BuildConfig
 
 @Composable
 fun AppInfoScreen(navController: NavHostController, title: String) {

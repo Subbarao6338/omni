@@ -2,7 +2,7 @@ package omni.toolbox.service
 
 import android.content.Intent
 import android.service.quicksettings.TileService
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 import omni.toolbox.utils.startActivityAndCollapseCompat
 
 class OhmsLawTileService : TileService() {

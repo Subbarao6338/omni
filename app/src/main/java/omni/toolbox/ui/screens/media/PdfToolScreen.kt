@@ -197,7 +197,7 @@ fun PdfToolScreen(navController: NavHostController, title: String) {
                                         if (selectedFiles.isNotEmpty()) {
                                             withContext(Dispatchers.Main) {
                                                 val printManager = context.getSystemService(Context.PRINT_SERVICE) as android.print.PrintManager
-                                                val jobName = "${context.getString(com.omniweb.app.R.string.app_name)} Document"
+                                                val jobName = "${context.getString(omni.browser.R.string.app_name)} Document"
                                                 printManager.print(jobName, object : android.print.PrintDocumentAdapter() {
                                                     override fun onLayout(oldAttributes: android.print.PrintAttributes?, newAttributes: android.print.PrintAttributes?, cancellationSignal: android.os.CancellationSignal?, callback: LayoutResultCallback?, extras: android.os.Bundle?) {
                                                         if (cancellationSignal?.isCanceled == true) {

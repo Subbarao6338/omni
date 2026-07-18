@@ -12,7 +12,7 @@ import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.*
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
-import com.omniweb.app.R
+import omni.browser.R
 import androidx.glance.text.FontWeight
 import androidx.glance.appwidget.AndroidRemoteViews
 import android.widget.RemoteViews

@@ -8,7 +8,7 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import android.widget.Toast
 import androidx.core.content.getSystemService
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 import omni.toolbox.model.Tool
 
 object ShortcutUtils {

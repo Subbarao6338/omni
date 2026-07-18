@@ -19,7 +19,7 @@ import androidx.glance.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.content.ComponentName
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 
 class QuickNoteWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

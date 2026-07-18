@@ -12,7 +12,7 @@ import androidx.glance.layout.*
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.action.clickable
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 import omni.toolbox.ui.theme.OmniToolboxTheme
 
 class AltimeterWidget : GlanceAppWidget() {

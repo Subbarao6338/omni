@@ -9,7 +9,7 @@ import androidx.glance.action.actionStartActivity
 import androidx.glance.appwidget.*
 import androidx.glance.layout.*
 import androidx.glance.text.*
-import com.omniweb.app.MainActivity
+import omni.browser.MainActivity
 
 class PomodoroWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

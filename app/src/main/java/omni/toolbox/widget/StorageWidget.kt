@@ -11,7 +11,7 @@ import androidx.glance.layout.*
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import com.omniweb.app.R
+import omni.browser.R
 
 class StorageWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
