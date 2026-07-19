@@ -99,7 +99,12 @@ data class Settings(
     val maxWebViewCacheSize: Int = 5,
     val useGeckoView: Boolean = false,
     val firefoxUserId: String? = null,
-    val firefoxCollectionName: String? = null
+    val firefoxCollectionName: String? = null,
+    val homepage: String = "about:home",
+    val currentProfile: String = "Default",
+    val showCategoryCounts: Boolean = true,
+    val gridColumns: Int = 3,
+    val stableDiffusionUrl: String = ""
 )
 
 @Entity(tableName = "tabs")
@@ -112,7 +117,8 @@ data class TabEntry(
     val lastActive: Long = System.currentTimeMillis(),
     val scrollX: Int = 0,
     val scrollY: Int = 0,
-    val parentTabId: String? = null
+    val parentTabId: String? = null,
+    val profile: String = "Default"
 )
 
 @Entity(tableName = "downloads")

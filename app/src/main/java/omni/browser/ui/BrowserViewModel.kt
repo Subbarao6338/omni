@@ -100,7 +100,7 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
 
             if (currentSettings.restoreTabsOnStart && savedTabs.isNotEmpty()) {
                 val restoredTabs = savedTabs.map { entry ->
-                    TabInfo(entry.id, entry.url, entry.title, entry.isIncognito, entry.scrollX, entry.scrollY, entry.parentTabId)
+                    TabInfo(entry.id, entry.url, entry.title, entry.isIncognito, entry.scrollX, entry.scrollY, entry.parentTabId, entry.profile)
                 }
                 tabs.clear()
                 tabs.addAll(restoredTabs)
@@ -109,9 +109,15 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
                 if (!currentSettings.restoreTabsOnStart) {
                     database.tabDao().clearAllTabs()
                 }
-                // If not restoring, the default tab already created suffices.
-                // We should save it to DB to ensure consistency.
-                saveTabToDb(tabs.first())
+                // If not restoring, update the default tab URL/title/profile to homepage if different from "about:home"
+                val defaultTab = tabs.firstOrNull()
+                if (defaultTab != null) {
+                    val targetUrl = currentSettings.homepage
+                    defaultTab.url = targetUrl
+                    defaultTab.title = if (targetUrl == "about:home") "Home" else "New Tab"
+                    defaultTab.profile = currentSettings.currentProfile
+                    saveTabToDb(defaultTab)
+                }
             }
         }
 
@@ -132,7 +138,9 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
 
     private fun createDefaultTab() {
         val id = UUID.randomUUID().toString()
-        val newTab = TabInfo(id, "about:home", "Home")
+        val homepageUrl = settings.value.homepage
+        val title = if (homepageUrl == "about:home") "Home" else "New Tab"
+        val newTab = TabInfo(id, homepageUrl, title, initialProfile = settings.value.currentProfile)
         tabs.add(newTab)
         _activeTabId.value = id
         saveTabToDb(newTab)
@@ -148,7 +156,8 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
                 isIncognito = tab.isIncognito,
                 scrollX = tab.scrollX,
                 scrollY = tab.scrollY,
-                parentTabId = tab.parentTabId
+                parentTabId = tab.parentTabId,
+                profile = tab.profile
             ))
         }
     }
@@ -163,7 +172,8 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
                 isIncognito = tab.isIncognito,
                 scrollX = tab.scrollX,
                 scrollY = tab.scrollY,
-                parentTabId = tab.parentTabId
+                parentTabId = tab.parentTabId,
+                profile = tab.profile
             )
             database.tabDao().updateTab(entry)
         }
@@ -197,10 +207,27 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun getOrCreateWebView(tabId: String, context: android.content.Context): WebView {
+        val tab = tabs.find { it.id == tabId }
         val existing = webViewCache[tabId]
         if (existing != null) {
-            (existing.context as? MutableContextWrapper)?.baseContext = context
-            return existing
+            var needsRecreation = false
+            if (androidx.webkit.WebViewFeature.isFeatureSupported(androidx.webkit.WebViewFeature.MULTI_PROFILE) && tab != null && !tab.isIncognito) {
+                try {
+                    val currentProfileName = androidx.webkit.WebViewCompat.getProfile(existing).name
+                    if (currentProfileName != tab.profile) {
+                        needsRecreation = true
+                    }
+                } catch (e: Exception) {
+                    // ignore
+                }
+            }
+            if (needsRecreation) {
+                existing.destroy()
+                webViewCache.remove(tabId)
+            } else {
+                (existing.context as? MutableContextWrapper)?.baseContext = context
+                return existing
+            }
         }
 
         // Use applicationContext for pre-warmed WebView to avoid leaking Activities
@@ -208,6 +235,14 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         prewarmedWebView = null
 
         (webView.context as? MutableContextWrapper)?.baseContext = context
+
+        if (androidx.webkit.WebViewFeature.isFeatureSupported(androidx.webkit.WebViewFeature.MULTI_PROFILE) && tab != null && !tab.isIncognito) {
+            try {
+                androidx.webkit.WebViewCompat.setProfile(webView, tab.profile)
+            } catch (e: Exception) {
+                // ignore
+            }
+        }
 
         webView.apply {
             webViewStateCache[tabId]?.let { state ->
@@ -258,9 +293,11 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     private val _searchSuggestions = mutableStateOf<List<Suggestion>>(emptyList())
     val searchSuggestions get() = _searchSuggestions
 
-    fun createTab(url: String = "about:home", title: String = "Home", isIncognito: Boolean = false, parentTabId: String? = null) {
+    fun createTab(url: String = "HOMEPAGE_PLACEHOLDER", title: String? = null, isIncognito: Boolean = false, parentTabId: String? = null) {
+        val finalUrl = if (url == "HOMEPAGE_PLACEHOLDER" || url == "about:home") settings.value.homepage else url
+        val finalTitle = title ?: if (finalUrl == "about:home") "Home" else "New Tab"
         val finalIncognito = isIncognito || settings.value.alwaysIncognito
-        val newTab = TabInfo(UUID.randomUUID().toString(), url, title, finalIncognito, parentTabId = parentTabId)
+        val newTab = TabInfo(UUID.randomUUID().toString(), finalUrl, finalTitle, finalIncognito, parentTabId = parentTabId, initialProfile = settings.value.currentProfile)
         tabs.add(newTab)
         _activeTabId.value = newTab.id
         saveTabToDb(newTab)

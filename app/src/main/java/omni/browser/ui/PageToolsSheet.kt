@@ -54,7 +54,8 @@ fun PageToolsSheet(
     onFindInPage: () -> Unit,
     onToggleDesktopMode: () -> Unit,
     onSpeak: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onSwitchProfile: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -265,6 +266,7 @@ fun PageToolsSheet(
 
             Spacer(modifier = Modifier.height(24.dp))
             ToolCategory("Browser") {
+                item { ToolButton(Icons.Default.Group, "Profile", Color(0xFF8B5CF6)) { onSwitchProfile(); onDismiss() }}
                 item { ToolButton(Icons.Default.Settings, "Settings", Color(0xFF4B5563)) { onOpenSettings(); onDismiss() }}
                 item { ToolButton(Icons.Default.History, "History", Color(0xFF607D8B)) { onOpenHistory(); onDismiss() }}
                 item { ToolButton(Icons.Default.Star, "Bookmarks", Color(0xFFFFB000)) { onOpenBookmarks(); onDismiss() }}

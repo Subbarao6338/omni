@@ -10,10 +10,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -414,21 +417,58 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                     )
                 }
                 composable("toolbox") {
-                    omni.toolbox.navigation.OmniToolboxApp(
-                        themeMode = settings.themeMode,
-                        onThemeChange = { },
-                        dynamicColor = false,
-                        onDynamicColorChange = { },
-                        showCategoryCounts = true,
-                        onShowCategoryCountsChange = { },
-                        aiApiKey = settings.geminiApiKey ?: "",
-                        onAiApiKeyChange = { },
-                        stableDiffusionUrl = "",
-                        onStableDiffusionUrlChange = { },
-                        accentColor = accentColor,
-                        onAccentColorChange = { },
-                        onBack = { navController.popBackStack() }
-                    )
+                    Scaffold(
+                        bottomBar = {
+                            BottomAppBar(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
+                                modifier = Modifier.navigationBarsPadding(),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                                    NavButton(Icons.Default.Layers, "Tabs", badge = tabs.size) {
+                                        navController.navigate("browser") {
+                                            popUpTo("home") { saveState = true }
+                                            launchSingleTop = true
+                                        }
+                                    }
+                                    NavButton(Icons.Default.Star, "Bookmarks") {
+                                        navController.navigate("bookmarks")
+                                    }
+                                    NavButton(Icons.Default.History, "History") {
+                                        navController.navigate("history")
+                                    }
+                                    NavButton(Icons.Default.Build, "Toolbox") {
+                                        // Already in toolbox!
+                                    }
+                                    NavButton(Icons.Default.Download, "Files") {
+                                        navController.navigate("downloads")
+                                    }
+                                    NavButton(Icons.Default.Settings, "Settings") {
+                                        navController.navigate("settings")
+                                    }
+                                }
+                            }
+                        }
+                    ) { innerPadding ->
+                        Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+                            omni.toolbox.navigation.OmniToolboxApp(
+                                themeMode = settings.themeMode,
+                                onThemeChange = { },
+                                dynamicColor = false,
+                                onDynamicColorChange = { },
+                                showCategoryCounts = settings.showCategoryCounts,
+                                onShowCategoryCountsChange = { },
+                                aiApiKey = settings.geminiApiKey ?: "",
+                                onAiApiKeyChange = { },
+                                stableDiffusionUrl = settings.stableDiffusionUrl,
+                                onStableDiffusionUrlChange = { },
+                                accentColor = accentColor,
+                                onAccentColorChange = { },
+                                onBack = { navController.popBackStack() },
+                                onOpenSettings = { navController.navigate("settings") }
+                            )
+                        }
+                    }
                 }
             }
         }
