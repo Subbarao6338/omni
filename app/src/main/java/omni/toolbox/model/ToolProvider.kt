@@ -304,7 +304,7 @@ object ToolProvider {
         // 38. Web Tools
         Tool("Web Search & Grabber", Icons.Default.Language, "web_tools_group", "Web Tools", Color(0xFF2196F3),
             description = "Online meta-tag visualizers and downloader assistance.",
-            subToolRoutes = listOf("hub", "media_grabber", "meta_anal", "web", "youtube_utility")),
+            subToolRoutes = listOf("hub", "media_grabber", "meta_anal", "web", "youtube_utility", "epic_geo", "epic_ssl", "epic_bluetooth", "epic_notion_ingest")),
 
         // 39. Sensors
         Tool("Sensors & Diagnostics", Icons.Default.Sensors, "sensor_group", "Sensors", Color(0xFF673AB7),
@@ -726,6 +726,10 @@ object ToolProvider {
         // --- WEB TOOLS ---
         Tool("YouTube Companion", Icons.Default.SmartDisplay, "youtube_utility", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
         Tool("Epic Bookmarx", Icons.Default.Hub, "hub", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
+        Tool("Epic Geolocation", Icons.Default.MyLocation, "epic_geo", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
+        Tool("Epic SSL Checker", Icons.Default.VerifiedUser, "epic_ssl", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
+        Tool("Epic Bluetooth Scanner", Icons.Default.Bluetooth, "epic_bluetooth", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
+        Tool("Epic Notion Ingest", Icons.Default.Sync, "epic_notion_ingest", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
         Tool("Media Grabber", Icons.Default.Download, "media_grabber", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
         Tool("Metatag Analyzer", Icons.Default.Search, "meta_anal", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),
         Tool("Web Search", Icons.Default.Search, "web", category = "Web Tools", isVisibleOnHome = false, isSubTool = true),

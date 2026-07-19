@@ -1,6 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'com.google.devtools.ksp'
+}
 
 def getAppVersionName() {
     def stdout = new ByteArrayOutputStream()
@@ -84,9 +87,6 @@ android {
         compose true
         buildConfig true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion rootProject.ext.composeCompilerVersion
-    }
     kotlinOptions {
         jvmTarget = '21'
     }
@@ -124,7 +124,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+    ksp "androidx.room:room-compiler:$roomVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-compose:$navVersion"
