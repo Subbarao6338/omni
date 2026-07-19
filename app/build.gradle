@@ -88,11 +88,11 @@ android {
         kotlinCompilerExtensionVersion rootProject.ext.composeCompilerVersion
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '21'
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
     packagingOptions {
         pickFirst 'lib/arm64-v8a/libc++_shared.so'
