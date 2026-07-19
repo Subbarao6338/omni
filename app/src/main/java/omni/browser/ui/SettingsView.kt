@@ -303,18 +303,6 @@ fun SettingsView(
 
             SettingsSection("Appearance", Icons.Default.Palette) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Toolbar Location", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        ThemeOption("Bottom", settings.toolbarLocation == "bottom", Modifier.weight(1f)) {
-                            scope.launch { database.settingsDao().updateSettings(settings.copy(toolbarLocation = "bottom")) }
-                        }
-                        ThemeOption("Top", settings.toolbarLocation == "top", Modifier.weight(1f)) {
-                            scope.launch { database.settingsDao().updateSettings(settings.copy(toolbarLocation = "top")) }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(24.dp))
                     Text("Theme Mode", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
