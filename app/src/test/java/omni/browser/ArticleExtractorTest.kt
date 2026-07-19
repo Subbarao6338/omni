@@ -62,8 +62,8 @@ class ArticleExtractorTest {
                         <aside>Sidebar</aside>
                         <main>
                             <article>
-                                <h1 class="title">Complex Test</h1>
                                 <div class="content">
+                                    <h1 class="title">Complex Test</h1>
                                     <p>This is the actual content that should be extracted reliably even with multiple nested wrappers.</p>
                                     <div class="newsletter-signup">Sign up for our newsletter!</div>
                                 </div>

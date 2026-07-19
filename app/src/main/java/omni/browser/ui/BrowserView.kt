@@ -219,14 +219,20 @@ fun BrowserView(
 
     LaunchedEffect(activeTab.id) {
         urlInput = activeTab.url
+        isReaderMode = false
+        readerContent = ""
     }
 
     BackHandler {
-        val currentWebView = viewModel.getOrCreateWebView(activeTab.id, context)
-        if (currentWebView.canGoBack()) {
-            currentWebView.goBack()
+        if (isReaderMode) {
+            isReaderMode = false
         } else {
-            onBackToHome()
+            val currentWebView = viewModel.getOrCreateWebView(activeTab.id, context)
+            if (currentWebView.canGoBack()) {
+                currentWebView.goBack()
+            } else {
+                onBackToHome()
+            }
         }
     }
 

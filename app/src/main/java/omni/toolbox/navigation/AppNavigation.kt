@@ -91,9 +91,10 @@ fun OmniToolboxApp(
     onAccentColorChange: (Color?) -> Unit,
     intent: Intent? = null,
     onBack: (() -> Unit)? = null,
-    onOpenSettings: () -> Unit = {}
+    onOpenSettings: () -> Unit = {},
+    externalNavController: NavHostController? = null
 ) {
-    val navController = rememberNavController()
+    val navController = externalNavController ?: rememberNavController()
 
     LaunchedEffect(intent) {
         intent?.getStringExtra("route")?.let { route ->
