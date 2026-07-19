@@ -8,7 +8,7 @@ A powerful, feature-rich web browser and multi-tool utility suite for Android bu
 - **🤖 AI-Powered Analysis** - Leverage Google Gemini API for intelligent content analysis, text parsing, and page summaries
 - **🎨 Beautiful Visual Customization**:
   - Supports multiple custom design palettes: **Default (Epic Indigo/Slate)**, **Earth** (warm terracotta/beige), **Forest** (sage/moss green), **Water** (ocean blue/cyan), and **Sand** (amber/gold).
-  - Perfect Light/Dark system synchronization across the entire web browser, settings panel, and toolbox utility screens.
+  - Perfect Light/Dark system synchronization across the entire web browser, settings panel, and toolbox utility screens, with deeply synchronized accent colors, backgrounds, and elements.
 - **🛡️ Secure Privacy Shield**:
   - **AES-256 Text & File Symmetric Cipher** - Encrypt and decrypt raw text or local files with custom passwords and save output locally.
   - **Real App Locker** - Inspect real user-installed apps and toggle persistent locked configurations saved in SharedPreferences.

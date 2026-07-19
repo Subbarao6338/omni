@@ -131,16 +131,27 @@ fun OmniToolboxApp(
         prefs.edit().putStringSet("favorites", newFavorites).apply()
     }
 
-    NavHost(navController = navController, startDestination = "home", modifier = Modifier.fillMaxSize()) {
-        composable("home") {
-            HomeScreen(
-                navController = navController,
-                showCategoryCounts = showCategoryCounts,
-                favorites = favorites,
-                onToggleFavorite = toggleFavorite,
-                onBack = onBack
-            )
-        }
+    val isSystemDark = androidx.compose.foundation.isSystemInDarkTheme()
+    val isDarkTheme = when (themeMode.lowercase()) {
+        "light" -> false
+        "dark" -> true
+        else -> isSystemDark
+    }
+
+    omni.toolbox.ui.theme.OmniToolboxTheme(
+        darkTheme = isDarkTheme,
+        themeName = themeMode
+    ) {
+        NavHost(navController = navController, startDestination = "home", modifier = Modifier.fillMaxSize()) {
+            composable("home") {
+                HomeScreen(
+                    navController = navController,
+                    showCategoryCounts = showCategoryCounts,
+                    favorites = favorites,
+                    onToggleFavorite = toggleFavorite,
+                    onBack = onBack
+                )
+            }
         composable("settings") {
             SettingsScreen(
                 navController,
@@ -184,6 +195,7 @@ fun OmniToolboxApp(
                 }
             }
         }
+    }
 }
 
 fun NavGraphBuilder.addSpecialRoutes(navController: NavHostController) {
