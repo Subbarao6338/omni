@@ -375,7 +375,8 @@ fun BrowserView(
                     tabCount = viewModel.tabs.size,
                     mediaCount = activeTab.detectedMedia.size,
                     onShowTabs = { showTabs = true },
-                    onShowMenu = { showTools = true }
+                    onShowMenu = { showTools = true },
+                    profile = activeTab.profile
                 )
                 if (activeTab.scrollProgress > 0) {
                     LinearProgressIndicator(
@@ -494,7 +495,8 @@ fun BrowserView(
                     tabCount = viewModel.tabs.size,
                     mediaCount = activeTab.detectedMedia.size,
                     onShowTabs = { showTabs = true },
-                    onShowMenu = { showTools = true }
+                    onShowMenu = { showTools = true },
+                    profile = activeTab.profile
                 )
                 if (activeTab.scrollProgress > 0) {
                     LinearProgressIndicator(

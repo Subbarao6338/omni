@@ -58,7 +58,7 @@ fun WebViewContainer(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    val currentWebView = remember(tab.id) { viewModel.getOrCreateWebView(tab.id, context) }
+    val currentWebView = remember(tab.id, tab.profile) { viewModel.getOrCreateWebView(tab.id, context) }
     val scriptProvider = remember { ScriptProvider(context) }
 
     DisposableEffect(tab.id, lifecycleOwner) {

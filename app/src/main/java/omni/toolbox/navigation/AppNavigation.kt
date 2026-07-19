@@ -90,7 +90,8 @@ fun OmniToolboxApp(
     accentColor: Color?,
     onAccentColorChange: (Color?) -> Unit,
     intent: Intent? = null,
-    onBack: (() -> Unit)? = null
+    onBack: (() -> Unit)? = null,
+    onOpenSettings: () -> Unit = {}
 ) {
     val navController = rememberNavController()
 
@@ -153,15 +154,10 @@ fun OmniToolboxApp(
                 )
             }
         composable("settings") {
-            SettingsScreen(
-                navController,
-                themeMode, onThemeChange,
-                dynamicColor, onDynamicColorChange,
-                showCategoryCounts, onShowCategoryCountsChange,
-                aiApiKey, onAiApiKeyChange,
-                stableDiffusionUrl, onStableDiffusionUrlChange,
-                accentColor, onAccentColorChange
-            )
+            LaunchedEffect(Unit) {
+                onOpenSettings()
+                navController.popBackStack()
+            }
         }
 
         composable("dashboard") { DashboardScreen(navController) }

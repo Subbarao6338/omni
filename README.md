@@ -24,6 +24,10 @@ A powerful, feature-rich web browser and multi-tool utility suite for Android bu
 - **📸 Screenshot & PDF Export** - Capture web pages and export as PDF or Full Page Screenshots
 - **⚡ High Performance** - Modern Jetpack Compose UI with efficient state management
 - **📑 Tab Management** - Multiple tabs, recently closed tabs restoration, and tab hibernation
+- **🏠 Custom Homepage** - Configure a custom start page (e.g., Google or GitHub) or use the rich, interactive built-in dashboard
+- **👥 Multi-Profile Browsing** - Create, delete, and switch custom browser profiles dynamically (e.g., Default, Personal, Work, Private, Social). Each profile features isolated cookies, LocalStorage, and web storage session states, with color-coded status badges in the address bar
+- **⚙️ Unified Toolbox Settings** - Completely integrated and unified Settings panel. All duplicate configuration menus have been merged into a single Settings pane, and the Toolbox now supports a persistent, native bottom navigation bar for a seamless app experience
+- **📐 Edge-to-Edge Layout Optimizations** - Corrected system status bars and navigation bar insets, completely eliminating double paddings or extra spacing issues at the top and bottom of loaded websites for a gorgeous visual layout
 
 ## 🚀 Quick Start
 

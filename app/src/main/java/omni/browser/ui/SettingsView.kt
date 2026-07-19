@@ -36,6 +36,7 @@ import omni.browser.BuildConfig
 import omni.browser.data.AppDatabase
 import omni.browser.data.Settings
 import omni.browser.util.BackupManager
+import omni.toolbox.model.ToolProvider
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -109,6 +110,58 @@ fun SettingsView(
                     trailingContent = { Icon(Icons.Default.ChevronRight, contentDescription = null) },
                     modifier = Modifier.clickable { onOpenSearchEngines() }
                 )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
+                var showHomepageDialog by remember { mutableStateOf(false) }
+                var homepageInput by remember { mutableStateOf("") }
+                ListItem(
+                    headlineContent = { Text("Custom Homepage") },
+                    supportingContent = { Text(settings.homepage) },
+                    trailingContent = { Icon(Icons.Default.Edit, contentDescription = "Edit Homepage") },
+                    modifier = Modifier.clickable {
+                        homepageInput = settings.homepage
+                        showHomepageDialog = true
+                    }
+                )
+                if (showHomepageDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showHomepageDialog = false },
+                        title = { Text("Set Custom Homepage") },
+                        text = {
+                            Column {
+                                Text("Enter a custom URL (e.g. https://www.google.com) or 'about:home' for default dashboard:", fontSize = 12.sp, modifier = Modifier.padding(bottom = 8.dp))
+                                OutlinedTextField(
+                                    value = homepageInput,
+                                    onValueChange = { homepageInput = it },
+                                    placeholder = { Text("about:home") },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    singleLine = true
+                                )
+                            }
+                        },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                val finalUrl = if (homepageInput.isBlank()) {
+                                    "about:home"
+                                } else {
+                                    val trimmed = homepageInput.trim()
+                                    if (trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed == "about:home") {
+                                        trimmed
+                                    } else {
+                                        "https://$trimmed"
+                                    }
+                                }
+                                scope.launch {
+                                    database.settingsDao().updateSettings(settings.copy(homepage = finalUrl))
+                                    Toast.makeText(context, "Homepage updated", Toast.LENGTH_SHORT).show()
+                                }
+                                showHomepageDialog = false
+                            }) { Text("Save") }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { showHomepageDialog = false }) { Text("Cancel") }
+                        }
+                    )
+                }
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
                 ListItem(
                     headlineContent = { Text("Clear data on exit") },
@@ -326,6 +379,114 @@ fun SettingsView(
                     trailingContent = { Icon(Icons.Default.ChevronRight, contentDescription = null) },
                     modifier = Modifier.clickable { onOpenPasswords() }
                 )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
+                var showManageProfilesDialog by remember { mutableStateOf(false) }
+                val profilePrefs = remember { context.getSharedPreferences("browser_profiles", Context.MODE_PRIVATE) }
+                var profileSet by remember {
+                    mutableStateOf(
+                        profilePrefs.getStringSet("profiles_list", setOf("Default", "Personal", "Work", "Private", "Social")) ?: setOf("Default")
+                    )
+                }
+                var showAddProfileDialog by remember { mutableStateOf(false) }
+                var newProfileName by remember { mutableStateOf("") }
+                ListItem(
+                    headlineContent = { Text("Browser Profiles") },
+                    supportingContent = { Text("Active Profile: ${settings.currentProfile}") },
+                    trailingContent = { Icon(Icons.Default.Group, contentDescription = "Manage Profiles") },
+                    modifier = Modifier.clickable { showManageProfilesDialog = true }
+                )
+                if (showManageProfilesDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showManageProfilesDialog = false },
+                        title = {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("Browser Profiles")
+                                IconButton(onClick = { showAddProfileDialog = true }) {
+                                    Icon(Icons.Default.Add, contentDescription = "Add Profile")
+                                }
+                            }
+                        },
+                        text = {
+                            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                                profileSet.sorted().forEach { profile ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable {
+                                                scope.launch {
+                                                    database.settingsDao().updateSettings(settings.copy(currentProfile = profile))
+                                                    Toast.makeText(context, "Switched to profile: $profile", Toast.LENGTH_SHORT).show()
+                                                }
+                                                showManageProfilesDialog = false
+                                            }
+                                            .padding(vertical = 12.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        RadioButton(selected = settings.currentProfile == profile, onClick = null)
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(profile, modifier = Modifier.weight(1f))
+                                        if (profile != "Default") {
+                                            IconButton(onClick = {
+                                                val updated = profileSet - profile
+                                                profileSet = updated
+                                                profilePrefs.edit().putStringSet("profiles_list", updated).apply()
+                                                if (settings.currentProfile == profile) {
+                                                    scope.launch {
+                                                        database.settingsDao().updateSettings(settings.copy(currentProfile = "Default"))
+                                                    }
+                                                }
+                                            }) {
+                                                Icon(Icons.Default.Delete, contentDescription = "Delete Profile", tint = MaterialTheme.colorScheme.error)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        confirmButton = {
+                            TextButton(onClick = { showManageProfilesDialog = false }) { Text("Close") }
+                        }
+                    )
+                }
+                if (showAddProfileDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showAddProfileDialog = false },
+                        title = { Text("Add Custom Profile") },
+                        text = {
+                            OutlinedTextField(
+                                value = newProfileName,
+                                onValueChange = { newProfileName = it },
+                                label = { Text("Profile Name") },
+                                singleLine = true,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                val name = newProfileName.trim()
+                                if (name.isNotEmpty() && !profileSet.contains(name)) {
+                                    val updated = profileSet + name
+                                    profileSet = updated
+                                    profilePrefs.edit().putStringSet("profiles_list", updated).apply()
+                                    scope.launch {
+                                        database.settingsDao().updateSettings(settings.copy(currentProfile = name))
+                                    }
+                                    newProfileName = ""
+                                    showAddProfileDialog = false
+                                    showManageProfilesDialog = false
+                                    Toast.makeText(context, "Created & Switched to profile $name", Toast.LENGTH_SHORT).show()
+                                }
+                            }) { Text("Create") }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { showAddProfileDialog = false }) { Text("Cancel") }
+                        }
+                    )
+                }
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
                 ListItem(
                     headlineContent = { Text("Ad Blocking") },
@@ -663,6 +824,79 @@ fun SettingsView(
                         }
                     }
                 )
+            }
+
+            SettingsSection("Toolbox Settings", Icons.Default.Build) {
+                ListItem(
+                    headlineContent = { Text("Show Category Counts") },
+                    supportingContent = { Text("Display number of tools in each category in Toolbox") },
+                    trailingContent = {
+                        Switch(
+                            checked = settings.showCategoryCounts,
+                            onCheckedChange = { enabled ->
+                                scope.launch {
+                                    database.settingsDao().updateSettings(settings.copy(showCategoryCounts = enabled))
+                                }
+                            }
+                        )
+                    }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Home Grid Columns", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        (2..4).forEach { cols ->
+                            val isSelected = settings.gridColumns == cols
+                            ThemeOption("${cols} Columns", isSelected, Modifier.weight(1f)) {
+                                scope.launch {
+                                    database.settingsDao().updateSettings(settings.copy(gridColumns = cols))
+                                }
+                            }
+                        }
+                    }
+                }
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Stable Diffusion API URL", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = settings.stableDiffusionUrl,
+                        onValueChange = {
+                            scope.launch {
+                                database.settingsDao().updateSettings(settings.copy(stableDiffusionUrl = it))
+                            }
+                        },
+                        placeholder = { Text("http://your-sd-url:7860") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        singleLine = true
+                    )
+                }
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Toolbox Quick Tiles Configuration", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("Assign tool routes to the 3 custom Quick Tiles:", fontSize = 11.sp, color = MaterialTheme.colorScheme.outline)
+                    Spacer(modifier = Modifier.height(12.dp))
+                    val tilePrefs = remember { context.getSharedPreferences("dynamic_tiles", Context.MODE_PRIVATE) }
+                    (1..3).forEach { i ->
+                        var tileRoute by remember { mutableStateOf(tilePrefs.getString("tile_$i", "home") ?: "home") }
+                        OutlinedTextField(
+                            value = tileRoute,
+                            onValueChange = { newValue ->
+                                tileRoute = newValue
+                                tilePrefs.edit().putString("tile_$i", newValue).apply()
+                                val toolName = ToolProvider.tools.find { it.route == newValue }?.name ?: "Nature Tool"
+                                tilePrefs.edit().putString("tile_name_$i", toolName).apply()
+                            },
+                            label = { Text("Quick Tile $i Route") },
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            singleLine = true
+                        )
+                    }
+                }
             }
 
             SettingsSection("About", Icons.Default.Info) {

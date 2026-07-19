@@ -77,7 +77,8 @@ fun BrowserAddressBar(
     isPageReadable: Boolean = false,
     onReaderClick: () -> Unit = {},
     onShowTabs: () -> Unit = {},
-    onShowMenu: () -> Unit = {}
+    onShowMenu: () -> Unit = {},
+    profile: String = "Default"
 ) {
     val context = LocalContext.current
     val clipboardManager = remember { context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager }
@@ -107,7 +108,7 @@ fun BrowserAddressBar(
         }
     }
 
-    Surface(color = MaterialTheme.colorScheme.surface, shadowElevation = 2.dp, modifier = modifier.statusBarsPadding()) {
+    Surface(color = MaterialTheme.colorScheme.surface, shadowElevation = 2.dp, modifier = modifier) {
         Column {
             if (isFindMode) {
                 Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -167,6 +168,30 @@ fun BrowserAddressBar(
                     } else {
                         IconButton(onClick = onPrivacyClick) {
                             Icon(Icons.Default.Shield, contentDescription = "Privacy Shield", tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+
+                    if (!isIncognito) {
+                        val profileColor = when (profile.lowercase()) {
+                            "work" -> Color(0xFF3B82F6)
+                            "personal" -> Color(0xFF10B981)
+                            "private" -> Color(0xFF6B7280)
+                            "social" -> Color(0xFFEC4899)
+                            else -> Color(0xFF8B5CF6)
+                        }
+                        Surface(
+                            color = profileColor.copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(12.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, profileColor.copy(alpha = 0.5f)),
+                            modifier = Modifier.padding(end = 4.dp)
+                        ) {
+                            Text(
+                                text = profile,
+                                color = profileColor,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                            )
                         }
                     }
 

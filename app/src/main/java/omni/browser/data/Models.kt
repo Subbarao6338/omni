@@ -10,10 +10,12 @@ class TabInfo(
     val isIncognito: Boolean = false,
     initialScrollX: Int = 0,
     initialScrollY: Int = 0,
-    val parentTabId: String? = null
+    val parentTabId: String? = null,
+    initialProfile: String = "Default"
 ) {
     var url by mutableStateOf(initialUrl)
     var title by mutableStateOf(initialTitle)
+    var profile by mutableStateOf(initialProfile)
     var faviconUrl by mutableStateOf<String?>(null)
     var faviconBitmap by mutableStateOf<Bitmap?>(null)
     var scrollX by mutableStateOf(initialScrollX)
