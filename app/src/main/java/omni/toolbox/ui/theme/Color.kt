@@ -56,3 +56,44 @@ val AccentColors = listOf(
     Pink, Purple, DeepPurple, Indigo, Blue, Cyan, Teal, LightGreen,
     Lime, Amber, Brown, Grey, BlueGrey, Crimson, Coral, Gold, Olive, Navy, Slate, Orchid
 )
+
+// Define Custom Palette Colors for Synchronized Themes
+// Default / Epic Indigo/Slate
+val EpicPrimary = Color(0xFF4F46E5)
+val EpicSecondary = Color(0xFF6366F1)
+val EpicBgLight = Color(0xFFF8FAFC)
+val EpicSurfaceLight = Color.White
+val EpicBgDark = Color(0xFF0F172A)
+val EpicSurfaceDark = Color(0xFF0F172A)
+
+// Earth Theme Colors
+val EarthPrimary = Color(0xFF795548)
+val EarthSecondary = Color(0xFF8D6E63)
+val EarthBgLight = Color(0xFFF5F5DC) // Warm Beige
+val EarthSurfaceLight = Color(0xFFFFFDF9)
+val EarthBgDark = Color(0xFF2A211D) // Deep Bark
+val EarthSurfaceDark = Color(0xFF352B26)
+
+// Forest Theme Colors
+val ForestPrimary = Color(0xFF2E7D32)
+val ForestSecondary = Color(0xFF4CAF50)
+val ForestBgLight = Color(0xFFF1F8E9) // Pale Green/Sage
+val ForestSurfaceLight = Color(0xFFFFFDF9)
+val ForestBgDark = Color(0xFF1B261E) // Forest Night
+val ForestSurfaceDark = Color(0xFF243027)
+
+// Water Theme Colors
+val WaterPrimary = Color(0xFF0277BD)
+val WaterSecondary = Color(0xFF039BE5)
+val WaterBgLight = Color(0xFFE0F7FA) // Ocean Blue/Cyan Tint
+val WaterSurfaceLight = Color(0xFFFFFDF9)
+val WaterBgDark = Color(0xFF0D1B2A) // Deep Water Blue
+val WaterSurfaceDark = Color(0xFF1B2A4A)
+
+// Sand Theme Colors
+val SandPrimary = Color(0xFFFBC02D)
+val SandSecondary = Color(0xFFFDD835)
+val SandBgLight = Color(0xFFFFF8E1) // Warm Sand / Gold Tint
+val SandSurfaceLight = Color(0xFFFFFDF9)
+val SandBgDark = Color(0xFF1C1A17) // Deep Sand
+val SandSurfaceDark = Color(0xFF282521)

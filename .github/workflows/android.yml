@@ -49,7 +49,7 @@ jobs:
 
           TAG_NAME="v${VERSION_NAME}"
 
-          BUILD_TYPE="debug"
+          BUILD_TYPE="stable"
 
           APK_PATH="app/build/outputs/apk/${BUILD_TYPE}/app-${BUILD_TYPE}.apk"
           APK_NAME="OmniBrowser-${TAG_NAME}.apk"
@@ -91,17 +91,17 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: ./gradlew testStableUnitTest
 
       - name: Run Lint
-        run: ./gradlew lintDebug
+        run: ./gradlew lintStable
 
       - name: Build APK
         env:
           APP_VERSION_NAME: ${{ steps.get_version.outputs.VERSION_NAME }}
           APP_VERSION_CODE: ${{ steps.get_version.outputs.VERSION_CODE }}
         run: |
-          ./gradlew assembleDebug
+          ./gradlew assembleStable
 
       - name: Prepare APK
         run: |

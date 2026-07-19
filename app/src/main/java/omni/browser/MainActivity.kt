@@ -163,34 +163,123 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
         Color(0xFF3B82F6)
     }
 
-    val isDark = when (settings.themeMode) {
+    val isDark = when (settings.themeMode.lowercase()) {
         "light" -> false
         "dark" -> true
+        "earth", "forest", "water", "sand" -> isSystemInDarkTheme()
         else -> isSystemInDarkTheme()
     }
 
-    val epicPrimary = Color(0xFF4F46E5) // Epic Indigo/Slate theme primary color
-    val epicSecondary = Color(0xFF6366F1)
-    val colorScheme = if (isDark) {
-        darkColorScheme(
-            primary = epicPrimary,
-            onPrimary = Color.White,
-            secondary = epicSecondary,
-            background = Color(0xFF0F172A),
-            surface = Color(0xFF0F172A),
-            onSurface = Color(0xFFF8FAFC),
-            surfaceVariant = Color(0xFF1E293B)
-        )
-    } else {
-        lightColorScheme(
-            primary = epicPrimary,
-            onPrimary = Color.White,
-            secondary = epicSecondary,
-            background = Color(0xFFF8FAFC),
-            surface = Color.White,
-            onSurface = Color(0xFF0F172A),
-            surfaceVariant = Color(0xFFF1F5F9)
-        )
+    val colorScheme = when (settings.themeMode.lowercase()) {
+        "earth" -> {
+            if (isDark) {
+                darkColorScheme(
+                    primary = omni.toolbox.ui.theme.EarthPrimary,
+                    secondary = omni.toolbox.ui.theme.EarthSecondary,
+                    background = omni.toolbox.ui.theme.EarthBgDark,
+                    surface = omni.toolbox.ui.theme.EarthSurfaceDark,
+                    onSurface = Color(0xFFF5F5DC),
+                    surfaceVariant = omni.toolbox.ui.theme.EarthSurfaceDark
+                )
+            } else {
+                lightColorScheme(
+                    primary = omni.toolbox.ui.theme.EarthPrimary,
+                    secondary = omni.toolbox.ui.theme.EarthSecondary,
+                    background = omni.toolbox.ui.theme.EarthBgLight,
+                    surface = omni.toolbox.ui.theme.EarthSurfaceLight,
+                    onSurface = Color(0xFF2A211D),
+                    surfaceVariant = omni.toolbox.ui.theme.EarthSurfaceLight
+                )
+            }
+        }
+        "forest" -> {
+            if (isDark) {
+                darkColorScheme(
+                    primary = omni.toolbox.ui.theme.ForestPrimary,
+                    secondary = omni.toolbox.ui.theme.ForestSecondary,
+                    background = omni.toolbox.ui.theme.ForestBgDark,
+                    surface = omni.toolbox.ui.theme.ForestSurfaceDark,
+                    onSurface = Color(0xFFF1F8E9),
+                    surfaceVariant = omni.toolbox.ui.theme.ForestSurfaceDark
+                )
+            } else {
+                lightColorScheme(
+                    primary = omni.toolbox.ui.theme.ForestPrimary,
+                    secondary = omni.toolbox.ui.theme.ForestSecondary,
+                    background = omni.toolbox.ui.theme.ForestBgLight,
+                    surface = omni.toolbox.ui.theme.ForestSurfaceLight,
+                    onSurface = Color(0xFF1B261E),
+                    surfaceVariant = omni.toolbox.ui.theme.ForestSurfaceLight
+                )
+            }
+        }
+        "water" -> {
+            if (isDark) {
+                darkColorScheme(
+                    primary = omni.toolbox.ui.theme.WaterPrimary,
+                    secondary = omni.toolbox.ui.theme.WaterSecondary,
+                    background = omni.toolbox.ui.theme.WaterBgDark,
+                    surface = omni.toolbox.ui.theme.WaterSurfaceDark,
+                    onSurface = Color(0xFFE0F7FA),
+                    surfaceVariant = omni.toolbox.ui.theme.WaterSurfaceDark
+                )
+            } else {
+                lightColorScheme(
+                    primary = omni.toolbox.ui.theme.WaterPrimary,
+                    secondary = omni.toolbox.ui.theme.WaterSecondary,
+                    background = omni.toolbox.ui.theme.WaterBgLight,
+                    surface = omni.toolbox.ui.theme.WaterSurfaceLight,
+                    onSurface = Color(0xFF0D1B2A),
+                    surfaceVariant = omni.toolbox.ui.theme.WaterSurfaceLight
+                )
+            }
+        }
+        "sand" -> {
+            if (isDark) {
+                darkColorScheme(
+                    primary = omni.toolbox.ui.theme.SandPrimary,
+                    secondary = omni.toolbox.ui.theme.SandSecondary,
+                    background = omni.toolbox.ui.theme.SandBgDark,
+                    surface = omni.toolbox.ui.theme.SandSurfaceDark,
+                    onSurface = Color(0xFFFFF8E1),
+                    surfaceVariant = omni.toolbox.ui.theme.SandSurfaceDark
+                )
+            } else {
+                lightColorScheme(
+                    primary = omni.toolbox.ui.theme.SandPrimary,
+                    secondary = omni.toolbox.ui.theme.SandSecondary,
+                    background = omni.toolbox.ui.theme.SandBgLight,
+                    surface = omni.toolbox.ui.theme.SandSurfaceLight,
+                    onSurface = Color(0xFF1C1A17),
+                    surfaceVariant = omni.toolbox.ui.theme.SandSurfaceLight
+                )
+            }
+        }
+        else -> {
+            val epicPrimary = Color(0xFF4F46E5) // Epic Indigo/Slate theme primary color
+            val epicSecondary = Color(0xFF6366F1)
+            if (isDark) {
+                darkColorScheme(
+                    primary = epicPrimary,
+                    onPrimary = Color.White,
+                    secondary = epicSecondary,
+                    background = Color(0xFF0F172A),
+                    surface = Color(0xFF0F172A),
+                    onSurface = Color(0xFFF8FAFC),
+                    surfaceVariant = Color(0xFF1E293B)
+                )
+            } else {
+                lightColorScheme(
+                    primary = epicPrimary,
+                    onPrimary = Color.White,
+                    secondary = epicSecondary,
+                    background = Color(0xFFF8FAFC),
+                    surface = Color.White,
+                    onSurface = Color(0xFF0F172A),
+                    surfaceVariant = Color(0xFFF1F5F9)
+                )
+            }
+        }
     }
 
     MaterialTheme(colorScheme = colorScheme) {
@@ -326,7 +415,7 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                 }
                 composable("toolbox") {
                     omni.toolbox.navigation.OmniToolboxApp(
-                        themeMode = if (isDark) "dark" else "light",
+                        themeMode = settings.themeMode,
                         onThemeChange = { },
                         dynamicColor = false,
                         onDynamicColorChange = { },
