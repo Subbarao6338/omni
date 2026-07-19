@@ -425,6 +425,7 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                     val showBottomBar = currentRoute == null || currentRoute == "home"
 
                     Scaffold(
+                        contentWindowInsets = WindowInsets(0, 0, 0, 0),
                         bottomBar = {
                             if (showBottomBar) {
                                 BottomAppBar(
