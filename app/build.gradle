@@ -5,6 +5,11 @@ plugins {
     id 'com.google.devtools.ksp'
 }
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
+
+Security.addProvider(new BouncyCastleProvider())
+
 def getAppVersionName() {
     def stdout = new ByteArrayOutputStream()
     try {
@@ -53,16 +58,18 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file("debug.keystore")
+            storeFile rootProject.file("app/signing.bks")
             storePassword "android"
-            keyAlias "androiddebugkey"
+            keyAlias "signing_key"
             keyPassword "android"
+            storeType "BKS"
         }
         release {
-            storeFile file("debug.keystore")
+            storeFile rootProject.file("app/signing.bks")
             storePassword "android"
-            keyAlias "androiddebugkey"
+            keyAlias "signing_key"
             keyPassword "android"
+            storeType "BKS"
         }
     }
     variantFilter { variant ->
