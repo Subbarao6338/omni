@@ -309,7 +309,6 @@ fun BrowserView(
                     onStop = { viewModel.getOrCreateWebView(activeTab.id, context).stopLoading() },
                     isLoading = activeTab.isLoading,
                     pageFavicon = activeTab.faviconBitmap,
-                    onPrivacyClick = { showSiteSettings = true },
                     onBookmarkClick = {
                         scope.launch {
                             if (isBookmarked) {
@@ -337,7 +336,6 @@ fun BrowserView(
                             setFindListener(null)
                         }
                     },
-                    onHomeClick = onBackToHome,
                     onVoiceClick = {
                         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
                             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -350,17 +348,6 @@ fun BrowserView(
                     },
                     onScanClick = onOpenScanner,
                     isIncognito = activeTab.isIncognito,
-                    isPageReadable = activeTab.isPageReadable,
-                    onReaderClick = {
-                        val toolsWebView = viewModel.getOrCreateWebView(activeTab.id, context)
-                        toolsWebView.evaluateJavascript("(function(){ const clone = document.body.cloneNode(true); clone.querySelectorAll('script, style, iframe, noscript').forEach(el => el.remove()); return clone.innerHTML; })()") { source: String? ->
-                            val cleanSource = if (source != null && source.startsWith("\"") && source.endsWith("\"")) {
-                                source.substring(1, source.length - 1).replace("\\\"", "\"").replace("\\n", "\n").replace("\\t", "\t")
-                            } else source ?: ""
-                            readerContent = PageUtils.extractArticleContent(cleanSource)
-                            isReaderMode = true
-                        }
-                    },
                     suggestions = if (urlInput != activeTab.url) viewModel.searchSuggestions.value else emptyList(),
                     onSuggestionClick = { suggestion ->
                         val target = UrlUtils.resolveUrl(suggestion.url, settings.searchEngine)
@@ -370,13 +357,7 @@ fun BrowserView(
                             viewModel.getOrCreateWebView(activeTab.id, context).loadUrl(target)
                         }
                         viewModel.updateSuggestions("")
-                    },
-                    blockedCount = synchronized(viewModel.blockedTrackersByTab) { viewModel.blockedTrackersByTab[activeTab.id]?.size ?: 0 },
-                    tabCount = viewModel.tabs.size,
-                    mediaCount = activeTab.detectedMedia.size,
-                    onShowTabs = { showTabs = true },
-                    onShowMenu = { showTools = true },
-                    profile = activeTab.profile
+                    }
                 )
                 if (activeTab.scrollProgress > 0) {
                     LinearProgressIndicator(
@@ -386,6 +367,19 @@ fun BrowserView(
                         trackColor = Color.Transparent
                     )
                 }
+            }
+        },
+        bottomBar = {
+            if (!isZenMode) {
+                BrowserBottomBar(
+                    tabCount = viewModel.tabs.size,
+                    mediaCount = activeTab.detectedMedia.size,
+                    blockedCount = synchronized(viewModel.blockedTrackersByTab) { viewModel.blockedTrackersByTab[activeTab.id]?.size ?: 0 },
+                    onHomeClick = onBackToHome,
+                    onPrivacyClick = { showSiteSettings = true },
+                    onShowTabs = { showTabs = true },
+                    onShowMenu = { showTools = true }
+                )
             }
         }
     ) { padding ->

@@ -81,7 +81,6 @@ fun BrowserAddressBar(
     onStop: () -> Unit,
     isLoading: Boolean,
     pageFavicon: Bitmap?,
-    onPrivacyClick: () -> Unit,
     onBookmarkClick: () -> Unit,
     isBookmarked: Boolean,
     isFindMode: Boolean,
@@ -90,20 +89,11 @@ fun BrowserAddressBar(
     onFindNext: (Boolean) -> Unit,
     findMatchStatus: String = "",
     onCloseFind: () -> Unit,
-    onHomeClick: () -> Unit,
     onVoiceClick: () -> Unit = {},
     onScanClick: () -> Unit = {},
     suggestions: List<Suggestion>,
     onSuggestionClick: (Suggestion) -> Unit,
-    blockedCount: Int = 0,
-    tabCount: Int = 0,
-    isIncognito: Boolean = false,
-    mediaCount: Int = 0,
-    isPageReadable: Boolean = false,
-    onReaderClick: () -> Unit = {},
-    onShowTabs: () -> Unit = {},
-    onShowMenu: () -> Unit = {},
-    profile: String = "Default"
+    isIncognito: Boolean = false
 ) {
     val context = LocalContext.current
     val clipboardManager = remember { context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager }
@@ -170,59 +160,6 @@ fun BrowserAddressBar(
                 }
             } else {
                 Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    CompactIconButton(onClick = onHomeClick, imageVector = Icons.Default.Home, contentDescription = "Home")
-
-                    if (isPageReadable) {
-                        CompactIconButton(
-                            onClick = onReaderClick,
-                            imageVector = Icons.AutoMirrored.Filled.MenuBook,
-                            contentDescription = "Reader Mode",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-
-                    if (blockedCount > 0) {
-                        Surface(
-                            color = Color(0xFF10B981).copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.clickable { onPrivacyClick() }
-                        ) {
-                            Box(modifier = Modifier.padding(horizontal = 6.dp, vertical = 6.dp), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Shield, contentDescription = "Privacy Shield", modifier = Modifier.size(18.dp), tint = Color(0xFF10B981))
-                            }
-                        }
-                    } else {
-                        CompactIconButton(
-                            onClick = onPrivacyClick,
-                            imageVector = Icons.Default.Shield,
-                            contentDescription = "Privacy Shield"
-                        )
-                    }
-
-                    if (!isIncognito) {
-                        val profileColor = when (profile.lowercase()) {
-                            "work" -> Color(0xFF3B82F6)
-                            "personal" -> Color(0xFF10B981)
-                            "private" -> Color(0xFF6B7280)
-                            "social" -> Color(0xFFEC4899)
-                            else -> Color(0xFF8B5CF6)
-                        }
-                        Surface(
-                            color = profileColor.copy(alpha = 0.15f),
-                            shape = RoundedCornerShape(8.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, profileColor.copy(alpha = 0.5f)),
-                            modifier = Modifier.padding(end = 2.dp)
-                        ) {
-                            Text(
-                                text = profile,
-                                color = profileColor,
-                                fontSize = 9.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                            )
-                        }
-                    }
-
                     Column(modifier = Modifier.weight(1f)) {
                         Box {
                             TextField(
@@ -340,28 +277,6 @@ fun BrowserAddressBar(
                             }
                         }
                     }
-                    Box(
-                        modifier = Modifier
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .clickable(onClick = onShowTabs),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        BadgedBox(badge = { if (tabCount > 0) Badge { Text(tabCount.toString(), fontSize = 9.sp) } }) {
-                            Icon(Icons.Default.Layers, contentDescription = "Tabs", modifier = Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
-                    }
-                    Box(
-                        modifier = Modifier
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .clickable(onClick = onShowMenu),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        BadgedBox(badge = { if (mediaCount > 0) Badge { Text(mediaCount.toString(), fontSize = 9.sp) } }) {
-                            Icon(Icons.Default.MoreVert, contentDescription = "Menu", modifier = Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
-                    }
                 }
             }
         }
@@ -372,21 +287,18 @@ fun BrowserAddressBar(
 fun BrowserBottomBar(
     tabCount: Int,
     mediaCount: Int,
+    blockedCount: Int,
+    onHomeClick: () -> Unit,
+    onPrivacyClick: () -> Unit,
     onShowTabs: () -> Unit,
-    onNewTab: () -> Unit,
-    onBack: () -> Unit,
-    onForward: () -> Unit,
-    onShowDownloads: () -> Unit,
     onShowMenu: () -> Unit
 ) {
     BottomAppBar(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f), modifier = Modifier.navigationBarsPadding(), contentPadding = PaddingValues(0.dp)) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            NavButton(Icons.Default.Layers, "Tabs", badge = tabCount) { onShowTabs() }
-            NavButton(Icons.Default.Add, "New") { onNewTab() }
-            NavButton(Icons.AutoMirrored.Filled.KeyboardArrowLeft, "Back") { onBack() }
-            NavButton(Icons.AutoMirrored.Filled.KeyboardArrowRight, "Forward") { onForward() }
-            NavButton(Icons.Default.Download, "Files") { onShowDownloads() }
-            NavButton(Icons.Default.MoreVert, "Menu", badge = mediaCount) { onShowMenu() }
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
+            NavButton(Icons.Default.Home, "Home", onClick = onHomeClick)
+            NavButton(Icons.Default.Shield, "Site Settings", badge = blockedCount, onClick = onPrivacyClick)
+            NavButton(Icons.Default.Layers, "Tabs", badge = tabCount, onClick = onShowTabs)
+            NavButton(Icons.Default.MoreVert, "Menu", badge = mediaCount, onClick = onShowMenu)
         }
     }
 }
