@@ -22,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import omni.browser.ui.*
 import omni.browser.data.*
 import com.yausername.youtubedl_android.YoutubeDL
@@ -418,34 +419,41 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                     )
                 }
                 composable("toolbox") {
+                    val toolboxNavController = rememberNavController()
+                    val navBackStackEntry by toolboxNavController.currentBackStackEntryAsState()
+                    val currentRoute = navBackStackEntry?.destination?.route
+                    val showBottomBar = currentRoute == null || currentRoute == "home"
+
                     Scaffold(
                         bottomBar = {
-                            BottomAppBar(
-                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
-                                modifier = Modifier.navigationBarsPadding(),
-                                contentPadding = PaddingValues(0.dp)
-                            ) {
-                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-                                    NavButton(Icons.Default.Layers, "Tabs", badge = tabs.size) {
-                                        navController.navigate("browser") {
-                                            popUpTo("home") { saveState = true }
-                                            launchSingleTop = true
+                            if (showBottomBar) {
+                                BottomAppBar(
+                                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
+                                    modifier = Modifier.navigationBarsPadding(),
+                                    contentPadding = PaddingValues(0.dp)
+                                ) {
+                                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                                        NavButton(Icons.Default.Layers, "Tabs", badge = tabs.size) {
+                                            navController.navigate("browser") {
+                                                popUpTo("home") { saveState = true }
+                                                launchSingleTop = true
+                                            }
                                         }
-                                    }
-                                    NavButton(Icons.Default.Star, "Bookmarks") {
-                                        navController.navigate("bookmarks")
-                                    }
-                                    NavButton(Icons.Default.History, "History") {
-                                        navController.navigate("history")
-                                    }
-                                    NavButton(Icons.Default.Build, "Toolbox") {
-                                        // Already in toolbox!
-                                    }
-                                    NavButton(Icons.Default.Download, "Files") {
-                                        navController.navigate("downloads")
-                                    }
-                                    NavButton(Icons.Default.Settings, "Settings") {
-                                        navController.navigate("settings")
+                                        NavButton(Icons.Default.Star, "Bookmarks") {
+                                            navController.navigate("bookmarks")
+                                        }
+                                        NavButton(Icons.Default.History, "History") {
+                                            navController.navigate("history")
+                                        }
+                                        NavButton(Icons.Default.Build, "Toolbox") {
+                                            // Already in toolbox!
+                                        }
+                                        NavButton(Icons.Default.Download, "Files") {
+                                            navController.navigate("downloads")
+                                        }
+                                        NavButton(Icons.Default.Settings, "Settings") {
+                                            navController.navigate("settings")
+                                        }
                                     }
                                 }
                             }
@@ -465,8 +473,15 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                                 onStableDiffusionUrlChange = { },
                                 accentColor = accentColor,
                                 onAccentColorChange = { },
-                                onBack = { navController.popBackStack() },
-                                onOpenSettings = { navController.navigate("settings") }
+                                onBack = {
+                                    if (toolboxNavController.previousBackStackEntry != null) {
+                                        toolboxNavController.popBackStack()
+                                    } else {
+                                        navController.popBackStack()
+                                    }
+                                },
+                                onOpenSettings = { navController.navigate("settings") },
+                                externalNavController = toolboxNavController
                             )
                         }
                     }

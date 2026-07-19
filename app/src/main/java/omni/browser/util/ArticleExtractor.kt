@@ -47,10 +47,6 @@ object ArticleExtractor {
 
             // 3. Final Content Refinement
             val result = StringBuilder()
-            val title = doc.title()
-            if (title.isNotEmpty()) {
-                result.append("<h1 class='reader-title'>").append(title).append("</h1>")
-            }
 
             val allowedTags = setOf("p", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "img", "blockquote", "pre", "code", "table", "tr", "td", "th")
 

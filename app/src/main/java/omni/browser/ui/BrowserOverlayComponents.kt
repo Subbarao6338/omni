@@ -457,6 +457,11 @@ fun ReaderModeView(
                     }) {
                         Icon(Icons.Default.FormatLineSpacing, contentDescription = "Line Spacing")
                     }
+                    IconButton(onClick = {
+                        letterSpacing = if (letterSpacing >= 3.0f) 0f else letterSpacing + 1.0f
+                    }) {
+                        Icon(Icons.Default.SpaceBar, contentDescription = "Letter Spacing")
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = backgroundColor,
@@ -480,6 +485,7 @@ fun ReaderModeView(
                 }
             },
             update = { webView ->
+                webView.setBackgroundColor(backgroundColor.value.toInt())
                 webView.loadDataWithBaseURL(null, readerHtml, "text/html", "UTF-8", null)
             },
             modifier = Modifier.padding(padding).fillMaxSize()
