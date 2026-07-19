@@ -269,7 +269,7 @@ fun BrowserView(
             }
         },
         topBar = {
-            if (!isZenMode && settings.toolbarLocation == "top") {
+            if (!isZenMode) {
                 BrowserAddressBar(
                     modifier = Modifier.pointerInput(Unit) {
                         detectHorizontalDragGestures { change, dragAmount ->
@@ -289,126 +289,6 @@ fun BrowserView(
                             }
                         }
                     }.statusBarsPadding(),
-                    urlInput = urlInput,
-                    onUrlChange = {
-                        urlInput = it
-                        viewModel.updateSuggestions(it)
-                    },
-                    onGo = {
-                        val input = urlInput.trim()
-                        if (input.isNotEmpty()) {
-                            val target = UrlUtils.resolveUrl(input, settings.searchEngine)
-                            if (target == "about:home") onBackToHome() else {
-                                activeTab.url = target
-                                viewModel.getOrCreateWebView(activeTab.id, context).loadUrl(target)
-                            }
-                        }
-                        viewModel.updateSuggestions("")
-                    },
-                    onRefresh = { viewModel.getOrCreateWebView(activeTab.id, context).reload() },
-                    onStop = { viewModel.getOrCreateWebView(activeTab.id, context).stopLoading() },
-                    isLoading = activeTab.isLoading,
-                    pageFavicon = activeTab.faviconBitmap,
-                    onPrivacyClick = { showSiteSettings = true },
-                    onBookmarkClick = {
-                        scope.launch {
-                            if (isBookmarked) {
-                                bookmarks.find { it.url == activeTab.url }?.let { database.bookmarkDao().deleteBookmark(it) }
-                            } else {
-                                database.bookmarkDao().insertBookmark(Bookmark(title = activeTab.title, url = urlInput))
-                            }
-                        }
-                    },
-                    isBookmarked = isBookmarked,
-                    isFindMode = isFindMode,
-                    findQuery = findQuery,
-                    onFindQueryChange = {
-                        findQuery = it
-                        viewModel.getOrCreateWebView(activeTab.id, context).findAllAsync(it)
-                    },
-                    onFindNext = { forward -> viewModel.getOrCreateWebView(activeTab.id, context).findNext(forward) },
-                    findMatchStatus = findMatchStatus,
-                    onCloseFind = {
-                        isFindMode = false
-                        findQuery = ""
-                        findMatchStatus = ""
-                        viewModel.getOrCreateWebView(activeTab.id, context).apply {
-                            clearMatches()
-                            setFindListener(null)
-                        }
-                    },
-                    onHomeClick = onBackToHome,
-                    onVoiceClick = {
-                        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                        }
-                        try {
-                            voiceLauncher.launch(intent)
-                        } catch (e: Exception) {
-                            Toast.makeText(context, "Voice search not available", Toast.LENGTH_SHORT).show()
-                        }
-                    },
-                    onScanClick = onOpenScanner,
-                    isIncognito = activeTab.isIncognito,
-                    isPageReadable = activeTab.isPageReadable,
-                    onReaderClick = {
-                        val toolsWebView = viewModel.getOrCreateWebView(activeTab.id, context)
-                        toolsWebView.evaluateJavascript("(function(){ const clone = document.body.cloneNode(true); clone.querySelectorAll('script, style, iframe, noscript').forEach(el => el.remove()); return clone.innerHTML; })()") { source: String? ->
-                            val cleanSource = if (source != null && source.startsWith("\"") && source.endsWith("\"")) {
-                                source.substring(1, source.length - 1).replace("\\\"", "\"").replace("\\n", "\n").replace("\\t", "\t")
-                            } else source ?: ""
-                            readerContent = PageUtils.extractArticleContent(cleanSource)
-                            isReaderMode = true
-                        }
-                    },
-                    suggestions = if (urlInput != activeTab.url) viewModel.searchSuggestions.value else emptyList(),
-                    onSuggestionClick = { suggestion ->
-                        val target = UrlUtils.resolveUrl(suggestion.url, settings.searchEngine)
-                        if (target == "about:home") onBackToHome() else {
-                            urlInput = target
-                            activeTab.url = target
-                            viewModel.getOrCreateWebView(activeTab.id, context).loadUrl(target)
-                        }
-                        viewModel.updateSuggestions("")
-                    },
-                    blockedCount = synchronized(viewModel.blockedTrackersByTab) { viewModel.blockedTrackersByTab[activeTab.id]?.size ?: 0 },
-                    tabCount = viewModel.tabs.size,
-                    mediaCount = activeTab.detectedMedia.size,
-                    onShowTabs = { showTabs = true },
-                    onShowMenu = { showTools = true },
-                    profile = activeTab.profile
-                )
-                if (activeTab.scrollProgress > 0) {
-                    LinearProgressIndicator(
-                        progress = { activeTab.scrollProgress.coerceIn(0f, 1f) },
-                        modifier = Modifier.fillMaxWidth().height(2.dp),
-                        color = MaterialTheme.colorScheme.primary,
-                        trackColor = Color.Transparent
-                    )
-                }
-            }
-        },
-        bottomBar = {
-            if (!isZenMode && settings.toolbarLocation == "bottom") {
-                BrowserAddressBar(
-                    modifier = Modifier.pointerInput(Unit) {
-                        detectHorizontalDragGestures { change, dragAmount ->
-                            change.consume()
-                            if (dragAmount > 50) {
-                                scope.launch {
-                                    if (pagerState.currentPage > 0) {
-                                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                                    }
-                                }
-                            } else if (dragAmount < -50) {
-                                scope.launch {
-                                    if (pagerState.currentPage < tabs.size - 1) {
-                                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                                    }
-                                }
-                            }
-                        }
-                    }.navigationBarsPadding(),
                     urlInput = urlInput,
                     onUrlChange = {
                         urlInput = it

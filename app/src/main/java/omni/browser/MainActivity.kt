@@ -300,7 +300,8 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                         onOpenBookmarks = { navController.navigate("bookmarks") },
                         onOpenHistory = { navController.navigate("history") },
                         onOpenDownloads = { navController.navigate("downloads") },
-                        onOpenToolbox = { navController.navigate("toolbox") }
+                        onOpenToolbox = { navController.navigate("toolbox") },
+                        onNavigateToBrowser = { navController.navigate("browser") }
                     )
                 }
                 composable("browser") {

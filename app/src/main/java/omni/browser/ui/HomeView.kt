@@ -52,7 +52,8 @@ fun HomeView(
     onOpenBookmarks: () -> Unit,
     onOpenHistory: () -> Unit,
     onOpenDownloads: () -> Unit,
-    onOpenToolbox: () -> Unit
+    onOpenToolbox: () -> Unit,
+    onNavigateToBrowser: () -> Unit
 ) {
     val context = LocalContext.current
     val database = remember { AppDatabase.getDatabase(context) }
@@ -589,6 +590,9 @@ fun HomeView(
                                 .clickable {
                                     viewModel.selectTab(tab.id)
                                     showTabs = false
+                                    if (tab.url != "about:home") {
+                                        onNavigateToBrowser()
+                                    }
                                 }
                                 .padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically

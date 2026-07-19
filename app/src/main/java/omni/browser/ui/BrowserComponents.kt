@@ -44,6 +44,31 @@ import androidx.compose.ui.unit.sp
 import omni.browser.data.TabInfo
 import omni.browser.ui.Suggestion
 import omni.browser.util.UrlUtils
+import androidx.compose.ui.graphics.vector.ImageVector
+
+@Composable
+fun CompactIconButton(
+    onClick: () -> Unit,
+    imageVector: ImageVector,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    tint: Color = MaterialTheme.colorScheme.onSurfaceVariant
+) {
+    Box(
+        modifier = modifier
+            .size(36.dp)
+            .clip(CircleShape)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = contentDescription,
+            modifier = Modifier.size(20.dp),
+            tint = tint
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -111,22 +136,22 @@ fun BrowserAddressBar(
     Surface(color = MaterialTheme.colorScheme.surface, shadowElevation = 2.dp, modifier = modifier) {
         Column {
             if (isFindMode) {
-                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     TextField(
                         value = findQuery,
                         onValueChange = onFindQueryChange,
-                        modifier = Modifier.weight(1f).height(56.dp),
-                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.weight(1f).height(46.dp),
+                        shape = RoundedCornerShape(23.dp),
                         singleLine = true,
-                        placeholder = { Text("Find in page...") },
-                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(20.dp)) },
+                        placeholder = { Text("Find in page...", fontSize = 14.sp) },
+                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(18.dp)) },
                         trailingIcon = {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
+                            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 4.dp)) {
                                 if (findMatchStatus.isNotEmpty()) {
-                                    Text(findMatchStatus, fontSize = 12.sp, modifier = Modifier.padding(end = 4.dp))
+                                    Text(findMatchStatus, fontSize = 11.sp, modifier = Modifier.padding(end = 4.dp))
                                 }
-                                IconButton(onClick = { onFindNext(false) }) { Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Previous") }
-                                IconButton(onClick = { onFindNext(true) }) { Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Next") }
+                                CompactIconButton(onClick = { onFindNext(false) }, imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Previous")
+                                CompactIconButton(onClick = { onFindNext(true) }, imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Next")
                             }
                         },
                         colors = TextFieldDefaults.colors(
@@ -137,22 +162,23 @@ fun BrowserAddressBar(
                             focusedTextColor = MaterialTheme.colorScheme.onSurface,
                             unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                         ),
-                        textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp)
+                        textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 14.sp)
                     )
-                    TextButton(onClick = onCloseFind) {
-                        Text("Done")
+                    TextButton(onClick = onCloseFind, contentPadding = PaddingValues(horizontal = 8.dp)) {
+                        Text("Done", fontSize = 14.sp)
                     }
                 }
             } else {
-                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    IconButton(onClick = onHomeClick) {
-                        Icon(Icons.Default.Home, contentDescription = "Home", tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
+                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    CompactIconButton(onClick = onHomeClick, imageVector = Icons.Default.Home, contentDescription = "Home")
 
                     if (isPageReadable) {
-                        IconButton(onClick = onReaderClick) {
-                            Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = "Reader Mode", tint = MaterialTheme.colorScheme.primary)
-                        }
+                        CompactIconButton(
+                            onClick = onReaderClick,
+                            imageVector = Icons.AutoMirrored.Filled.MenuBook,
+                            contentDescription = "Reader Mode",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
                     }
 
                     if (blockedCount > 0) {
@@ -161,14 +187,16 @@ fun BrowserAddressBar(
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.clickable { onPrivacyClick() }
                         ) {
-                            Box(modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Shield, contentDescription = "Privacy Shield", modifier = Modifier.size(20.dp), tint = Color(0xFF10B981))
+                            Box(modifier = Modifier.padding(horizontal = 6.dp, vertical = 6.dp), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Default.Shield, contentDescription = "Privacy Shield", modifier = Modifier.size(18.dp), tint = Color(0xFF10B981))
                             }
                         }
                     } else {
-                        IconButton(onClick = onPrivacyClick) {
-                            Icon(Icons.Default.Shield, contentDescription = "Privacy Shield", tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
+                        CompactIconButton(
+                            onClick = onPrivacyClick,
+                            imageVector = Icons.Default.Shield,
+                            contentDescription = "Privacy Shield"
+                        )
                     }
 
                     if (!isIncognito) {
@@ -181,16 +209,16 @@ fun BrowserAddressBar(
                         }
                         Surface(
                             color = profileColor.copy(alpha = 0.15f),
-                            shape = RoundedCornerShape(12.dp),
+                            shape = RoundedCornerShape(8.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, profileColor.copy(alpha = 0.5f)),
-                            modifier = Modifier.padding(end = 4.dp)
+                            modifier = Modifier.padding(end = 2.dp)
                         ) {
                             Text(
                                 text = profile,
                                 color = profileColor,
-                                fontSize = 10.sp,
+                                fontSize = 9.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                             )
                         }
                     }
@@ -200,54 +228,56 @@ fun BrowserAddressBar(
                             TextField(
                                 value = urlInput,
                                 onValueChange = onUrlChange,
-                                modifier = Modifier.fillMaxWidth().height(56.dp),
-                                shape = RoundedCornerShape(28.dp),
+                                modifier = Modifier.fillMaxWidth().height(46.dp),
+                                shape = RoundedCornerShape(23.dp),
                                 singleLine = true,
                                 leadingIcon = {
                                     if (pageFavicon != null) {
                                         Image(
                                             bitmap = pageFavicon.asImageBitmap(),
                                             contentDescription = null,
-                                            modifier = Modifier.size(20.dp).clip(RoundedCornerShape(4.dp))
+                                            modifier = Modifier.size(18.dp).clip(RoundedCornerShape(4.dp))
                                         )
                                     } else {
                                         val isSecure = urlInput.startsWith("https")
                                         Icon(
                                             if (isSecure) Icons.Default.Lock else Icons.Default.LockOpen,
                                             contentDescription = null,
-                                            modifier = Modifier.size(18.dp).scale(if (isLoading) leafScale else 1f),
+                                            modifier = Modifier.size(16.dp).scale(if (isLoading) leafScale else 1f),
                                             tint = if (isSecure) Color(0xFF10B981) else MaterialTheme.colorScheme.error
                                         )
                                     }
                                 },
                                 trailingIcon = {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 4.dp)) {
                                         if (clipboardContent != null && urlInput.isEmpty()) {
-                                            IconButton(onClick = {
-                                                onUrlChange(clipboardContent!!)
-                                                onGo()
-                                            }) {
-                                                Icon(Icons.Default.ContentPasteGo, contentDescription = "Paste & Go", modifier = Modifier.size(18.dp))
-                                            }
-                                        }
-                                        if (urlInput.isEmpty()) {
-                                            IconButton(onClick = onVoiceClick) { Icon(Icons.Default.Mic, contentDescription = "Voice Search", modifier = Modifier.size(18.dp)) }
-                                            IconButton(onClick = onScanClick) { Icon(Icons.Default.QrCodeScanner, contentDescription = "Scan QR", modifier = Modifier.size(18.dp)) }
-                                        }
-                                        IconButton(onClick = onBookmarkClick) {
-                                            Icon(
-                                                if (isBookmarked) Icons.Default.Star else Icons.Default.StarBorder,
-                                                contentDescription = "Bookmark",
-                                                modifier = Modifier.size(18.dp),
-                                                tint = if (isBookmarked) Color(0xFFFFB000) else MaterialTheme.colorScheme.onSurfaceVariant
+                                            CompactIconButton(
+                                                onClick = {
+                                                    onUrlChange(clipboardContent!!)
+                                                    onGo()
+                                                },
+                                                imageVector = Icons.Default.ContentPasteGo,
+                                                contentDescription = "Paste & Go"
                                             )
                                         }
+                                        if (urlInput.isEmpty()) {
+                                            CompactIconButton(onClick = onVoiceClick, imageVector = Icons.Default.Mic, contentDescription = "Voice Search")
+                                            CompactIconButton(onClick = onScanClick, imageVector = Icons.Default.QrCodeScanner, contentDescription = "Scan QR")
+                                        }
+                                        CompactIconButton(
+                                            onClick = onBookmarkClick,
+                                            imageVector = if (isBookmarked) Icons.Default.Star else Icons.Default.StarBorder,
+                                            contentDescription = "Bookmark",
+                                            tint = if (isBookmarked) Color(0xFFFFB000) else MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
                                         if (urlInput.isNotEmpty()) {
-                                            IconButton(onClick = { onUrlChange("") }) { Icon(Icons.Default.Close, contentDescription = "Clear", modifier = Modifier.size(18.dp)) }
+                                            CompactIconButton(onClick = { onUrlChange("") }, imageVector = Icons.Default.Close, contentDescription = "Clear")
                                         } else {
-                                            IconButton(onClick = { if (isLoading) onStop() else onRefresh() }) {
-                                                Icon(if (isLoading) Icons.Default.Close else Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
-                                            }
+                                            CompactIconButton(
+                                                onClick = { if (isLoading) onStop() else onRefresh() },
+                                                imageVector = if (isLoading) Icons.Default.Close else Icons.Default.Refresh,
+                                                contentDescription = null
+                                            )
                                         }
                                     }
                                 },
@@ -261,7 +291,7 @@ fun BrowserAddressBar(
                                     focusedTextColor = if (isIncognito) Color.White else MaterialTheme.colorScheme.onSurface,
                                     unfocusedTextColor = if (isIncognito) Color.White else MaterialTheme.colorScheme.onSurface,
                                 ),
-                                textStyle = androidx.compose.ui.text.TextStyle(color = if (isIncognito) Color.White else MaterialTheme.colorScheme.onSurface, fontSize = 16.sp)
+                                textStyle = androidx.compose.ui.text.TextStyle(color = if (isIncognito) Color.White else MaterialTheme.colorScheme.onSurface, fontSize = 14.sp)
                             )
                             androidx.compose.animation.AnimatedVisibility(
                                 visible = isLoading,
@@ -271,9 +301,9 @@ fun BrowserAddressBar(
                                 LinearProgressIndicator(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .height(4.dp)
+                                        .height(3.dp)
                                         .align(Alignment.BottomCenter)
-                                        .clip(RoundedCornerShape(2.dp)),
+                                        .clip(RoundedCornerShape(1.5.dp)),
                                     color = MaterialTheme.colorScheme.primary,
                                     trackColor = Color.Transparent
                                 )
@@ -293,15 +323,15 @@ fun BrowserAddressBar(
                                 Column {
                                     suggestions.forEach { suggestion ->
                                         ListItem(
-                                            headlineContent = { Text(suggestion.title, maxLines = 1) },
-                                            supportingContent = { Text(suggestion.url, maxLines = 1, fontSize = 12.sp) },
+                                            headlineContent = { Text(suggestion.title, maxLines = 1, fontSize = 14.sp) },
+                                            supportingContent = { Text(suggestion.url, maxLines = 1, fontSize = 11.sp) },
                                             leadingContent = {
                                                 val icon = when {
                                                     suggestion.isHistory -> Icons.Default.History
                                                     suggestion.url == suggestion.title -> Icons.Default.Search
                                                     else -> Icons.Default.Star
                                                 }
-                                                Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+                                                Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
                                             },
                                             modifier = Modifier.clickable { onSuggestionClick(suggestion) }
                                         )
@@ -310,14 +340,26 @@ fun BrowserAddressBar(
                             }
                         }
                     }
-                    IconButton(onClick = onShowTabs) {
-                        BadgedBox(badge = { if (tabCount > 0) Badge { Text(tabCount.toString()) } }) {
-                            Icon(Icons.Default.Layers, contentDescription = "Tabs")
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .clickable(onClick = onShowTabs),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        BadgedBox(badge = { if (tabCount > 0) Badge { Text(tabCount.toString(), fontSize = 9.sp) } }) {
+                            Icon(Icons.Default.Layers, contentDescription = "Tabs", modifier = Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
-                    IconButton(onClick = onShowMenu) {
-                        BadgedBox(badge = { if (mediaCount > 0) Badge { Text(mediaCount.toString()) } }) {
-                            Icon(Icons.Default.MoreVert, contentDescription = "Menu")
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .clickable(onClick = onShowMenu),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        BadgedBox(badge = { if (mediaCount > 0) Badge { Text(mediaCount.toString(), fontSize = 9.sp) } }) {
+                            Icon(Icons.Default.MoreVert, contentDescription = "Menu", modifier = Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
