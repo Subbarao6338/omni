@@ -290,14 +290,15 @@ fun HomeView(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     // Native Toolbox Button Card
-                    ElevatedCard(
+                    Card(
                         modifier = Modifier
                             .weight(1f)
                             .clickable { onOpenToolbox() },
                         shape = RoundedCornerShape(20.dp),
-                        colors = CardDefaults.elevatedCardColors(
+                        colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
-                        )
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                     ) {
                         Column(
                             modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -335,7 +336,7 @@ fun HomeView(
                     }
 
                     // Epic Web Toolbox Button Card
-                    ElevatedCard(
+                    Card(
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
@@ -344,9 +345,10 @@ fun HomeView(
                                 onNavigate("https://epic-bookmarx.vercel.app/")
                             },
                         shape = RoundedCornerShape(20.dp),
-                        colors = CardDefaults.elevatedCardColors(
+                        colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
-                        )
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                     ) {
                         Column(
                             modifier = Modifier.padding(16.dp).fillMaxWidth(),
