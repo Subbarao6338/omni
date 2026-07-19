@@ -65,13 +65,18 @@ android {
             keyPassword "android"
         }
     }
+    variantFilter { variant ->
+        if (variant.buildType.name == 'debug') {
+            setIgnore(true)
+        }
+    }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
             buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: 'AQ.Ab8RN6JsjObt21OBSd0R5og9EwhdOOJwWWJqWynGMBs-WR78uw'}\""
         }
         stable {
-            buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: ''}\""
+            buildConfigField "String", "GEMINI_API_KEY", "\"${System.getenv('GEMINI_API_KEY') ?: 'AQ.Ab8RN6JsjObt21OBSd0R5og9EwhdOOJwWWJqWynGMBs-WR78uw'}\""
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
