@@ -166,7 +166,7 @@ fun RecipeScalerTab() {
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(4.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 Text("Add New Ingredient", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleSmall)

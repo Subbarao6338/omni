@@ -151,7 +151,7 @@ fun HomeView(
                             .clickable { onNavigate(lastTab.url) },
                         shape = RoundedCornerShape(24.dp),
                         colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)),
-                        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
+                        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 0.dp)
                     ) {
                         Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
                             Box(
@@ -247,7 +247,7 @@ fun HomeView(
                                 .padding(top = 64.dp),
                             shape = RoundedCornerShape(16.dp),
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                         ) {
                             Column {
                                 suggestions.forEach { suggestion ->
@@ -425,13 +425,6 @@ fun HomeView(
                 }
             }
 
-            item {
-                SectionHeader("News Feed")
-                Box(modifier = Modifier.heightIn(max = 400.dp).padding(horizontal = 16.dp)) {
-                    RSSView(onNavigate = onNavigate)
-                }
-                Spacer(modifier = Modifier.height(24.dp))
-            }
 
             if (mostVisited.isNotEmpty()) {
                 item {
@@ -498,7 +491,7 @@ fun HomeView(
                                     .clickable { onNavigate(entry.url) },
                                 shape = RoundedCornerShape(16.dp),
                                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                             ) {
                                 Column(modifier = Modifier.padding(12.dp)) {
                                     Icon(Icons.Default.History, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))

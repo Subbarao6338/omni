@@ -59,11 +59,10 @@ android {
             keyPassword "android"
         }
         release {
-            storeFile file("signing.bks")
+            storeFile file("debug.keystore")
             storePassword "android"
-            keyAlias "signing_key"
+            keyAlias "androiddebugkey"
             keyPassword "android"
-            storeType "BKS"
         }
     }
     buildTypes {

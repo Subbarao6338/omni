@@ -255,11 +255,7 @@ fun ToolCard(
         label = "tool_card_scale"
     )
 
-    val elevation by animateDpAsState(
-        targetValue = if (isPressed) 2.dp else 4.dp,
-        animationSpec = spring(stiffness = Spring.StiffnessLow),
-        label = "tool_card_elevation"
-    )
+    val elevation = 0.dp
 
     ElevatedCard(
         onClick = onClick,
@@ -269,7 +265,7 @@ fun ToolCard(
             .height(115.dp)
             .graphicsLayer(scaleX = scale, scaleY = scale),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = elevation),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.elevatedCardColors(
             containerColor = if (isPressed) MaterialTheme.colorScheme.surfaceVariant
                              else MaterialTheme.colorScheme.surface
