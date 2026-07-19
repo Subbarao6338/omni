@@ -100,6 +100,7 @@ fun HomeView(
                     NavButton(Icons.Default.Layers, "Tabs", badge = tabs.size) { showTabs = true }
                     NavButton(Icons.Default.Star, "Bookmarks") { onOpenBookmarks() }
                     NavButton(Icons.Default.History, "History") { onOpenHistory() }
+                    NavButton(Icons.Default.Build, "Toolbox") { onOpenToolbox() }
                     NavButton(Icons.Default.Download, "Files") { onOpenDownloads() }
                     NavButton(Icons.Default.Settings, "Settings") { onOpenSettings() }
                 }
@@ -337,9 +338,9 @@ fun HomeView(
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
-                                activeTab.url = "file:///android_asset/epic-toolbox/index.html"
+                                activeTab.url = "https://epic-bookmarx.vercel.app/"
                                 activeTab.title = "Epic Bookmarx"
-                                onNavigate("file:///android_asset/epic-toolbox/index.html")
+                                onNavigate("https://epic-bookmarx.vercel.app/")
                             },
                         shape = RoundedCornerShape(20.dp),
                         colors = CardDefaults.elevatedCardColors(

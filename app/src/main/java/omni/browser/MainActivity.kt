@@ -107,6 +107,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         android.webkit.WebView.enableSlowWholeDocumentDraw()
 
+        // Initialize dynamic tools from url_links.json before views are composed
+        omni.toolbox.model.ToolProvider.initializeDynamicTools(this)
+
         val viewModel = androidx.lifecycle.ViewModelProvider(this)[BrowserViewModel::class.java]
         if (savedInstanceState == null) {
             viewModel.handleIntent(intent)

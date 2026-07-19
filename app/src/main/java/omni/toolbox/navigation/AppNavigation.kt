@@ -190,7 +190,7 @@ fun NavGraphBuilder.addSpecialRoutes(navController: NavHostController) {
     composable(route = "calculator", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://calculator" })) { CalculatorScreen(navController) }
     composable(route = "compass", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://compass" })) { CompassScreen(navController) }
     composable(route = "note", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://note" })) { NotePadScreen(navController) }
-    composable(route = "hub", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://hub" })) { WebToolScreen(navController, initialUrl = "file:///android_asset/epic-toolbox/index.html", showUrlBar = false, title = "Epic Bookmarx") }
+    composable(route = "hub", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://hub" })) { WebToolScreen(navController, initialUrl = "https://epic-bookmarx.vercel.app/", showUrlBar = false, title = "Epic Bookmarx") }
     composable(route = "qr_scanner", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://qr_scanner" })) { QrScannerScreen(navController) }
     composable(route = "sos", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://sos" })) { EmergencySOSScreen(navController) }
     composable(route = "metronome", deepLinks = listOf(navDeepLink { uriPattern = "omnitoolbox://metronome" })) { MetronomeScreen(navController) }
@@ -486,7 +486,11 @@ fun WebDispatcher(navController: NavHostController, tool: Tool) {
         "sec_nextdns" -> "https://my.nextdns.io"
         "sec_bitwarden" -> "https://vault.bitwarden.com/"
         "sec_ente" -> "https://auth.ente.com/"
-        "hub" -> "file:///android_asset/epic-toolbox/index.html"
+        "hub" -> "https://epic-bookmarx.vercel.app/"
+        "epic_geo" -> "https://epic-bookmarx.vercel.app/?tool=geo"
+        "epic_ssl" -> "https://epic-bookmarx.vercel.app/?tool=ssl"
+        "epic_bluetooth" -> "https://epic-bookmarx.vercel.app/?tool=bluetooth"
+        "epic_notion_ingest" -> "https://epic-bookmarx.vercel.app/?tool=notion-ingest"
         "web" -> "https://www.google.com"
         else -> "https://perchance.org"
     }
