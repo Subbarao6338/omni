@@ -25,3 +25,8 @@
 
 # Suppress warnings for missing java.beans classes (often used by libraries like SnakeYAML)
 -dontwarn java.beans.**
+
+# Suppress warnings for com.gemalto and other missing classes
+-dontwarn com.gemalto.jp2.**
+-dontwarn javax.el.**
+-dontwarn org.ietf.jgss.**

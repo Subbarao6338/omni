@@ -92,7 +92,7 @@ fun KanbanColumn(name: String, tasks: List<TaskEntry>, onTaskDelete: (TaskEntry)
             items(tasks, key = { it.id }) { task ->
                 Card(
                     modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                    elevation = CardDefaults.cardElevation(2.dp)
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
                     Column(modifier = Modifier.padding(8.dp)) {
                         Text(task.title, style = MaterialTheme.typography.bodyLarge)

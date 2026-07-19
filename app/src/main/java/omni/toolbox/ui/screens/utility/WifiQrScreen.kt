@@ -103,7 +103,7 @@ fun WifiQrScreen(navController: NavHostController) {
 
             qrBitmap?.let {
                 Card(
-                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     modifier = Modifier.size(280.dp)
                 ) {
                     Image(

@@ -16,33 +16,36 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+private val EpicPrimary = Color(0xFF4F46E5)
+private val EpicSecondary = Color(0xFF6366F1)
+
 private val DarkColorScheme = darkColorScheme(
-    primary = NeonMint,
-    secondary = SlateDark,
-    tertiary = CarbonGray,
-    background = SlateDark,
-    surface = CarbonGray,
-    onPrimary = Color.Black,
-    onSecondary = SoftWhite,
-    onTertiary = SoftWhite,
-    onBackground = SoftWhite,
-    onSurface = SoftWhite,
-    outline = NeonMint.copy(alpha = 0.5f)
+    primary = EpicPrimary,
+    secondary = EpicSecondary,
+    tertiary = Color(0xFF1E293B),
+    background = Color(0xFF0F172A),
+    surface = Color(0xFF0F172A),
+    onPrimary = Color.White,
+    onSecondary = Color(0xFFF8FAFC),
+    onTertiary = Color(0xFFF8FAFC),
+    onBackground = Color(0xFFF8FAFC),
+    onSurface = Color(0xFFF8FAFC),
+    outline = EpicPrimary.copy(alpha = 0.5f)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = NeonMint,
-    secondary = CarbonGray,
+    primary = EpicPrimary,
+    secondary = EpicSecondary,
     tertiary = Color.White,
-    background = Color.White,
+    background = Color(0xFFF8FAFC),
     surface = Color.White,
     surfaceVariant = Color.White,
-    onPrimary = Color.Black,
-    onSecondary = Color.Black,
-    onTertiary = Color.Black,
-    onBackground = CarbonGray,
-    onSurface = CarbonGray,
-    outline = CarbonGray.copy(alpha = 0.5f)
+    onPrimary = Color.White,
+    onSecondary = Color(0xFF0F172A),
+    onTertiary = Color(0xFF0F172A),
+    onBackground = Color(0xFF0F172A),
+    onSurface = Color(0xFF0F172A),
+    outline = EpicPrimary.copy(alpha = 0.5f)
 )
 
 @Composable
@@ -52,34 +55,8 @@ fun OmniToolboxTheme(
     accentColor: Color? = null,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        accentColor != null -> {
-            if (darkTheme) {
-                darkColorScheme(primary = accentColor, background = ForestNight, surface = DeepBark)
-            } else {
-                lightColorScheme(
-                    primary = accentColor,
-                    background = Color.White,
-                    surface = Color.White,
-                    surfaceVariant = Color.White
-                )
-            }
-        }
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) {
-                dynamicDarkColorScheme(context)
-            } else {
-                dynamicLightColorScheme(context).copy(
-                    background = Color.White,
-                    surface = Color.White,
-                    surfaceVariant = Color.White
-                )
-            }
-        }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    // Force the Epic Bookmarx theme for entire app
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {

@@ -15,7 +15,7 @@ A powerful, feature-rich web browser for Android built using Kotlin, Jetpack Com
 - **🚫 Ad Blocking** - Built-in domain-based ad and tracker blocker
 - **📸 Screenshot & PDF Export** - Capture web pages and export as PDF or Full Page Screenshots
 - **⚡ High Performance** - Modern Jetpack Compose UI with efficient state management
-- **🎨 Beautiful UI** - Modern, responsive interface with Material 3 and custom accent colors
+- **🎨 Beautiful UI** - Modern, responsive interface with Material 3, Epic Bookmarx color themes, and zero shadows/elevations for an ultra-clean look
 - **🔒 Privacy-Focused** - Strict Privacy Mode, Incognito tabs, and Cookie management
 - **📑 Tab Management** - Multiple tabs, recently closed tabs restoration, and tab hibernation
 

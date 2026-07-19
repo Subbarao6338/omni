@@ -169,21 +169,27 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
         else -> isSystemInDarkTheme()
     }
 
+    val epicPrimary = Color(0xFF4F46E5) // Epic Indigo/Slate theme primary color
+    val epicSecondary = Color(0xFF6366F1)
     val colorScheme = if (isDark) {
         darkColorScheme(
-            primary = accentColor,
+            primary = epicPrimary,
             onPrimary = Color.White,
-            surface = Color(0xFF121212),
-            onSurface = Color.White,
-            surfaceVariant = Color(0xFF1E1E1E)
+            secondary = epicSecondary,
+            background = Color(0xFF0F172A),
+            surface = Color(0xFF0F172A),
+            onSurface = Color(0xFFF8FAFC),
+            surfaceVariant = Color(0xFF1E293B)
         )
     } else {
         lightColorScheme(
-            primary = accentColor,
+            primary = epicPrimary,
             onPrimary = Color.White,
-            surface = Color(0xFFF9FAFB),
-            onSurface = Color(0xFF111827),
-            surfaceVariant = Color(0xFFF3F4F6)
+            secondary = epicSecondary,
+            background = Color(0xFFF8FAFC),
+            surface = Color.White,
+            onSurface = Color(0xFF0F172A),
+            surfaceVariant = Color(0xFFF1F5F9)
         )
     }
 
