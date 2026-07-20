@@ -117,6 +117,7 @@ fun HomeScreen(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Omni Toolbox", fontWeight = FontWeight.Bold) },

@@ -94,6 +94,7 @@ fun SocialToolScreen(navController: NavHostController, title: String) {
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
         ToolScreen(
