@@ -29,6 +29,7 @@ fun WeatherForecastScreen(navController: NavHostController) {
     val forecast = WeatherForecaster.forecast(readings)
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
             TopAppBar(
                 title = { Text("Weather Forecast") },

@@ -23,6 +23,7 @@ fun ToolScreen(
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         containerColor = containerColor,
         topBar = {
             if (showTopBar) {
