@@ -132,8 +132,7 @@ fun HomeScreen(
                     IconButton(onClick = { navController.navigate("settings") }) {
                         Icon(Icons.Default.Settings, contentDescription = "Settings")
                     }
-                },
-                modifier = Modifier.statusBarsPadding()
+                }
             )
         }
     ) { padding ->

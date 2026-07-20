@@ -31,7 +31,7 @@ fun ToolScreen(
     }
 
     Scaffold(
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        contentWindowInsets = WindowInsets.navigationBars,
         containerColor = resolvedContainerColor,
         topBar = {
             if (showTopBar) {
@@ -58,8 +58,7 @@ fun ToolScreen(
                     },
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor = resolvedContainerColor
-                    ),
-                    modifier = Modifier.statusBarsPadding()
+                    )
                 )
             }
         },
