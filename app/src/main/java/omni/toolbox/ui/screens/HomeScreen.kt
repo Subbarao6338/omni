@@ -136,7 +136,7 @@ fun HomeScreen(
             )
         }
     ) { padding ->
-        val topPadding = (padding.calculateTopPadding() - 12.dp).coerceAtLeast(0.dp)
+        val topPadding = (padding.calculateTopPadding() - 36.dp).coerceAtLeast(0.dp)
         Column(
             modifier = Modifier.padding(
                 start = padding.calculateStartPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
