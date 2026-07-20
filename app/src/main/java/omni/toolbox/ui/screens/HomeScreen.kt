@@ -136,7 +136,15 @@ fun HomeScreen(
             )
         }
     ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
+        val topPadding = (padding.calculateTopPadding() - 12.dp).coerceAtLeast(0.dp)
+        Column(
+            modifier = Modifier.padding(
+                start = padding.calculateStartPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
+                top = topPadding,
+                end = padding.calculateEndPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
+                bottom = padding.calculateBottomPadding()
+            )
+        ) {
             SearchBar(
                 query = searchQuery,
                 onQueryChange = { searchQuery = it },
@@ -145,7 +153,7 @@ fun HomeScreen(
                 onActiveChange = { },
                 placeholder = { Text("Search 300+ tools...") },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 8.dp)
             ) {}
 
             if (recentRoutes.isNotEmpty() && searchQuery.isEmpty()) {
