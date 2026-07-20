@@ -89,12 +89,33 @@ Omni-Web/
 
 ## 🧪 Testing
 
-The repository contains extensive test coverage including new tests for the custom cryptographic file encoders, text structural extractors, and storage calculators.
+The repository contains extensive test coverage including custom cryptographic file encoders, text structural extractors, barometric weather prediction tendency algorithms, and storage calculators.
 
 Run the unit tests:
 ```bash
 ./gradlew :app:testStableUnitTest
 ```
+
+## 📈 Quality of Improvements (Log)
+
+We continuously optimize, refine, and add new capabilities to the Omni Web Browser & Toolbox. Here is the detailed log of the latest quality improvements, optimizations, and additions:
+
+1. **State Mutation & Compose Optimization**:
+   - **File**: `WeatherPredictionScreen.kt`
+   - **Improvement**: Replaced `mutableStateOf(mutableListOf(...))` with Compose-native `mutableStateListOf<PressureReading>()` to eliminate state notification bugs, improve recomposition performance, and resolve Android Lint's `MutableCollectionMutableState` warnings.
+
+2. **Obsolete SDK Code Cleanup**:
+   - **Files**: `AppDecompilerScreen.kt`, `AutomationService.kt`, `MainActivity.kt`, `PageToolsSheet.kt`, `ShortcutUtils.kt`, `YoutubeForegroundService.kt`
+   - **Improvement**: Cleaned up obsolete Oreo (API 26) version checks (`Build.VERSION.SDK_INT >= Build.VERSION_CODES.O`) across all identified source files, since our `minSdkVersion` is 26. This streamlines logic and eliminates `ObsoleteSdkInt` warnings.
+
+3. **Resource Folder & Layout Optimization**:
+   - **Directories**: Relocated resources from obsolete folders (`drawable-v24` and `mipmap-anydpi-v26`) into their non-version-qualified directories (`drawable` and `mipmap-anydpi` respectively). This resolves folder configuration warnings and simplifies project structure.
+   - **Files**: `ToolGroupScreen.kt`, `PerchanceHubScreen.kt`
+   - **Improvement**: Optimized the item layout within subtools list view in the Omni toolbox by converting standard static trailing spacers into list-index-conditional spacers. This successfully eliminates the unwanted extra whitespace gaps and vertical offsets after the last subtool card in each section, rendering a highly polished, tight, and professional user interface.
+
+4. **Robust Barometric Forecasting Unit Tests**:
+   - **File**: `WeatherPredictionTest.kt`
+   - **Addition**: Implemented a new, high-quality JUnit test suite verifying the weather prediction barometric tendencies (Storm Warning, Gale Warning, Deteriorating, Stable, Improving, etc.) and confirming mathematical delta-tendency calculations over history sequences.
 
 ## 🎮 Usage
 
