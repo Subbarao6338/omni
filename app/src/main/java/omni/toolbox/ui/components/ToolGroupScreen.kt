@@ -111,7 +111,7 @@ fun ToolGroupScreen(
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                         )
-                        toolsInSection.forEach { tool ->
+                        toolsInSection.forEachIndexed { index, tool ->
                             SubToolCard(
                                 tool = tool,
                                 isFavorite = favorites.contains(tool.route),
@@ -124,7 +124,9 @@ fun ToolGroupScreen(
                                     navController.navigate(tool.route)
                                 }
                             )
-                            Spacer(modifier = Modifier.height(12.dp))
+                            if (index < toolsInSection.size - 1) {
+                                Spacer(modifier = Modifier.height(12.dp))
+                            }
                         }
                     }
                 }
@@ -155,19 +157,21 @@ fun ToolGroupScreen(
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                         )
-                        toolsInSection.forEach { tool ->
+                        toolsInSection.forEachIndexed { index, tool ->
                             SubToolCard(
                                 tool = tool,
                                 isFavorite = favorites.contains(tool.route),
                                 onToggleFavorite = { onToggleFavorite(tool.route) },
                                 onClick = { navController.navigate(tool.route) }
                             )
-                            Spacer(modifier = Modifier.height(12.dp))
+                            if (index < toolsInSection.size - 1) {
+                                Spacer(modifier = Modifier.height(12.dp))
+                            }
                         }
                     }
                 }
             } else {
-                subTools.forEach { tool ->
+                subTools.forEachIndexed { index, tool ->
                     SubToolCard(
                         tool = tool,
                         isFavorite = favorites.contains(tool.route),
@@ -186,7 +190,9 @@ fun ToolGroupScreen(
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
+                    if (index < subTools.size - 1) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
                 }
             }
         }

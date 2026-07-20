@@ -123,7 +123,9 @@ fun PerchanceHubScreen(
                         onClick = { navController.navigate(tool.route) }
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                if (index < perchanceTools.size - 1) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))

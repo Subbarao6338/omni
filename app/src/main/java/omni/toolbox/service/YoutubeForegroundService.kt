@@ -28,11 +28,9 @@ class YoutubeForegroundService : Service() {
         val channelId = "youtube_playback_channel"
         val channelName = "YouTube Playback"
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(
-                NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
-            )
-        }
+        manager.createNotificationChannel(
+            NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
+        )
 
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("YouTube Background Playback")
