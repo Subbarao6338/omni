@@ -7,8 +7,10 @@ import androidx.compose.material.icons.automirrored.filled.Shortcut
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,8 +56,18 @@ fun ToolScreen(
                 )
             }
         },
-        floatingActionButton = floatingActionButton
+        floatingActionButton = {
+            Box(modifier = Modifier.navigationBarsPadding().padding(bottom = 16.dp, end = 8.dp)) {
+                floatingActionButton()
+            }
+        }
     ) { padding ->
-        content(padding)
+        val adjustedPadding = PaddingValues(
+            start = padding.calculateStartPadding(LocalLayoutDirection.current),
+            top = padding.calculateTopPadding() + 16.dp,
+            end = padding.calculateEndPadding(LocalLayoutDirection.current),
+            bottom = padding.calculateBottomPadding() + 16.dp
+        )
+        content(adjustedPadding)
     }
 }
