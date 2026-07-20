@@ -174,7 +174,12 @@ fun WebToolScreen(
             }
         }
     ) { padding ->
-        Column(modifier = Modifier.fillMaxSize().padding(padding)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .then(if (!showUrlBar) Modifier.statusBarsPadding() else Modifier)
+        ) {
             if (showUrlBar) {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -363,7 +368,7 @@ fun WebToolScreen(
                 }
             }
 
-            Box(modifier = Modifier.fillMaxWidth().weight(1f).navigationBarsPadding()) {
+            Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
                 key(currentProfile) {
                     AndroidView(
                         factory = {
