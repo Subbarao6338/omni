@@ -363,7 +363,7 @@ fun WebToolScreen(
                 }
             }
 
-            Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            Box(modifier = Modifier.fillMaxWidth().weight(1f).navigationBarsPadding()) {
                 key(currentProfile) {
                     AndroidView(
                         factory = {
