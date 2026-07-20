@@ -71,7 +71,7 @@ fun ToolGroupScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 80.dp)
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 32.dp)
         ) {
             groupTool.description?.let { desc ->
                 Text(

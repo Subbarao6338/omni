@@ -32,17 +32,54 @@ import androidx.compose.foundation.shape.CircleShape
 import omni.browser.data.Shortcut
 
 @Composable
-fun NavButton(icon: ImageVector, label: String, badge: Int = 0, onClick: () -> Unit) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.clickable { onClick() }.padding(8.dp)) {
+fun NavButton(
+    icon: ImageVector,
+    label: String,
+    badge: Int = 0,
+    selected: Boolean = false,
+    onClick: () -> Unit
+) {
+    val tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+    val fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Bold
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .padding(horizontal = 4.dp, vertical = 6.dp)
+    ) {
         Box {
-            Icon(icon, contentDescription = label, modifier = Modifier.size(24.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+            Icon(
+                icon,
+                contentDescription = label,
+                modifier = Modifier.size(24.dp),
+                tint = tint
+            )
             if (badge > 0) {
-                Surface(color = MaterialTheme.colorScheme.primary, modifier = Modifier.size(14.dp).align(Alignment.TopEnd).offset(x = 4.dp, y = (-4).dp), shape = CircleShape) {
-                    Text(badge.toString(), color = MaterialTheme.colorScheme.onPrimary, fontSize = 8.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
+                Surface(
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .size(14.dp)
+                        .align(Alignment.TopEnd)
+                        .offset(x = 4.dp, y = (-4).dp),
+                    shape = CircleShape
+                ) {
+                    Text(
+                        badge.toString(),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 8.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
-        Text(label, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(
+            label,
+            fontSize = 10.sp,
+            fontWeight = fontWeight,
+            color = tint
+        )
     }
 }
 

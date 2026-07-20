@@ -132,11 +132,12 @@ fun HomeScreen(
                     IconButton(onClick = { navController.navigate("settings") }) {
                         Icon(Icons.Default.Settings, contentDescription = "Settings")
                     }
-                }
+                },
+                modifier = Modifier.statusBarsPadding()
             )
         }
     ) { padding ->
-        val topPadding = (padding.calculateTopPadding() - 36.dp).coerceAtLeast(0.dp)
+        val topPadding = padding.calculateTopPadding()
         Column(
             modifier = Modifier.padding(
                 start = padding.calculateStartPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),

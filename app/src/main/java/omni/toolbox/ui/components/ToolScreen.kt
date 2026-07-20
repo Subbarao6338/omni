@@ -24,9 +24,15 @@ fun ToolScreen(
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
+    val resolvedContainerColor = if (containerColor == Color.Transparent) {
+        MaterialTheme.colorScheme.background
+    } else {
+        containerColor
+    }
+
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
-        containerColor = containerColor,
+        containerColor = resolvedContainerColor,
         topBar = {
             if (showTopBar) {
                 CenterAlignedTopAppBar(
@@ -51,8 +57,9 @@ fun ToolScreen(
                         actions()
                     },
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = containerColor
-                    )
+                        containerColor = resolvedContainerColor
+                    ),
+                    modifier = Modifier.statusBarsPadding()
                 )
             }
         },
@@ -64,9 +71,9 @@ fun ToolScreen(
     ) { padding ->
         val adjustedPadding = PaddingValues(
             start = padding.calculateStartPadding(LocalLayoutDirection.current),
-            top = padding.calculateTopPadding() + 16.dp,
+            top = padding.calculateTopPadding(),
             end = padding.calculateEndPadding(LocalLayoutDirection.current),
-            bottom = padding.calculateBottomPadding() + 16.dp
+            bottom = padding.calculateBottomPadding()
         )
         content(adjustedPadding)
     }

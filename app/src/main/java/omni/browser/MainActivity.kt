@@ -446,7 +446,7 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                                         NavButton(Icons.Default.History, "History") {
                                             navController.navigate("history")
                                         }
-                                        NavButton(Icons.Default.Build, "Toolbox") {
+                                        NavButton(Icons.Default.Build, "Toolbox", selected = true) {
                                             // Already in toolbox!
                                         }
                                         NavButton(Icons.Default.Download, "Files") {
