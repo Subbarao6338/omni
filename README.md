@@ -117,6 +117,38 @@ We continuously optimize, refine, and add new capabilities to the Omni Web Brows
    - **File**: `WeatherPredictionTest.kt`
    - **Addition**: Implemented a new, high-quality JUnit test suite verifying the weather prediction barometric tendencies (Storm Warning, Gale Warning, Deteriorating, Stable, Improving, etc.) and confirming mathematical delta-tendency calculations over history sequences.
 
+5. **Upgraded Cryptographic AES-CBC Vault**:
+   - **File**: `SecurityScreen.kt`
+   - **Improvement**: Resolved ECB encryption security vulnerability warnings by upgrading the symmetric cipher from raw AES-ECB to a robust, highly secure AES-CBC implementation. Features key derivation via SHA-256 and securely generated, prepended random 16-byte Initialization Vectors (IV) using `SecureRandom`.
+
+6. **Interactive Real-Time App Locker**:
+   - **File**: `SecurityScreen.kt`
+   - **Addition**: Replaced static mock list of locked apps with live-state querying of installed device applications using Android's `PackageManager`. Executes background threads with custom user/system app filters, search query parsing, and persistent locker configurations saved via `SharedPreferences`.
+
+7. **Live Declared Manifest Permission Monitor**:
+   - **File**: `SecurityScreen.kt`
+   - **Addition**: Replaced dummy switches with live checks of all requested package manifest permissions via `ContextCompat.checkSelfPermission`. Features real-time Compose activity result launchers to request permissions and redirects users directly to system Settings for revoking.
+
+8. **Native Security Diagnostic Privacy Audit**:
+   - **File**: `SecurityScreen.kt`
+   - **Addition**: Upgraded mock scan results to execute native-level hardware and operating system diagnostics. Reports Developer Mode status, ADB/USB debugging state, Root su binaries presence across standard filesystems, Cleartext (HTTP) network policy allowance, and Location/GPS active providers.
+
+9. **Adaptive Monochrome & Redesigned High-Tech App Icon**:
+   - **Files**: `ic_launcher_monochrome.xml`, `ic_launcher.xml`, `ic_launcher_round.xml`, `ic_launcher_background.xml`, `ic_launcher_foreground.xml`
+   - **Improvement**: Resolved adaptive monochrome launcher missing density tags by introducing a gorgeous custom vector-monochrome design. Upgraded the stable background to an ultra-modern space-blue/royal-indigo linear gradient overlay with tech grid lines, and the foreground to a glowing gold-gradient secure shield and globe web outline.
+
+10. **Recomposition, Autoboxing & Collection State Optimizations**:
+    - **Files**: `GameToolScreen.kt`, `SensorDataScreen.kt`, `FoodDrinkScreen.kt`
+    - **Improvement**: Improved scrolling and game loop performance by converting state-backed `Modifier.offset` calls to use the lambda overload, bypassing unnecessary layout recompositions. Resolved JVM autoboxing warning lines by refactoring standard states to primitive Compose holders (`mutableIntStateOf`, `mutableDoubleStateOf`, `mutableFloatStateOf`). Corrected collection state warnings by converting mutable list states (`coins`) to hold immutable list references.
+
+11. **System Insets, Manifest, and WebView Safety Compliances**:
+    - **Files**: `WebViewContainer.kt`, `MainActivity.kt`, `AndroidManifest.xml`
+    - **Improvement**: Checked `WebViewFeature.isFeatureSupported` before toggling Safe Browsing in WebView to prevent older device crashes, removed duplicate redundant labels on `MainActivity` to address Android Manifest lint issues, and handled missing ComponentCallbacks2 trim memory flags in `MainActivity`. Configured modern Android 12+ Picture-In-Picture auto-entry params via `setAutoEnterEnabled(true)`.
+
+12. **Default Locale Formatting Standardization**:
+    - **Files**: `DownloadsView.kt`, `SportsScreen.kt`, `FileChecksumScreen.kt`, `FoodDrinkScreen.kt`
+    - **Improvement**: Standardized `String.format` locale declarations by supplying explicit `Locale.getDefault()` parameters, successfully eliminating formatting local compilation warnings across all utilities.
+
 ## 🎮 Usage
 
 1. **Custom Themes** - Open Settings from the Home Screen or Browser toolbar and choose from Default, Earth, Forest, Water, or Sand. Accent colors are applied globally.

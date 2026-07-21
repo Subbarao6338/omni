@@ -302,11 +302,11 @@ fun LudoBoard(isPvP: Boolean, onReset: () -> Unit) {
                 }
                 Row(modifier = Modifier.weight(3f).fillMaxWidth()) {
                     Box(modifier = Modifier.weight(6f).fillMaxHeight().background(Color.White).border(1.dp, Color.Black)) {
-                         if (redPos > 0) Text("🔴", modifier = Modifier.align(Alignment.Center).offset(x = (redPos * 5).dp), fontSize = 20.sp)
+                         if (redPos > 0) Text("🔴", modifier = Modifier.align(Alignment.Center).offset { androidx.compose.ui.unit.IntOffset((redPos * 5).dp.roundToPx(), 0) }, fontSize = 20.sp)
                     }
                     Box(modifier = Modifier.weight(3f).fillMaxHeight().background(Color.Gray).border(1.dp, Color.Black))
                     Box(modifier = Modifier.weight(6f).fillMaxHeight().background(Color.White).border(1.dp, Color.Black)) {
-                         if (greenPos > 0) Text("🟢", modifier = Modifier.align(Alignment.Center).offset(x = (greenPos * -5).dp), fontSize = 20.sp)
+                         if (greenPos > 0) Text("🟢", modifier = Modifier.align(Alignment.Center).offset { androidx.compose.ui.unit.IntOffset((greenPos * -5).dp.roundToPx(), 0) }, fontSize = 20.sp)
                     }
                 }
                 Row(modifier = Modifier.weight(6f).fillMaxWidth()) {
@@ -364,17 +364,13 @@ data class CarromCoin(
 @Composable
 fun CarromsGame() {
     var coins by remember {
-        mutableStateOf(
-            mutableListOf<CarromCoin>().apply {
-                // Striker
-                add(CarromCoin(150f, 250f, color = Color.Yellow, isStriker = true))
-                // Queen
-                add(CarromCoin(150f, 150f, color = Color.Red))
-                // Black and White coins around center
-                repeat(6) { i ->
-                    val angle = (i * 60) * (Math.PI / 180)
-                    add(CarromCoin(150f + (30 * Math.cos(angle)).toFloat(), 150f + (30 * Math.sin(angle)).toFloat(), color = if (i % 2 == 0) Color.Black else Color.White))
-                }
+        mutableStateOf<List<CarromCoin>>(
+            listOf(
+                CarromCoin(150f, 250f, color = Color.Yellow, isStriker = true),
+                CarromCoin(150f, 150f, color = Color.Red)
+            ) + (0 until 6).map { i ->
+                val angle = (i * 60) * (Math.PI / 180)
+                CarromCoin(150f + (30 * Math.cos(angle)).toFloat(), 150f + (30 * Math.sin(angle)).toFloat(), color = if (i % 2 == 0) Color.Black else Color.White)
             }
         )
     }
@@ -478,24 +474,24 @@ fun CarromsGame() {
                             }
                         }
                     }
-                    coins = nextCoins.toMutableList()
+                    coins = nextCoins.toList()
                 }
                 isAiming = true
                 // Reset striker
                 val resetCoins = coins.toMutableList()
                 val sIdx = resetCoins.indexOfFirst { it.isStriker }
                 resetCoins[sIdx] = CarromCoin(strikerX, 250f, color = Color.Yellow, isStriker = true)
-                coins = resetCoins
+                coins = resetCoins.toList()
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
         if (isAiming) {
-            Slider(value = strikerX, onValueChange = { strikerX = it; val nc = coins.toMutableList(); nc[0] = nc[0].copy(x = it); coins = nc }, valueRange = 50f..250f)
+            Slider(value = strikerX, onValueChange = { strikerX = it; val nc = coins.toMutableList(); nc[0] = nc[0].copy(x = it); coins = nc.toList() }, valueRange = 50f..250f)
             Button(onClick = {
                 val nc = coins.toMutableList()
                 nc[0] = nc[0].copy(vy = -15f, vx = (Random.nextFloat() - 0.5f) * 5f)
-                coins = nc
+                coins = nc.toList()
                 isAiming = false
             }) { Text("Strike!") }
         } else {
@@ -504,14 +500,13 @@ fun CarromsGame() {
 
         Button(onClick = {
             score = 0
-            coins = mutableListOf<CarromCoin>().apply {
-                add(CarromCoin(150f, 250f, color = Color.Yellow, isStriker = true))
-                add(CarromCoin(150f, 150f, color = Color.Red))
-                repeat(6) { i ->
-                    val angle = (i * 60) * (Math.PI / 180)
-                    add(CarromCoin(150f + (30 * Math.cos(angle)).toFloat(), 150f + (30 * Math.sin(angle)).toFloat(), color = if (i % 2 == 0) Color.Black else Color.White))
-                }
-            }
+            coins = (listOf(
+                CarromCoin(150f, 250f, color = Color.Yellow, isStriker = true),
+                CarromCoin(150f, 150f, color = Color.Red)
+            ) + (0 until 6).map { i ->
+                val angle = (i * 60) * (Math.PI / 180)
+                CarromCoin(150f + (30 * Math.cos(angle)).toFloat(), 150f + (30 * Math.sin(angle)).toFloat(), color = if (i % 2 == 0) Color.Black else Color.White)
+            }).toList()
             isAiming = true
         }, modifier = Modifier.padding(top = 8.dp)) { Text("Reset Board") }
     }
@@ -741,14 +736,14 @@ fun SnakeGame() {
                 }
 
                 // Food
-                Text("🍎", fontSize = 18.sp, modifier = Modifier.offset(x = (foodPos.first * 20).dp, y = (foodPos.second * 20).dp))
+                Text("🍎", fontSize = 18.sp, modifier = Modifier.offset { androidx.compose.ui.unit.IntOffset((foodPos.first * 20).dp.roundToPx(), (foodPos.second * 20).dp.roundToPx()) })
 
                 // Snake
                 snakeBody.forEachIndexed { index, pos ->
                     Box(
                         modifier = Modifier
                             .size(20.dp)
-                            .offset(x = (pos.first * 20).dp, y = (pos.second * 20).dp)
+                            .offset { androidx.compose.ui.unit.IntOffset((pos.first * 20).dp.roundToPx(), (pos.second * 20).dp.roundToPx()) }
                             .background(if (index == 0) Color.Green else Color(0xFF4CAF50), RoundedCornerShape(4.dp))
                             .border(1.dp, Color.Black)
                     )
@@ -832,7 +827,7 @@ fun DinoJumpGame() {
                 fontSize = 40.sp,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .offset(x = 50.dp, y = (-40).dp + dinoY.dp)
+                    .offset { androidx.compose.ui.unit.IntOffset(50.dp.roundToPx(), ((-40) + dinoY).dp.roundToPx()) }
             )
 
             // Cactus
@@ -841,7 +836,7 @@ fun DinoJumpGame() {
                 fontSize = 30.sp,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .offset(x = cactusX.dp, y = (-40).dp)
+                    .offset { androidx.compose.ui.unit.IntOffset(cactusX.dp.roundToPx(), (-40).dp.roundToPx()) }
             )
 
             LaunchedEffect(gameStarted, gameOver) {
