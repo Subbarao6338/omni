@@ -180,7 +180,7 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
     val isDark = when (settings.themeMode.lowercase()) {
         "light" -> false
         "dark" -> true
-        "earth", "forest", "water", "sand" -> isSystemInDarkTheme()
+        "earth", "forest", "water", "sand", "nature" -> isSystemInDarkTheme()
         else -> isSystemInDarkTheme()
     }
 
@@ -266,6 +266,27 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
                     surface = omni.toolbox.ui.theme.SandSurfaceLight,
                     onSurface = Color(0xFF1C1A17),
                     surfaceVariant = omni.toolbox.ui.theme.SandSurfaceLight
+                )
+            }
+        }
+        "nature" -> {
+            if (isDark) {
+                darkColorScheme(
+                    primary = omni.toolbox.ui.theme.NaturePrimary,
+                    secondary = omni.toolbox.ui.theme.NatureSecondary,
+                    background = omni.toolbox.ui.theme.NatureBgDark,
+                    surface = omni.toolbox.ui.theme.NatureSurfaceDark,
+                    onSurface = Color(0xFFF5F2EB),
+                    surfaceVariant = omni.toolbox.ui.theme.NatureSurfaceDark
+                )
+            } else {
+                lightColorScheme(
+                    primary = omni.toolbox.ui.theme.NaturePrimary,
+                    secondary = omni.toolbox.ui.theme.NatureSecondary,
+                    background = omni.toolbox.ui.theme.NatureBgLight,
+                    surface = omni.toolbox.ui.theme.NatureSurfaceLight,
+                    onSurface = Color(0xFF0D1411),
+                    surfaceVariant = omni.toolbox.ui.theme.NatureSurfaceLight
                 )
             }
         }
