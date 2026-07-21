@@ -122,7 +122,7 @@ fun AppDetailView(app: ApplicationInfo, pm: PackageManager, onDecompile: () -> U
         Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
             Column(modifier = Modifier.padding(16.dp)) {
                 DetailRow("Target SDK", app.targetSdkVersion.toString())
-                DetailRow("Min SDK", if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) app.minSdkVersion.toString() else "N/A")
+                DetailRow("Min SDK", app.minSdkVersion.toString())
                 DetailRow("UID", app.uid.toString())
                 DetailRow("Data Dir", app.dataDir)
                 DetailRow("Source Dir", app.sourceDir)

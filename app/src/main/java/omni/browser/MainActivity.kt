@@ -63,20 +63,30 @@ class MainActivity : ComponentActivity() {
             android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW -> {
                 viewModel.hibernateTabsIfNeeded(force = true)
             }
+            android.content.ComponentCallbacks2.TRIM_MEMORY_BACKGROUND,
+            android.content.ComponentCallbacks2.TRIM_MEMORY_COMPLETE,
+            android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE,
+            android.content.ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN -> {
+                // Background/non-critical memory trimming can be handled or ignored
+            }
+            else -> {}
         }
     }
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val viewModel = androidx.lifecycle.ViewModelProvider(this)[BrowserViewModel::class.java]
-            val activeTabId = viewModel.activeTabId.value
-            val activeTab = viewModel.tabs.find { it.id == activeTabId }
-            if (activeTab != null && activeTab.detectedMedia.any { it.type == "video" }) {
-                enterPictureInPictureMode(PictureInPictureParams.Builder()
-                    .setAspectRatio(Rational(16, 9))
-                    .build())
+        val viewModel = androidx.lifecycle.ViewModelProvider(this)[BrowserViewModel::class.java]
+        val activeTabId = viewModel.activeTabId.value
+        val activeTab = viewModel.tabs.find { it.id == activeTabId }
+        if (activeTab != null && activeTab.detectedMedia.any { it.type == "video" }) {
+            val builder = PictureInPictureParams.Builder()
+                .setAspectRatio(Rational(16, 9))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                builder.setAutoEnterEnabled(true)
             }
+            val params = builder.build()
+            setPictureInPictureParams(params)
+            enterPictureInPictureMode(params)
         }
     }
 

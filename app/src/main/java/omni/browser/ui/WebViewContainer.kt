@@ -447,7 +447,9 @@ fun WebViewContainer(
                 view.settings.cacheMode = if (isConnected) {
                     if (isSlowConnection) WebSettings.LOAD_CACHE_ELSE_NETWORK else WebSettings.LOAD_DEFAULT
                 } else {
-                    WebSettingsCompat.setSafeBrowsingEnabled(view.settings, false)
+                    if (WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_ENABLE)) {
+                        WebSettingsCompat.setSafeBrowsingEnabled(view.settings, false)
+                    }
                     WebSettings.LOAD_CACHE_ONLY
                 }
 

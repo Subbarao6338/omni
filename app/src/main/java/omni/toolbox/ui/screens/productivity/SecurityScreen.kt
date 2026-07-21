@@ -23,6 +23,11 @@ import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import android.util.Base64
+import android.content.Context
+import android.content.pm.PackageManager
+import android.content.pm.ApplicationInfo
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.ui.graphics.asImageBitmap
@@ -34,6 +39,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SecurityScreen(navController: NavHostController, title: String = "Security Vault") {
     val isMainVault = title == "Security Vault" || title == "Privacy & Security Vault"
+    val context = LocalContext.current
 
     ToolScreen(
         title = title,
@@ -76,87 +82,232 @@ fun SecurityScreen(navController: NavHostController, title: String = "Security V
                 ) {
                     when (title) {
                         "App Locker", "app_locker" -> {
-                            Text("Simulated App Locker Status", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                            Spacer(modifier = Modifier.height(12.dp))
-                            val apps = remember {
-                                mutableStateListOf(
-                                    "WhatsApp" to true,
-                                    "Google Chrome" to false,
-                                    "Gmail" to true,
-                                    "Photos" to false,
-                                    "Settings" to true
-                                )
+                            Text("Secure App Locker Configuration", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text("Select user or system apps to lock. Preferences are saved persistently in local storage.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            val pm = context.packageManager
+                            var searchQuery by remember { mutableStateOf("") }
+                            var showSystemApps by remember { mutableStateOf(false) }
+                            val prefs = remember { context.getSharedPreferences("app_locker_prefs", android.content.Context.MODE_PRIVATE) }
+
+                            var appsList by remember { mutableStateOf<List<android.content.pm.ApplicationInfo>>(emptyList()) }
+                            var isLoading by remember { mutableStateOf(true) }
+
+                            LaunchedEffect(Unit) {
+                                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                                    val list = try {
+                                        pm.getInstalledApplications(PackageManager.GET_META_DATA)
+                                            .sortedBy { it.loadLabel(pm).toString().lowercase() }
+                                    } catch (e: Exception) {
+                                        emptyList()
+                                    }
+                                    appsList = list
+                                    isLoading = false
+                                }
                             }
-                            apps.forEachIndexed { idx, pair ->
+
+                            if (isLoading) {
+                                Box(modifier = Modifier.fillMaxWidth().height(150.dp), contentAlignment = Alignment.Center) {
+                                    CircularProgressIndicator()
+                                }
+                            } else {
                                 Row(
-                                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                                    modifier = Modifier.fillMaxWidth(),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text(pair.first, style = MaterialTheme.typography.bodyLarge)
-                                    Switch(
-                                        checked = pair.second,
-                                        onCheckedChange = { checked ->
-                                            apps[idx] = pair.first to checked
-                                        }
-                                    )
+                                    Text("Show System Apps", style = MaterialTheme.typography.bodyMedium)
+                                    Switch(checked = showSystemApps, onCheckedChange = { showSystemApps = it })
                                 }
-                                HorizontalDivider()
+
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                OutlinedTextField(
+                                    value = searchQuery,
+                                    onValueChange = { searchQuery = it },
+                                    label = { Text("Search installed apps...") },
+                                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    singleLine = true
+                                )
+
+                                Spacer(modifier = Modifier.height(12.dp))
+
+                                val filteredApps = remember(appsList, searchQuery, showSystemApps) {
+                                    appsList.filter { app ->
+                                        val isSystem = (app.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
+                                        val matchesSystem = showSystemApps || !isSystem
+                                        val label = app.loadLabel(pm).toString()
+                                        val matchesSearch = label.contains(searchQuery, ignoreCase = true) || app.packageName.contains(searchQuery, ignoreCase = true)
+                                        matchesSystem && matchesSearch
+                                    }
+                                }
+
+                                if (filteredApps.isEmpty()) {
+                                    Box(modifier = Modifier.fillMaxWidth().height(100.dp), contentAlignment = Alignment.Center) {
+                                        Text("No applications found", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.outline)
+                                    }
+                                } else {
+                                    filteredApps.take(150).forEach { app -> // Take at most 150 to keep layout responsive
+                                        AppLockerRow(app, pm, prefs)
+                                        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
+                                    }
+                                    if (filteredApps.size > 150) {
+                                        Text(
+                                            "Showing first 150 results. Please narrow down search.",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.outline,
+                                            modifier = Modifier.padding(vertical = 8.dp)
+                                        )
+                                    }
+                                }
                             }
                         }
                         "App Permissions", "app_permissions", "Permission Manager", "perm_manager" -> {
-                            Text("Active App Permission Monitor", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                            Spacer(modifier = Modifier.height(12.dp))
-                            val perms = remember {
-                                mutableStateListOf(
-                                    "Location Access" to true,
-                                    "Camera Access" to false,
-                                    "Contacts Access" to true,
-                                    "Microphone Access" to false,
-                                    "Storage Access" to true
-                                )
-                            }
-                            perms.forEachIndexed { idx, pair ->
-                                Row(
-                                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
-                                ) {
-                                    Text(pair.first, style = MaterialTheme.typography.bodyLarge)
-                                    Switch(
-                                        checked = pair.second,
-                                        onCheckedChange = { checked ->
-                                            perms[idx] = pair.first to checked
-                                        }
-                                    )
+                            Text("Live Package Permission Monitor", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text("Monitor and request permissions required by Omni Browser in real-time.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            val pm = context.packageManager
+                            val pkgInfo = remember {
+                                try {
+                                    pm.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
+                                } catch (e: Exception) {
+                                    null
                                 }
-                                HorizontalDivider()
+                            }
+
+                            val declaredPermissions = pkgInfo?.requestedPermissions ?: emptyArray()
+
+                            if (declaredPermissions.isEmpty()) {
+                                Text("No permissions requested by this app package.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.outline)
+                            } else {
+                                declaredPermissions.forEach { permission ->
+                                    PermissionRow(permission, context)
+                                    HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
+                                }
                             }
                         }
                         else -> { // Privacy Check / Fallback
                             var scanning by remember { mutableStateOf(false) }
-                            var scanResult by remember { mutableStateOf<String?>(null) }
+                            var auditResults by remember { mutableStateOf<List<Triple<String, String, Boolean>>?>(null) }
                             val coroutineScope = rememberCoroutineScope()
 
-                            Text("Secure Privacy Shield", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            Text("Native Device Privacy & Security Audit", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text("Inspect critical OS parameters and settings to find vulnerabilities or potential privacy leaks.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
                             Spacer(modifier = Modifier.height(16.dp))
+
                             if (scanning) {
-                                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                                Column(
+                                    modifier = Modifier.fillMaxWidth().padding(24.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    CircularProgressIndicator()
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text("Running real-time security audit...", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+                                }
                             } else {
-                                Text(scanResult ?: "Start scanning to identify potential privacy leaks, ad-tracking activity, and background storage usage.")
-                                Spacer(modifier = Modifier.height(16.dp))
+                                auditResults?.let { results ->
+                                    Text("Audit Diagnostics:", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                    results.forEach { (name, value, isSafe) ->
+                                        Card(
+                                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                                            colors = CardDefaults.cardColors(
+                                                containerColor = if (isSafe) Color(0xFFE8F5E9) else Color(0xFFFFEBEE)
+                                            )
+                                        ) {
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth().padding(12.dp),
+                                                verticalAlignment = Alignment.CenterVertically,
+                                                horizontalArrangement = Arrangement.SpaceBetween
+                                            ) {
+                                                Column(modifier = Modifier.weight(1f)) {
+                                                    Text(name, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold, color = if (isSafe) Color(0xFF1B5E20) else Color(0xFFB71C1C))
+                                                    Text(value, style = MaterialTheme.typography.bodySmall, color = if (isSafe) Color(0xFF2E7D32) else Color(0xFFC62828))
+                                                }
+                                                Icon(
+                                                    imageVector = if (isSafe) Icons.Default.CheckCircle else Icons.Default.Warning,
+                                                    contentDescription = null,
+                                                    tint = if (isSafe) Color(0xFF2E7D32) else Color(0xFFC62828)
+                                                )
+                                            }
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                } ?: Text("Start scanning to audit your device settings, debugging interfaces, and cryptographic policies.", style = MaterialTheme.typography.bodyMedium)
+
                                 Button(
                                     onClick = {
                                         coroutineScope.launch {
                                             scanning = true
-                                            delay(1500)
-                                            scanResult = "Privacy scan complete:\n• Ad Tracking Blocked: Yes\n• Background Location Leaks: None detected\n• Shared storage exposure risk: Safe"
+                                            delay(1000)
+
+                                            val resolver = context.contentResolver
+                                            // Developer settings
+                                            val devSettingsEnabled = android.provider.Settings.Global.getInt(resolver, android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0
+
+                                            // ADB Enabled
+                                            val adbEnabled = android.provider.Settings.Global.getInt(resolver, android.provider.Settings.Global.ADB_ENABLED, 0) != 0
+
+                                            // Root / su binaries check
+                                            val suPaths = listOf(
+                                                "/system/app/Superuser.apk", "/sbin/su", "/system/bin/su",
+                                                "/system/xbin/su", "/data/local/xbin/su", "/data/local/bin/su",
+                                                "/system/sd/xbin/su", "/system/bin/failsafe/su", "/data/local/su"
+                                            )
+                                            val isRooted = suPaths.any { java.io.File(it).exists() }
+
+                                            // Network cleartext policy
+                                            val cleartextPermitted = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                                                android.security.NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
+                                            } else {
+                                                true
+                                            }
+
+                                            // GPS location provider status
+                                            val locManager = context.getSystemService(android.content.Context.LOCATION_SERVICE) as android.location.LocationManager
+                                            val isGpsActive = locManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)
+
+                                            auditResults = listOf(
+                                                Triple(
+                                                    "Developer Mode",
+                                                    if (devSettingsEnabled) "Vulnerable: Developer Settings are ENABLED" else "Safe: Developer Settings are disabled",
+                                                    !devSettingsEnabled
+                                                ),
+                                                Triple(
+                                                    "ADB/USB Debugging",
+                                                    if (adbEnabled) "Vulnerable: ADB Debugging is ENABLED" else "Safe: ADB Debugging is disabled",
+                                                    !adbEnabled
+                                                ),
+                                                Triple(
+                                                    "Root su Binaries",
+                                                    if (isRooted) "Vulnerable: Root / su binary files detected!" else "Safe: Device is not rooted",
+                                                    !isRooted
+                                                ),
+                                                Triple(
+                                                    "Cleartext Network Policy",
+                                                    if (cleartextPermitted) "Warning: Cleartext (HTTP) traffic allowed" else "Secure: HTTPS only mode enforced",
+                                                    !cleartextPermitted
+                                                ),
+                                                Triple(
+                                                    "GPS Location Access",
+                                                    if (isGpsActive) "Info: GPS location services are active" else "Info: GPS location is disabled",
+                                                    true
+                                                )
+                                            )
                                             scanning = false
                                         }
                                     },
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
-                                    Text("Run Privacy Scan")
+                                    Icon(Icons.Default.Security, contentDescription = null)
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text("Run Native Privacy Audit")
                                 }
                             }
                         }
@@ -340,13 +491,97 @@ fun QrStudioTab(navController: NavHostController) {
     }
 }
 
+@Composable
+fun AppLockerRow(app: ApplicationInfo, pm: PackageManager, prefs: android.content.SharedPreferences) {
+    var isLocked by remember(app.packageName) {
+        mutableStateOf(prefs.getBoolean("app_locked_${app.packageName}", false))
+    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(app.loadLabel(pm).toString(), style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
+            Text(app.packageName, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
+        }
+        Switch(
+            checked = isLocked,
+            onCheckedChange = { checked ->
+                isLocked = checked
+                prefs.edit().putBoolean("app_locked_${app.packageName}", checked).apply()
+            }
+        )
+    }
+}
+
+@Composable
+fun PermissionRow(permission: String, context: Context) {
+    val shortName = permission.substringAfterLast(".")
+    var isGranted by remember(permission) {
+        mutableStateOf(
+            ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+        )
+    }
+
+    val launcher = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+    ) { granted: Boolean ->
+        isGranted = granted
+    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(shortName, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
+            Text(
+                if (isGranted) "Status: GRANTED" else "Status: DENIED",
+                style = MaterialTheme.typography.bodySmall,
+                color = if (isGranted) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error
+            )
+        }
+
+        if (isGranted) {
+            OutlinedButton(
+                onClick = {
+                    val intent = android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = android.net.Uri.fromParts("package", context.packageName, null)
+                    }
+                    context.startActivity(intent)
+                },
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.outline)
+            ) {
+                Text("Revoke (Settings)")
+            }
+        } else {
+            Button(
+                onClick = { launcher.launch(permission) }
+            ) {
+                Text("Request")
+            }
+        }
+    }
+}
+
 // Logic Utils
 fun encrypt(strToEncrypt: String, key: String): String {
     return try {
-        val secretKey = SecretKeySpec(key.padEnd(16).take(16).toByteArray(), "AES")
-        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-        Base64.encodeToString(cipher.doFinal(strToEncrypt.toByteArray()), Base64.DEFAULT)
+        if (key.isEmpty()) return "Error: Key cannot be empty"
+        val sha = java.security.MessageDigest.getInstance("SHA-256")
+        val keyBytes = sha.digest(key.toByteArray(Charsets.UTF_8))
+        val secretKey = SecretKeySpec(keyBytes, "AES")
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val iv = ByteArray(16)
+        java.security.SecureRandom().nextBytes(iv)
+        val ivSpec = javax.crypto.spec.IvParameterSpec(iv)
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec)
+        val encrypted = cipher.doFinal(strToEncrypt.toByteArray(Charsets.UTF_8))
+        val combined = iv + encrypted
+        Base64.encodeToString(combined, Base64.DEFAULT)
     } catch (e: Exception) {
         "Error: ${e.message}"
     }
@@ -354,10 +589,18 @@ fun encrypt(strToEncrypt: String, key: String): String {
 
 fun decrypt(strToDecrypt: String, key: String): String {
     return try {
-        val secretKey = SecretKeySpec(key.padEnd(16).take(16).toByteArray(), "AES")
-        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-        cipher.init(Cipher.DECRYPT_MODE, secretKey)
-        String(cipher.doFinal(Base64.decode(strToDecrypt, Base64.DEFAULT)))
+        if (key.isEmpty()) return "Error: Key cannot be empty"
+        val combined = Base64.decode(strToDecrypt, Base64.DEFAULT)
+        if (combined.size < 16) return "Error: Invalid Payload (too short)"
+        val iv = combined.sliceArray(0 until 16)
+        val encrypted = combined.sliceArray(16 until combined.size)
+        val sha = java.security.MessageDigest.getInstance("SHA-256")
+        val keyBytes = sha.digest(key.toByteArray(Charsets.UTF_8))
+        val secretKey = SecretKeySpec(keyBytes, "AES")
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val ivSpec = javax.crypto.spec.IvParameterSpec(iv)
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec)
+        String(cipher.doFinal(encrypted), Charsets.UTF_8)
     } catch (e: Exception) {
         "Error: Invalid Key or Payload"
     }

@@ -16,19 +16,19 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SensorDataScreen(navController: NavHostController, title: String = "Hardware Sensors") {
-    var soundLevel by remember { mutableStateOf(45f) }
-    var vibrationX by remember { mutableStateOf(0.1f) }
-    var vibrationY by remember { mutableStateOf(0.05f) }
+    var soundLevel by remember { mutableFloatStateOf(45f) }
+    var vibrationX by remember { mutableFloatStateOf(0.1f) }
+    var vibrationY by remember { mutableFloatStateOf(0.05f) }
 
     // G-Force Meter State
-    var gForceX by remember { mutableStateOf(0.02f) }
-    var gForceY by remember { mutableStateOf(0.01f) }
-    var gForceZ by remember { mutableStateOf(0.98f) } // Earth gravity pulls on Z axis
+    var gForceX by remember { mutableFloatStateOf(0.02f) }
+    var gForceY by remember { mutableFloatStateOf(0.01f) }
+    var gForceZ by remember { mutableFloatStateOf(0.98f) } // Earth gravity pulls on Z axis
 
     // Thermal Info State
-    var cpuTemp by remember { mutableStateOf(38.5f) }
-    var gpuTemp by remember { mutableStateOf(36.2f) }
-    var batteryTemp by remember { mutableStateOf(32.0f) }
+    var cpuTemp by remember { mutableFloatStateOf(38.5f) }
+    var gpuTemp by remember { mutableFloatStateOf(36.2f) }
+    var batteryTemp by remember { mutableFloatStateOf(32.0f) }
 
     LaunchedEffect(Unit) {
         while(true) {

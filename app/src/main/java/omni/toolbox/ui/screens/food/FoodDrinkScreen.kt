@@ -28,7 +28,7 @@ data class Ingredient(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodDrinkScreen(navController: NavHostController) {
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     ToolScreen(
         title = "Kitchen & Recipe Companion",
@@ -63,7 +63,7 @@ fun FoodDrinkScreen(navController: NavHostController) {
 
 @Composable
 fun RecipeScalerTab() {
-    var multiplier by remember { mutableStateOf(2.0) }
+    var multiplier by remember { mutableDoubleStateOf(2.0) }
     var ingredientName by remember { mutableStateOf("") }
     var ingredientAmount by remember { mutableStateOf("") }
     var ingredientUnit by remember { mutableStateOf("g") }
@@ -298,7 +298,7 @@ fun KitchenConverterTab() {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "${String.format("%.3f", convertedValue.value)} $selectedToUnit",
+                    text = "${String.format(java.util.Locale.getDefault(), "%.3f", convertedValue.value)} $selectedToUnit",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onTertiaryContainer

@@ -216,9 +216,9 @@ private fun getFileSize(context: Context, uri: Uri): String {
     val m = k * k
     val g = m * k
     return when {
-        sizeBytes >= g -> String.format("%.2f GB", sizeBytes / g)
-        sizeBytes >= m -> String.format("%.2f MB", sizeBytes / m)
-        sizeBytes >= k -> String.format("%.2f KB", sizeBytes / k)
+        sizeBytes >= g -> String.format(java.util.Locale.getDefault(), "%.2f GB", sizeBytes / g)
+        sizeBytes >= m -> String.format(java.util.Locale.getDefault(), "%.2f MB", sizeBytes / m)
+        sizeBytes >= k -> String.format(java.util.Locale.getDefault(), "%.2f KB", sizeBytes / k)
         else -> "$sizeBytes Bytes"
     }
 }
