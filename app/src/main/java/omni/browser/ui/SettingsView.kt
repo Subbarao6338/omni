@@ -327,8 +327,14 @@ fun SettingsView(
                         ThemeOption("Water", settings.themeMode == "water", Modifier.weight(1f)) {
                             scope.launch { database.settingsDao().updateSettings(settings.copy(themeMode = "water", accentColor = "#0277BD")) }
                         }
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         ThemeOption("Sand", settings.themeMode == "sand", Modifier.weight(1f)) {
                             scope.launch { database.settingsDao().updateSettings(settings.copy(themeMode = "sand", accentColor = "#FBC02D")) }
+                        }
+                        ThemeOption("Nature", settings.themeMode == "nature", Modifier.weight(1f)) {
+                            scope.launch { database.settingsDao().updateSettings(settings.copy(themeMode = "nature", accentColor = "#1B4D3E")) }
                         }
                     }
 

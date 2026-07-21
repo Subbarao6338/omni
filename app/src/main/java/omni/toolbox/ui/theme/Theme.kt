@@ -15,7 +15,7 @@ import androidx.core.view.WindowCompat
 @Composable
 fun OmniToolboxTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    themeName: String = "default", // default, earth, forest, water, sand
+    themeName: String = "default", // default, earth, forest, water, sand, nature
     content: @Composable () -> Unit
 ) {
     val isDark = darkTheme
@@ -146,6 +146,38 @@ fun OmniToolboxTheme(
                     onBackground = Color(0xFF1C1A17),
                     onSurface = Color(0xFF1C1A17),
                     outline = SandPrimary.copy(alpha = 0.5f)
+                )
+            }
+        }
+        "nature" -> {
+            if (isDark) {
+                darkColorScheme(
+                    primary = NaturePrimary,
+                    secondary = NatureSecondary,
+                    tertiary = NatureSurfaceDark,
+                    background = NatureBgDark,
+                    surface = NatureSurfaceDark,
+                    onPrimary = Color.White,
+                    onSecondary = Color(0xFFF5F2EB),
+                    onTertiary = Color(0xFFF5F2EB),
+                    onBackground = Color(0xFFF5F2EB),
+                    onSurface = Color(0xFFF5F2EB),
+                    outline = NaturePrimary.copy(alpha = 0.5f)
+                )
+            } else {
+                lightColorScheme(
+                    primary = NaturePrimary,
+                    secondary = NatureSecondary,
+                    tertiary = Color.White,
+                    background = NatureBgLight,
+                    surface = NatureSurfaceLight,
+                    surfaceVariant = NatureSurfaceLight,
+                    onPrimary = Color.White,
+                    onSecondary = Color(0xFF0D1411),
+                    onTertiary = Color(0xFF0D1411),
+                    onBackground = Color(0xFF0D1411),
+                    onSurface = Color(0xFF0D1411),
+                    outline = NaturePrimary.copy(alpha = 0.5f)
                 )
             }
         }

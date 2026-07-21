@@ -97,3 +97,11 @@ val SandBgLight = Color(0xFFFFF8E1) // Warm Sand / Gold Tint
 val SandSurfaceLight = Color(0xFFFFFDF9)
 val SandBgDark = Color(0xFF1C1A17) // Deep Sand
 val SandSurfaceDark = Color(0xFF282521)
+
+// Nature Theme Colors
+val NaturePrimary = Color(0xFF1B4D3E) // Rich dark organic green
+val NatureSecondary = Color(0xFF386641) // Secondary organic green
+val NatureBgLight = Color(0xFFF5F2EB) // Bone / light ivory background
+val NatureSurfaceLight = Color(0xFFFFFDF9)
+val NatureBgDark = Color(0xFF0D1411) // Deep forest green night
+val NatureSurfaceDark = Color(0xFF16201A)
