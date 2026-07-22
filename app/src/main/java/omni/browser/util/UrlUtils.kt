@@ -33,6 +33,14 @@ object UrlUtils {
         "!duck" to "https://duckduckgo.com/?q="
     )
 
+    private fun safeEncode(input: String): String {
+        return try {
+            Uri.encode(input)
+        } catch (e: Exception) {
+            input.replace(" ", "%20")
+        }
+    }
+
     fun resolveUrl(input: String, searchEngine: String): String {
         val trimmed = input.trim()
         if (trimmed.isEmpty()) return "about:home"
@@ -44,7 +52,7 @@ object UrlUtils {
                 val bang = trimmed.substring(0, spaceIndex)
                 val query = trimmed.substring(spaceIndex + 1).trim()
                 BANGS[bang]?.let {
-                    return it + Uri.encode(query)
+                    return it + safeEncode(query)
                 }
             } else {
                 BANGS[trimmed]?.let {
@@ -95,11 +103,7 @@ object UrlUtils {
             return if (trimmed.startsWith("/")) "file://$trimmed" else protocol + trimmed
         }
 
-        val encoded = try {
-            Uri.encode(trimmed)
-        } catch (e: Exception) {
-            trimmed.replace(" ", "%20")
-        }
+        val encoded = safeEncode(trimmed)
         return "$searchEngine$encoded"
     }
 
