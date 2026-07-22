@@ -232,7 +232,7 @@ fun HIITTimerTab() {
 
 @Composable
 fun StopwatchTab() {
-    var timeMillis by remember { mutableStateOf(0L) }
+    var timeMillis by remember { mutableLongStateOf(0L) }
     var isRunning by remember { mutableStateOf(false) }
     val laps = remember { mutableStateListOf<Long>() }
 
@@ -250,7 +250,7 @@ fun StopwatchTab() {
         val mins = (ms / 60000) % 60
         val secs = (ms / 1000) % 60
         val hundredths = (ms / 10) % 100
-        String.format("%02d:%02d.%02d", mins, secs, hundredths)
+        String.format(java.util.Locale.getDefault(), "%02d:%02d.%02d", mins, secs, hundredths)
     }
 
     Column(

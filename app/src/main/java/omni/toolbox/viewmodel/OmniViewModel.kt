@@ -826,8 +826,8 @@ class OmniViewModel(application: Application) : AndroidViewModel(application) {
             val finalResult = BenchmarkResult(
                 name = "Omni Virtual Host (This Device)",
                 scoreCpu = cpuScore,
-                scoreGpu = gpuScore.toInt(),
-                scoreMem = memScore.toInt(),
+                scoreGpu = gpuScore,
+                scoreMem = memScore,
                 scoreStorage = ioScore,
                 rating = rating,
                 timestamp = timeString

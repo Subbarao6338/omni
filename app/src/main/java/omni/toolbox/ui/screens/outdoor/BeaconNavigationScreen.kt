@@ -160,8 +160,8 @@ fun NavigationRadar(beacons: List<BeaconEntity>, userLocation: Location?) {
             val angleRad = Math.toRadians((bearing - 90).toDouble())
 
             val beaconPos = Offset(
-                center.x + normDistance.toFloat() * cos(angleRad).toFloat(),
-                center.y + normDistance.toFloat() * sin(angleRad).toFloat()
+                center.x + normDistance * cos(angleRad).toFloat(),
+                center.y + normDistance * sin(angleRad).toFloat()
             )
 
             drawCircle(color = secondaryColor, radius = 8f, center = beaconPos)

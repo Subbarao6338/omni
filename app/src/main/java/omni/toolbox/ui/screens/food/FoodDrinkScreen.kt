@@ -149,7 +149,7 @@ fun RecipeScalerTab() {
                         }
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = "${String.format("%.1f", ing.amount * multiplier)} ${ing.unit}",
+                                text = "${String.format(java.util.Locale.getDefault(), "%.1f", ing.amount * multiplier)} ${ing.unit}",
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.primary

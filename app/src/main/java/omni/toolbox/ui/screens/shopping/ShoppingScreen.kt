@@ -95,7 +95,7 @@ fun ShoppingScreen(navController: NavHostController) {
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
                             )
                             Text(
-                                "$${String.format("%.2f", totalCost.value)}",
+                                "$${String.format(java.util.Locale.getDefault(), "%.2f", totalCost.value)}",
                                 style = MaterialTheme.typography.headlineLarge,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -108,7 +108,7 @@ fun ShoppingScreen(navController: NavHostController) {
                                 color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                             )
                             Text(
-                                "$${String.format("%.2f", remainingCost.value)}",
+                                "$${String.format(java.util.Locale.getDefault(), "%.2f", remainingCost.value)}",
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
@@ -177,13 +177,13 @@ fun ShoppingScreen(navController: NavHostController) {
                                                     else MaterialTheme.colorScheme.onSurfaceVariant
                                         )
                                         Text(
-                                            text = "Qty: ${item.quantity}  •  $${String.format("%.2f", item.price)} each",
+                                            text = "Qty: ${item.quantity}  •  $${String.format(java.util.Locale.getDefault(), "%.2f", item.price)} each",
                                             style = MaterialTheme.typography.bodySmall,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                                         )
                                     }
                                     Text(
-                                        text = "$${String.format("%.2f", item.price * item.quantity)}",
+                                        text = "$${String.format(java.util.Locale.getDefault(), "%.2f", item.price * item.quantity)}",
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold,
                                         color = if (item.isBought) MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
