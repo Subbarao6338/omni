@@ -200,7 +200,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 "VALUES (0, 'https://www.google.com/search?q=', 1, 'system', 'about:home', '#3B82F6', 0, NULL, 1, 0, 1, 1, 0, 0, 0, NULL, NULL, NULL, 0, '127.0.0.1', 9050, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 18.0, 'system', 'serif', 'bottom', NULL, NULL)")
                     }
                 })
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(true)
                 .build()
                 INSTANCE = instance
                 instance

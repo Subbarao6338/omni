@@ -53,7 +53,7 @@ abstract class AppDatabase : RoomDatabase() {
                         db.execSQL("INSERT INTO tasks (title, status, timestamp) VALUES ('Pdf to mhtml', 'Todo', ${System.currentTimeMillis()})")
                     }
                 })
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(true)
                 .build()
                 INSTANCE = instance
                 instance

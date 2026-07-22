@@ -5,9 +5,9 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Golden Gradient Definition for Shield -->
+    <!-- Golden Gradient Definition for Outer Shield -->
     <path
-        android:strokeWidth="5"
+        android:strokeWidth="4.5"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M54,20 L80,30 L80,55 C80,72 69,84 54,88 C39,84 28,72 28,55 L28,30 Z">
@@ -17,6 +17,25 @@
                 android:startY="20"
                 android:endX="80"
                 android:endY="88"
+                android:type="linear">
+                <item android:color="#FFE082" android:offset="0.0" />
+                <item android:color="#FFB300" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Golden Gradient Definition for Inner Nested Shield (Sleek Double Border) -->
+    <path
+        android:strokeWidth="2.0"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M54,26 L74,34 L74,53 C74,67 65,77 54,81 C43,77 34,67 34,53 L34,34 Z">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="34"
+                android:startY="26"
+                android:endX="74"
+                android:endY="81"
                 android:type="linear">
                 <item android:color="#FFE082" android:offset="0.0" />
                 <item android:color="#FFB300" android:offset="1.0" />

@@ -355,8 +355,8 @@ fun ReaderModeView(
         <head>
             <style>
                 body {
-                    background-color: ${String.format("#%06X", (backgroundColor.value.toLong() and 0xFFFFFF))};
-                    color: ${String.format("#%06X", (textColor.value.toLong() and 0xFFFFFF))};
+                    background-color: ${String.format(java.util.Locale.getDefault(), "#%06X", (backgroundColor.value.toLong() and 0xFFFFFF))};
+                    color: ${String.format(java.util.Locale.getDefault(), "#%06X", (textColor.value.toLong() and 0xFFFFFF))};
                     font-family: $fontStack;
                     font-size: ${fontSize}px;
                     line-height: $lineSpacing;

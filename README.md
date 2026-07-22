@@ -149,6 +149,26 @@ We continuously optimize, refine, and add new capabilities to the Omni Web Brows
     - **Files**: `DownloadsView.kt`, `SportsScreen.kt`, `FileChecksumScreen.kt`, `FoodDrinkScreen.kt`
     - **Improvement**: Standardized `String.format` locale declarations by supplying explicit `Locale.getDefault()` parameters, successfully eliminating formatting local compilation warnings across all utilities.
 
+13. **Advanced Jetpack Compose Autoboxing state creation / Allocation Optimizations**:
+    - **Files**: `SportsScreen.kt`, `Models.kt`
+    - **Improvement**: Replaced standard state holders with primitive Compose-native states (`mutableIntStateOf` and `mutableLongStateOf`) for sports timer values, stopwatch elapsed time, and scroll positions in `TabInfo`. This prevents JVM wrapper allocations and optimizes layout performance.
+
+14. **Standardized Default Locale for String formatting**:
+    - **Files**: `FoodDrinkScreen.kt`, `ShoppingScreen.kt`, `SportsScreen.kt`, `WaterPurificationScreen.kt`, `BrowserOverlayComponents.kt`
+    - **Improvement**: Corrected all implicit default locale warnings in `String.format` invocations by providing explicit `java.util.Locale.getDefault()` parameters, satisfying the Android Lint `DefaultLocale` guidelines.
+
+15. **Resolved Redundant Expressions and Redundant Castings**:
+    - **Files**: `BeaconNavigationScreen.kt`, `OmniViewModel.kt`
+    - **Improvement**: Removed redundant `.toFloat()` conversions on existing Float variables and redundant `.toInt()` conversions on existing Int scores, which cleans up Kotlin compiler warnings.
+
+16. **Modern Room Migration fallbacks and Deprecation Cleanups**:
+    - **Files**: `AppDatabase.kt` (in browser and toolbox modules)
+    - **Improvement**: Replaced Room database builder's deprecated call `.fallbackToDestructiveMigration()` with the recommended `.fallbackToDestructiveMigration(true)` overload, resolving obsolete warnings.
+
+17. **Ultra-Premium Vector App Icon Double-Border Outline**:
+    - **Files**: `ic_launcher_foreground.xml`, `ic_launcher_monochrome.xml`
+    - **Improvement**: Upgraded the launcher icon's golden outline shield to include a nested, double-border outline structure with custom aligned paths. This adds depth and visual fidelity, presenting a high-tech modern aesthetic across both themed and monochrome launchers.
+
 ## 🎮 Usage
 
 1. **Custom Themes** - Open Settings from the Home Screen or Browser toolbar and choose from Default, Earth, Forest, Water, or Sand. Accent colors are applied globally.

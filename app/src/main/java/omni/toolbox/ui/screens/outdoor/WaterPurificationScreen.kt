@@ -41,7 +41,7 @@ fun WaterPurificationScreen(navController: NavHostController) {
             Text("Boil Timer", style = MaterialTheme.typography.headlineMedium)
 
             Text(
-                text = String.format("%02d:%02d", timeLeft / 60, timeLeft % 60),
+                text = String.format(java.util.Locale.getDefault(), "%02d:%02d", timeLeft / 60, timeLeft % 60),
                 style = MaterialTheme.typography.displayLarge,
                 fontWeight = FontWeight.Bold
             )
