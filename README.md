@@ -177,6 +177,12 @@ We continuously optimize, refine, and add new capabilities to the Omni Web Brows
       - Trimmed down obsolete API 26 (Oreo) system version checks across all services and screens to streamline conditional execution and keep the code clean.
       - Redesigned and improved the vector app icon details with outer glowing accent rings, double nested gradients, and tech corners for an ultra-premium visual appearance.
 
+19. **Context Memory Leak Fixes & Premium Adaptive App Icon Enhancements**:
+    - **Files**: `BrowserViewModel.kt`, `ic_launcher_foreground.xml`, `ic_launcher_monochrome.xml`
+    - **Improvement**:
+      - Prevented a potential static context memory leak in `BrowserViewModel` by refactoring the `prewarmedWebView` cache variable to be encapsulated inside a `WeakReference<WebView>` container.
+      - Refined the aesthetics of the premium double-border vector launcher app icons with a double-nested glowing accent ring structure, precise custom path data, and gorgeous high-fidelity elements perfectly synced with adaptive and monochrome device themes.
+
 ## 🎮 Usage
 
 1. **Custom Themes** - Open Settings from the Home Screen or Browser toolbar and choose from Default, Earth, Forest, Water, or Sand. Accent colors are applied globally.
