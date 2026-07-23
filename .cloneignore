@@ -1,0 +1,29 @@
+# .cloneignore
+# Ignore temporary, build, and IDE configuration files and directories when cloning/processing.
+
+# IDE / Editor configurations
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Gradle files and directories
+.gradle/
+build/
+app/build/
+local.properties
+
+# Python local environments and reports
+python/.env
+python/Config/.env
+python/Reports/operations_log.txt
+python/operations_log.txt
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Certificates & Keystores (keep stable configuration keys if tracked, but ignore local overrides)
+*.keystore
+*.jks
