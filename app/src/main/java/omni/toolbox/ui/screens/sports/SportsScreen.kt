@@ -20,7 +20,7 @@ import omni.toolbox.ui.components.ToolScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SportsScreen(navController: NavHostController) {
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     ToolScreen(
         title = "Sports & Fitness Training",
@@ -55,13 +55,13 @@ fun SportsScreen(navController: NavHostController) {
 
 @Composable
 fun HIITTimerTab() {
-    var workTime by remember { mutableStateOf(30) } // Seconds
-    var restTime by remember { mutableStateOf(10) }  // Seconds
-    var totalRounds by remember { mutableStateOf(8) }
+    var workTime by remember { mutableIntStateOf(30) } // Seconds
+    var restTime by remember { mutableIntStateOf(10) }  // Seconds
+    var totalRounds by remember { mutableIntStateOf(8) }
 
-    var currentRound by remember { mutableStateOf(1) }
+    var currentRound by remember { mutableIntStateOf(1) }
     var isWorkPhase by remember { mutableStateOf(true) }
-    var timeLeft by remember { mutableStateOf(workTime) }
+    var timeLeft by remember { mutableIntStateOf(workTime) }
     var isRunning by remember { mutableStateOf(false) }
 
     LaunchedEffect(isRunning, timeLeft, isWorkPhase) {

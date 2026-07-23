@@ -40,7 +40,7 @@ fun BookmarksView(
     var sessions by remember { mutableStateOf<List<omni.browser.data.NamedSession>>(emptyList()) }
     val scope = rememberCoroutineScope()
     var searchQuery by remember { mutableStateOf("") }
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(Unit) {
         viewModel?.let { sessions = it.getAllSessions() }
