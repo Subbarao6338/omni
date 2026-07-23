@@ -263,11 +263,7 @@ fun SecurityScreen(navController: NavHostController, title: String = "Security V
                                             val isRooted = suPaths.any { java.io.File(it).exists() }
 
                                             // Network cleartext policy
-                                            val cleartextPermitted = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                                                android.security.NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
-                                            } else {
-                                                true
-                                            }
+                                            val cleartextPermitted = android.security.NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
 
                                             // GPS location provider status
                                             val locManager = context.getSystemService(android.content.Context.LOCATION_SERVICE) as android.location.LocationManager

@@ -40,12 +40,7 @@ fun VibrationTestScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-                    } else {
-                        @Suppress("DEPRECATION")
-                        vibrator.vibrate(500)
-                    }
+                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
                 },
                 modifier = Modifier.fillMaxWidth().height(56.dp)
             ) {
@@ -56,12 +51,7 @@ fun VibrationTestScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 200, 100, 200, 100, 500), -1))
-                    } else {
-                        @Suppress("DEPRECATION")
-                        vibrator.vibrate(longArrayOf(0, 200, 100, 200, 100, 500), -1)
-                    }
+                    vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 200, 100, 200, 100, 500), -1))
                 },
                 modifier = Modifier.fillMaxWidth().height(56.dp)
             ) {
@@ -72,12 +62,7 @@ fun VibrationTestScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(2000, VibrationEffect.DEFAULT_AMPLITUDE))
-                    } else {
-                        @Suppress("DEPRECATION")
-                        vibrator.vibrate(2000)
-                    }
+                    vibrator.vibrate(VibrationEffect.createOneShot(2000, VibrationEffect.DEFAULT_AMPLITUDE))
                 },
                 modifier = Modifier.fillMaxWidth().height(56.dp)
             ) {

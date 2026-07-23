@@ -298,7 +298,7 @@ fun AutomationCalculatorsTab() {
 fun StandardCalculatorView() {
     var display by remember { mutableStateOf("0") }
     var operator by remember { mutableStateOf("") }
-    var operand1 by remember { mutableStateOf(0.0) }
+    var operand1 by remember { mutableDoubleStateOf(0.0) }
     var resetOnNext by remember { mutableStateOf(false) }
 
     Card(

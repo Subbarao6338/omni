@@ -34,11 +34,9 @@ class PathTrackingService : Service(), LocationListener {
         val channelId = "path_tracking_channel"
         val channelName = "Path Tracking"
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(
-                NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
-            )
-        }
+        manager.createNotificationChannel(
+            NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
+        )
 
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Tracking Path")

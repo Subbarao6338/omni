@@ -29,7 +29,7 @@ fun WeatherPredictionScreen(navController: NavHostController) {
     val pressureSensor = remember { sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) }
 
     var currentPressure by remember { mutableFloatStateOf(1013.25f) }
-    var pressureHistory by remember { mutableStateOf(mutableListOf<PressureReading>()) }
+    val pressureHistory = remember { mutableStateListOf<PressureReading>() }
 
     DisposableEffect(context) {
         val listener = object : SensorEventListener {

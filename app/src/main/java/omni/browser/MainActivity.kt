@@ -161,9 +161,7 @@ fun OmniBrowserApp(viewModel: BrowserViewModel = viewModel()) {
     }
 
     val appContext = androidx.compose.ui.platform.LocalContext.current
-    val isInPiP = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-        (appContext as? android.app.Activity)?.isInPictureInPictureMode ?: false
-    } else false
+    val isInPiP = (appContext as? android.app.Activity)?.isInPictureInPictureMode ?: false
 
     val settings by viewModel.settings.collectAsStateWithLifecycle()
 

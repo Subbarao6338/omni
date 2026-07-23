@@ -188,16 +188,14 @@ fun PageToolsSheet(
                     onDismiss()
                 }}
                 item { ToolButton(Icons.Default.AddHome, "Add Home", Color(0xFF10B981)) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        val shortcutManager = context.getSystemService(ShortcutManager::class.java)
-                        if (shortcutManager!!.isRequestPinShortcutSupported) {
-                            val pinShortcutInfo = ShortcutInfo.Builder(context, activeTab.url)
-                                .setShortLabel(toolsWebView.title ?: "Web Page")
-                                .setIcon(if (activeTab.faviconBitmap != null) Icon.createWithBitmap(activeTab.faviconBitmap) else Icon.createWithResource(context, omni.browser.R.mipmap.ic_launcher))
-                                .setIntent(Intent(Intent.ACTION_VIEW, Uri.parse(activeTab.url)))
-                                .build()
-                            shortcutManager.requestPinShortcut(pinShortcutInfo, null)
-                        }
+                    val shortcutManager = context.getSystemService(ShortcutManager::class.java)
+                    if (shortcutManager!!.isRequestPinShortcutSupported) {
+                        val pinShortcutInfo = ShortcutInfo.Builder(context, activeTab.url)
+                            .setShortLabel(toolsWebView.title ?: "Web Page")
+                            .setIcon(if (activeTab.faviconBitmap != null) Icon.createWithBitmap(activeTab.faviconBitmap) else Icon.createWithResource(context, omni.browser.R.mipmap.ic_launcher))
+                            .setIntent(Intent(Intent.ACTION_VIEW, Uri.parse(activeTab.url)))
+                            .build()
+                        shortcutManager.requestPinShortcut(pinShortcutInfo, null)
                     }
                     onDismiss()
                 }}
