@@ -6,10 +6,17 @@
     <!-- Glowing Outer Accent Ring -->
     <path
         android:strokeColor="#FFFFFF"
-        android:strokeWidth="1.2"
+        android:strokeWidth="1.5"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
-        android:pathData="M54,12 A42,42 0 1,0 54,96 A42,42 0 1,0 54,12 Z" />
+        android:pathData="M54,10 A44,44 0 1,0 54,98 A44,44 0 1,0 54,10 Z" />
+    <!-- Additional Ultra-Premium Inner Glowing Ring -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M54,15 A39,39 0 1,0 54,93 A39,39 0 1,0 54,15 Z" />
     <!-- Outer Shield Outline -->
     <path
         android:strokeColor="#FFFFFF"

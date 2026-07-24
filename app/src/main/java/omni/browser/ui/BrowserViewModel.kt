@@ -57,7 +57,7 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
             return false
         }
     }
-    private var prewarmedWebView: WebView? = null
+    private var prewarmedWebViewRef: java.lang.ref.WeakReference<WebView>? = null
     private val webViewStateCache = mutableMapOf<String, android.os.Bundle>()
     private val _searchQuery = MutableStateFlow("")
     private val suggestionCache = mutableMapOf<String, List<Suggestion>>()
@@ -231,8 +231,9 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         }
 
         // Use applicationContext for pre-warmed WebView to avoid leaking Activities
-        val webView = prewarmedWebView ?: createWebView(context.applicationContext)
-        prewarmedWebView = null
+        val prewarmed = prewarmedWebViewRef?.get()
+        val webView = prewarmed ?: createWebView(context.applicationContext)
+        prewarmedWebViewRef = null
 
         (webView.context as? MutableContextWrapper)?.baseContext = context
 
@@ -265,8 +266,8 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
             val memoryInfo = android.app.ActivityManager.MemoryInfo()
             activityManager?.getMemoryInfo(memoryInfo)
 
-            if (prewarmedWebView == null && !memoryInfo.lowMemory) {
-                prewarmedWebView = createWebView(context.applicationContext)
+            if ((prewarmedWebViewRef == null || prewarmedWebViewRef?.get() == null) && !memoryInfo.lowMemory) {
+                prewarmedWebViewRef = java.lang.ref.WeakReference(createWebView(context.applicationContext))
             }
         }
 
@@ -358,14 +359,14 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         }
         webViewCache.clear()
 
-        prewarmedWebView?.let { webView ->
+        prewarmedWebViewRef?.get()?.let { webView ->
             try {
                 destroyWebView(webView)
             } catch (e: Exception) {
                 omni.browser.util.LogUtils.e("Error destroying prewarmed WebView", e)
             }
-            prewarmedWebView = null
         }
+        prewarmedWebViewRef = null
 
         webViewStateCache.clear()
         blockedTrackersByTab.clear()
@@ -499,10 +500,10 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         }
 
         if (memoryInfo.lowMemory || force) {
-            prewarmedWebView?.let {
+            prewarmedWebViewRef?.get()?.let {
                 destroyWebView(it)
-                prewarmedWebView = null
             }
+            prewarmedWebViewRef = null
             suggestionCache.clear()
             webViewCache.clear()
         }
